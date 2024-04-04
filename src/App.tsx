@@ -32,7 +32,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <p>
-          Shamus Ellis : Dylan Blevins
+          Shamus Ellis : Dylan Blevins : Luke Bonniwell
         </p>
         <a
           className="App-link"
