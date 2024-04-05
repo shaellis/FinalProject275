@@ -13,6 +13,7 @@ if (prevKey !== null) {
 
 function App() {
   const [key, setKey] = useState<string>(keyData); //for api key input
+  const [pageId, setPageId] = useState<number>(0); // 0 = home, ...
   
   //sets the local storage item to the api key the user inputed
   function handleSubmit() {
@@ -24,6 +25,9 @@ function App() {
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
+
+  if (pageId === 0) {
+    
   return (
     <div className="App">
       <header className="App-header">
@@ -34,6 +38,10 @@ function App() {
         <p>
           Shamus Ellis : Dylan Blevins : Luke Bonniwell
         </p>
+
+        <button onClick={() => setPageId(1)}>Basic Questions</button>
+        <button onClick={() => setPageId(2)}>Detailed Questions</button>
+
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -51,6 +59,29 @@ function App() {
       </Form>
     </div>
   );
+  }
+
+  if (pageId === 1) {
+    return (
+    <div>
+      <header>Basic Questions</header>
+      <button onClick={() => setPageId(0)}>Back</button>
+    </div>
+    )
+  }
+
+  if (pageId === 2) {
+    return (
+    <div>
+      <header>Detailed Questions</header>
+      <button onClick={() => setPageId(0)}>Back</button>
+    </div>
+    )
+  }
+
+  return (
+    <div>You aren't supposed to be here</div>
+  )
 }
 
 export default App;
