@@ -13,7 +13,7 @@ if (prevKey !== null) {
 
 function App() {
   const [key, setKey] = useState<string>(keyData); //for api key input
-  const [pageId, setPageId] = useState<number>(0); // 0 = home, ...
+  const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
   
   //sets the local storage item to the api key the user inputed
   function handleSubmit() {
@@ -27,7 +27,8 @@ function App() {
   }
 
   // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
-  if (pageId === 0) {
+  // React Home Page
+  if (pageId === 3) {
   return (
     <div className="App">
       <header className="App-header">
@@ -39,8 +40,7 @@ function App() {
           Shamus Ellis : Dylan Blevins : Luke Bonniwell
         </p>
 
-        <button onClick={() => setPageId(1)}>Basic Questions</button>
-        <button onClick={() => setPageId(2)}>Detailed Questions</button>
+        <button onClick={() => setPageId(0)}>Home Page</button>
 
         <a
           className="App-link"
@@ -61,6 +61,19 @@ function App() {
   );
   }
 
+  // Home Page
+  if (pageId === 0) {
+    return (
+      <div>
+        <header>Home Page</header>
+        <button onClick={() => setPageId(3)}>React Page</button>
+        <button onClick={() => setPageId(1)}>Basic Questions</button>
+        <button onClick={() => setPageId(2)}>Detailed Questions</button>
+      </div>
+    )
+  }
+
+  // Basic Questions Page
   if (pageId === 1) {
     return (
     <div>
@@ -70,6 +83,7 @@ function App() {
     )
   }
 
+  // Detailed Questions Page
   if (pageId === 2) {
     return (
     <div>
@@ -79,6 +93,7 @@ function App() {
     )
   }
 
+  // This should never appear
   return (
     <div>You aren't supposed to be here</div>
   )
