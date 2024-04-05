@@ -26,8 +26,8 @@ function App() {
     setKey(event.target.value);
   }
 
+  // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
   if (pageId === 0) {
-    
   return (
     <div className="App">
       <header className="App-header">
