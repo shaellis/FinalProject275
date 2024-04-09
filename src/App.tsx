@@ -26,12 +26,9 @@ function App() {
     setKey(event.target.value);
   }
 
-<<<<<<< HEAD
-=======
   // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
   // React Home Page
   if (pageId === 3) {
->>>>>>> d9f18dd325fe192a97fe36d183f2b49cf1f15fd2
   return (
     <div className="App">
       <header className="App-header">
