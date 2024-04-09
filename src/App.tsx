@@ -13,6 +13,7 @@ if (prevKey !== null) {
 
 function App() {
   const [key, setKey] = useState<string>(keyData); //for api key input
+  const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
   
   //sets the local storage item to the api key the user inputed
   function handleSubmit() {
@@ -25,6 +26,12 @@ function App() {
     setKey(event.target.value);
   }
 
+<<<<<<< HEAD
+=======
+  // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
+  // React Home Page
+  if (pageId === 3) {
+>>>>>>> d9f18dd325fe192a97fe36d183f2b49cf1f15fd2
   return (
     <div className="App">
       <header className="App-header">
@@ -35,6 +42,9 @@ function App() {
         <p>
           Shamus Ellis : Dylan Blevins : Luke Bonniwell
         </p>
+
+        <button onClick={() => setPageId(0)}>Home Page</button>
+
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -56,6 +66,50 @@ function App() {
     </div>
     
   );
+  }
+
+  // Home Page
+  if (pageId === 0) {
+    return (
+      <div>
+        <header>
+          <h1>Home Page</h1>
+          <button onClick={() => setPageId(3)}>React Page</button>
+          <button onClick={() => setPageId(1)}>Basic Questions</button>
+          <button onClick={() => setPageId(2)}>Detailed Questions</button>
+        </header>
+      </div>
+    )
+  }
+
+  // Basic Questions Page
+  if (pageId === 1) {
+    return (
+    <div>
+      <header>
+        <h1>Basic Questions</h1>
+        <button onClick={() => setPageId(0)}>Back</button>
+      </header>
+    </div>
+    )
+  }
+
+  // Detailed Questions Page
+  if (pageId === 2) {
+    return (
+    <div>
+      <header>
+        <h1>Detailed Questions</h1>
+        <button onClick={() => setPageId(0)}>Back</button>
+      </header>
+    </div>
+    )
+  }
+
+  // This should never appear
+  return (
+    <div><h1>You aren't supposed to be here</h1></div>
+  )
 }
 
 export default App;
