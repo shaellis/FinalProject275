@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.Submit-Button {
+  background-color: #007bff; 
+  color: #ffffff; 
+  border-color: #007bff; 
+}
+.Submit-Button:hover {
+  background-color: #0056b3; 
+  border-color: #0056b3;
+}
+
