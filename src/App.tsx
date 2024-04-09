@@ -65,10 +65,12 @@ function App() {
   if (pageId === 0) {
     return (
       <div>
-        <header>Home Page</header>
-        <button onClick={() => setPageId(3)}>React Page</button>
-        <button onClick={() => setPageId(1)}>Basic Questions</button>
-        <button onClick={() => setPageId(2)}>Detailed Questions</button>
+        <header>
+          <h1>Home Page</h1>
+          <button onClick={() => setPageId(3)}>React Page</button>
+          <button onClick={() => setPageId(1)}>Basic Questions</button>
+          <button onClick={() => setPageId(2)}>Detailed Questions</button>
+        </header>
       </div>
     )
   }
@@ -77,8 +79,10 @@ function App() {
   if (pageId === 1) {
     return (
     <div>
-      <header>Basic Questions</header>
-      <button onClick={() => setPageId(0)}>Back</button>
+      <header>
+        <h1>Basic Questions</h1>
+        <button onClick={() => setPageId(0)}>Back</button>
+      </header>
     </div>
     )
   }
@@ -87,15 +91,17 @@ function App() {
   if (pageId === 2) {
     return (
     <div>
-      <header>Detailed Questions</header>
-      <button onClick={() => setPageId(0)}>Back</button>
+      <header>
+        <h1>Detailed Questions</h1>
+        <button onClick={() => setPageId(0)}>Back</button>
+      </header>
     </div>
     )
   }
 
   // This should never appear
   return (
-    <div>You aren't supposed to be here</div>
+    <div><h1>You aren't supposed to be here</h1></div>
   )
 }
 
