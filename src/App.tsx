@@ -52,12 +52,16 @@ function App() {
         </a>
       </header>
       <Form>
+
+      </Form>
+      <Form>
         <Form.Label>API Key:</Form.Label>
         <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
         <br></br>
-        <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+        <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
       </Form>
     </div>
+    
   );
   }
 
