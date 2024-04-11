@@ -40,7 +40,7 @@ function App() {
           Shamus Ellis : Dylan Blevins : Luke Bonniwell
         </p>
 
-        <button onClick={() => setPageId(0)}>Home Page</button>
+        <button className="Home-Page-Button" onClick={() => setPageId(0)}>Home Page</button>
 
         <a
           className="App-link"

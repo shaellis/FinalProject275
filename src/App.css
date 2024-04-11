@@ -47,6 +47,24 @@
   border-color: #0056b3;
 }
 
+.Home-Page-Button
+{
+  background-color: black;
+  color: whitesmoke;
+  font-size: 1.1em;
+  padding: 5px 10px;
+  font-family:'Times New Roman', Times, serif;
+}
+
+.Home-Page-Button
+{
+  background-color: black;
+  color: whitesmoke;
+  font-size: 1.1em;
+  padding: 5px 10px;
+  font-family:'Times New Roman', Times, serif;
+}
+
 .Page-to-Page {
   background-color: #007bff; 
   color: #ffffff; 
