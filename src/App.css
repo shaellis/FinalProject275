@@ -7,9 +7,25 @@
   pointer-events: none;
 }
 
+@keyframes bounce
+{
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-20px, 50px);
+  }
+  50% {
+    transform: translate(20px, 50px);
+  }
+  75% {
+    transform: translate(0, -50px);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: bounce infinite 2s ease-in-out;
   }
 }
 
