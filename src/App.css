@@ -47,3 +47,19 @@
   border-color: #0056b3;
 }
 
+.Page-to-Page {
+  background-color: #007bff; 
+  color: #ffffff; 
+  border-color: #007bff; 
+  font-size: 20px;
+  border-radius: 4px;
+  font-family: 'Times New Roman', Times, serif;
+}
+.Page-to-Page:hover {
+  background-color: #258eff; 
+  color: #ffffff; 
+  border-color: #258eff; 
+  font-size: 20px;
+  border-radius: 4px;
+  font-family: 'Times New Roman', Times, serif;
+}

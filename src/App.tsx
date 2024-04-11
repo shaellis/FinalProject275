@@ -52,9 +52,6 @@ function App() {
         </a>
       </header>
       <Form>
-
-      </Form>
-      <Form>
         <Form.Label>API Key:</Form.Label>
         <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
         <br></br>
@@ -71,9 +68,9 @@ function App() {
       <div>
         <header>
           <h1>Home Page</h1>
-          <button onClick={() => setPageId(3)}>React Page</button>
-          <button onClick={() => setPageId(1)}>Basic Questions</button>
-          <button onClick={() => setPageId(2)}>Detailed Questions</button>
+          <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
+          <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Questions</button>
+          <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Questions</button>
         </header>
       </div>
     )
@@ -85,7 +82,7 @@ function App() {
     <div>
       <header>
         <h1>Basic Questions</h1>
-        <button onClick={() => setPageId(0)}>Back</button>
+        <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
       </header>
     </div>
     )
@@ -97,7 +94,7 @@ function App() {
     <div>
       <header>
         <h1>Detailed Questions</h1>
-        <button onClick={() => setPageId(0)}>Back</button>
+        <button className="" onClick={() => setPageId(0)}>Back</button>
       </header>
     </div>
     )
