@@ -65,12 +65,12 @@ function App() {
   // Home Page
   if (pageId === 0) {
     return (
-      <div>
+      <div className='Homepage'>
         <header>
-          <h1>Home Page</h1>
+          <h1 className="Homepage-title">Welcome to the Home Page</h1>
           <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
-          <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Questions</button>
-          <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Questions</button>
+          <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+          <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
         </header>
       </div>
     )
@@ -81,7 +81,7 @@ function App() {
     return (
     <div>
       <header>
-        <h1>Basic Questions</h1>
+        <h1>Welcome to the Basic Questions Page</h1>
         <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
       </header>
     </div>
@@ -93,8 +93,8 @@ function App() {
     return (
     <div>
       <header>
-        <h1>Detailed Questions</h1>
-        <button className="" onClick={() => setPageId(0)}>Back</button>
+        <h1>Welcome to the Detailed Questions Page</h1>
+        <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
       </header>
     </div>
     )

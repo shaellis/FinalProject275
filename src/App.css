@@ -46,38 +46,66 @@
   background-color: #0056b3; 
   border-color: #0056b3;
 }
-
-.Home-Page-Button
+/*home page styling*/
+h1
 {
-  background-color: black;
-  color: whitesmoke;
-  font-size: 1.1em;
-  padding: 5px 10px;
-  font-family:'Times New Roman', Times, serif;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .Home-Page-Button
 {
   background-color: black;
   color: whitesmoke;
-  font-size: 1.1em;
-  padding: 5px 10px;
+  transition-duration: 0.4s;
+  padding: 15px 20px;
+  font-size: 40px;
+  border-color: #7e7e7e; 
+  border-radius: 4px;
   font-family:'Times New Roman', Times, serif;
 }
 
-.Page-to-Page {
-  background-color: #007bff; 
-  color: #ffffff; 
-  border-color: #007bff; 
-  font-size: 20px;
+.Home-Page-Button:hover
+{
+  background-color: whitesmoke;
+  color: black;
+  transition-duration: 0.4s;
+  padding: 15px 20px;
+  font-size: 40px;
+  border-color: #7e7e7e; 
   border-radius: 4px;
   font-family: 'Times New Roman', Times, serif;
 }
 .Page-to-Page:hover {
-  background-color: #258eff; 
-  color: #ffffff; 
-  border-color: #258eff; 
-  font-size: 20px;
+  background-color: whitesmoke;
+  color: black;
+  float: active;
+  transition-duration: 0.2s;
+  border-color: #7e7e7e; 
+  padding: 5px 10px;
+  font-size: 15px;
   border-radius: 4px;
   font-family: 'Times New Roman', Times, serif;
+  display: table-row
 }
+
+.Page-to-Page {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: whitesmoke;
+  float: active;
+  transition-duration: 0.2s;
+  border-color: #7e7e7e; 
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: 'Times New Roman', Times, serif;
+  display: table-row
+}
+
+
