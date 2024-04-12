@@ -65,13 +65,34 @@ function App() {
   // Home Page
   if (pageId === 0) {
     return (
-      <div className='Homepage'>
+      <div>
         <header>
           <h1 className="Homepage-title">Welcome to the Home Page</h1>
           <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
           <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
           <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
         </header>
+
+        <body className="Home-Page-Body">
+          <div>
+            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+            <p>The Basic Question test is a multiple choice questionaire that
+              does not take long and is very simple to understand. Although,
+              because of the limited answers, the result of your quiz will not
+              be as accurate.
+            </p>
+
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+            <p>The Detailed Question test is user provided short answer questionaire
+              that may take some time to complete and require more thorough thinking.
+              While that may be the case, the results from this quiz will be much more
+              accurate.
+            </p>
+          </div>
+        </body>
+
+        <footer></footer>
+
       </div>
     )
   }
@@ -81,9 +102,15 @@ function App() {
     return (
     <div>
       <header>
-        <h1>Welcome to the Basic Questions Page</h1>
-        <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
+        <div className="navbar">
+          <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+        </div>
       </header>
+      <body>
+        <h1>Basic Questions Quiz</h1>
+        <p>Make sure that you answer all of the questions to complete the quiz</p>
+      </body>
+      <footer>Trademark Stuff</footer>
     </div>
     )
   }
