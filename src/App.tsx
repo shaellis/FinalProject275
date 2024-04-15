@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
+import { MultipleChoiceQuestionForm } from "./MultipleChoiceQuestionForm";
 
 //local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
 let keyData = "";
@@ -96,7 +97,12 @@ function App() {
         <h1>Welcome to the Detailed Questions Page</h1>
         <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
       </header>
+      <MultipleChoiceQuestionForm
+        options={["a", "b", "c"]}
+        expectedAnswer="b"
+      ></MultipleChoiceQuestionForm>
     </div>
+    
     )
   }
 
