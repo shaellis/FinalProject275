@@ -107,7 +107,7 @@ function App() {
         </div>
       </header>
       <body>
-        <h1>Basic Questions Quiz</h1>
+        <h1>Basic Quiz</h1>
         <p>Make sure that you answer all of the questions to complete the quiz</p>
       </body>
       <footer>Trademark Stuff</footer>
