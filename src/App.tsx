@@ -14,7 +14,9 @@ if (prevKey !== null) {
 function App() {
   const [key, setKey] = useState<string>(keyData); //for api key input
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
-  
+  //const [basicQ, setBasicQ] = useState<number>(3); // Basic Questions Thing
+
+
   //sets the local storage item to the api key the user inputed
   function handleSubmit() {
     localStorage.setItem(saveKeyData, JSON.stringify(key));
@@ -101,16 +103,52 @@ function App() {
   if (pageId === 1) {
     return (
     <div>
+
       <header>
         <div className="navbar">
           <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
         </div>
       </header>
-      <body>
-        <h1>Basic Quiz</h1>
-        <p>Make sure that you answer all of the questions to complete the quiz</p>
+
+      <h1>Basic Quiz</h1>
+      <p>Make sure that you answer all of the questions to complete the quiz</p>
+        
+
+      <body className="body">
+        <Form.Group>
+          <Form.Label>Question 1</Form.Label>
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-one"
+            label="Option 1"
+            value="Option 1"
+          />
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-two"
+            label="Option 2"
+            value="Option 2"
+          />
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-three"
+            label="Option 3"
+            value="Option 3"
+          />
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-four"
+            label="Option 4"
+            value="Option 4"
+          />
+        </Form.Group>
       </body>
-      <footer>Trademark Stuff</footer>
+
+      <footer className="footer">Trademark Stuff</footer>
     </div>
     )
   }

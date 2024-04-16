@@ -146,3 +146,24 @@ h1
   text-align: center;
   text-decoration: none;
 }
+
+/* Footer CSS Styling */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: lightslategray;
+  color: white;
+  text-align: center;
+}
+
+/* Body CSS Styling */
+.body {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  width: 80%;
+  border: 3px solid red;
+  
+}
