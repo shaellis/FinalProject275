@@ -81,14 +81,14 @@ function App() {
         <body className="Home-Page-Body">
           <div>
             <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
-            <p>The Basic Question test is a multiple choice questionaire that
+            <p className="p-content">The Basic Question test is a multiple choice questionaire that
               does not take long and is very simple to understand. Although,
               because of the limited answers, the result of your quiz will not
               be as accurate.
             </p>
 
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-            <p>The Detailed Question test is user provided short answer questionaire
+            <p className="p-content">The Detailed Question test is user provided short answer questionaire
               that may take some time to complete and require more thorough thinking.
               While that may be the case, the results from this quiz will be much more
               accurate.
