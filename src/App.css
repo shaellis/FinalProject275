@@ -62,6 +62,7 @@
   background-color: #0056b3; 
   border-color: #0056b3;
 }
+
 /*home page styling*/
 h1
 {
@@ -70,6 +71,15 @@ h1
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+/* Home Page Content CSS (descriptions and such) */
+.Home-Page-Body {
+  width: 80%;
+  height: 80%;
+  padding: 10px;
+  border: 3px solid green;
+  margin: 0;
 }
 
 .Home-Page-Button
@@ -124,4 +134,36 @@ h1
   display: table-row
 }
 
+/*CSS for Navigation Bar for each Page*/
+.navbar {
+  background-color: blue;
+  overflow: hidden;
+}
 
+.navbar button {
+  float: left;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Footer CSS Styling */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: lightslategray;
+  color: white;
+  text-align: center;
+}
+
+/* Body CSS Styling */
+.body {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  width: 80%;
+  border: 3px solid red;
+  
+}
