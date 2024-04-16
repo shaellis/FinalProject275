@@ -15,7 +15,9 @@ if (prevKey !== null) {
 function App() {
   const [key, setKey] = useState<string>(keyData); //for api key input
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
-  
+  //const [basicQ, setBasicQ] = useState<number>(3); // Basic Questions Thing
+
+
   //sets the local storage item to the api key the user inputed
   function handleSubmit() {
     localStorage.setItem(saveKeyData, JSON.stringify(key));
@@ -66,18 +68,42 @@ function App() {
   // Home Page
   if (pageId === 0) {
     return (
-      <div className='Homepage'>
+      <div>
         <header>
           <h1 className="Homepage-title">Welcome to the Home Page</h1>
           <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
           <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
           <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Assessment Page</button>
         </header>
+<<<<<<< HEAD
         <div className="Page-description">
           <p>
           The Basic Career Assessment Page provides a foundational evaluation of an individual's skills, interests, and career aspirations. Tailored for those beginning their career journey or seeking to understand their strengths and areas for development, this page presents a series of straightforward questions and exercises aimed at identifying core competencies, preferred work environments, and potential career paths.
           </p>
         </div>
+=======
+
+        <body className="Home-Page-Body">
+          <div>
+            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+            <p>The Basic Question test is a multiple choice questionaire that
+              does not take long and is very simple to understand. Although,
+              because of the limited answers, the result of your quiz will not
+              be as accurate.
+            </p>
+
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+            <p>The Detailed Question test is user provided short answer questionaire
+              that may take some time to complete and require more thorough thinking.
+              While that may be the case, the results from this quiz will be much more
+              accurate.
+            </p>
+          </div>
+        </body>
+
+        <footer></footer>
+
+>>>>>>> 3376fbcb37318663194e74b5c2513e5208dd37d5
       </div>
     )
   } 
@@ -86,10 +112,52 @@ function App() {
   if (pageId === 1) {
     return (
     <div>
+
       <header>
-        <h1>Welcome to the Basic Questions Page</h1>
-        <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
+        <div className="navbar">
+          <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+        </div>
       </header>
+
+      <h1>Basic Quiz</h1>
+      <p>Make sure that you answer all of the questions to complete the quiz</p>
+        
+
+      <body className="body">
+        <Form.Group>
+          <Form.Label>Question 1</Form.Label>
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-one"
+            label="Option 1"
+            value="Option 1"
+          />
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-two"
+            label="Option 2"
+            value="Option 2"
+          />
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-three"
+            label="Option 3"
+            value="Option 3"
+          />
+          <Form.Check
+            type="radio"
+            name="answer"
+            id="answer-check-option-four"
+            label="Option 4"
+            value="Option 4"
+          />
+        </Form.Group>
+      </body>
+
+      <footer className="footer">Trademark Stuff</footer>
     </div>
     )
   }
