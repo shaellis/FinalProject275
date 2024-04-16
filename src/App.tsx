@@ -75,13 +75,6 @@ function App() {
           <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
           <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Assessment Page</button>
         </header>
-<<<<<<< HEAD
-        <div className="Page-description">
-          <p>
-          The Basic Career Assessment Page provides a foundational evaluation of an individual's skills, interests, and career aspirations. Tailored for those beginning their career journey or seeking to understand their strengths and areas for development, this page presents a series of straightforward questions and exercises aimed at identifying core competencies, preferred work environments, and potential career paths.
-          </p>
-        </div>
-=======
 
         <body className="Home-Page-Body">
           <div>
@@ -103,7 +96,6 @@ function App() {
 
         <footer></footer>
 
->>>>>>> 3376fbcb37318663194e74b5c2513e5208dd37d5
       </div>
     )
   } 
