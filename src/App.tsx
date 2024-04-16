@@ -69,11 +69,14 @@ function App() {
     return (
       <div>
         <header>
-          <h1 className="Homepage-title">Welcome to the Home Page</h1>
-          <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
-          <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
-          <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+          <div className="navbar">
+            <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+          </div>
         </header>
+
+        <h1 className="Homepage-title">Welcome to the Home Page</h1>
 
         <body className="Home-Page-Body">
           <div>
@@ -93,7 +96,7 @@ function App() {
           </div>
         </body>
 
-        <footer></footer>
+        <footer className="footer">Trademark</footer>
 
       </div>
     )

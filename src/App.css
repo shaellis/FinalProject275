@@ -75,11 +75,13 @@ h1
 
 /* Home Page Content CSS (descriptions and such) */
 .Home-Page-Body {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  top: 20%;
   width: 80%;
-  height: 80%;
-  padding: 10px;
+  height: 70%;
   border: 3px solid green;
-  margin: 0;
 }
 
 .Home-Page-Button
@@ -165,5 +167,5 @@ h1
   right: 10%;
   width: 80%;
   border: 3px solid red;
-  
+
 }
