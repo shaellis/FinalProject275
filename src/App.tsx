@@ -71,11 +71,16 @@ function App() {
           <h1 className="Homepage-title">Welcome to the Home Page</h1>
           <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
           <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
-          <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+          <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Assessment Page</button>
         </header>
+        <div className="Page-description">
+          <p>
+          The Basic Career Assessment Page provides a foundational evaluation of an individual's skills, interests, and career aspirations. Tailored for those beginning their career journey or seeking to understand their strengths and areas for development, this page presents a series of straightforward questions and exercises aimed at identifying core competencies, preferred work environments, and potential career paths.
+          </p>
+        </div>
       </div>
     )
-  }
+  } 
 
   // Basic Questions Page
   if (pageId === 1) {

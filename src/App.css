@@ -79,9 +79,10 @@ h1
   transition-duration: 0.4s;
   padding: 15px 20px;
   font-size: 40px;
-  border-color: #7e7e7e; 
+  border-color: #7e7e7e;
   border-radius: 4px;
-  font-family:'Times New Roman', Times, serif;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0 auto;
 }
 
 .Home-Page-Button:hover
@@ -123,5 +124,40 @@ h1
   font-family: 'Times New Roman', Times, serif;
   display: table-row
 }
+
+.Basic-Assessment-Page-Button,
+.Detailed-Assessment-Page-Button
+{
+  background-color: black;
+  color: whitesmoke;
+  transition-duration: 0.4s;
+  padding: 20px 30px; 
+  font-size: 30px; 
+  border-color: #7e7e7e;
+  border-radius: 4px;
+  font-family: 'Times New Roman', Times, serif;
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%); 
+}
+
+.Basic-Assessment-Page-Button
+{
+  position: fixed;
+  left: 50%
+}
+
+.Detailed-Assessment-Page-Button
+{
+  right: 50px;
+}
+
+.Page-description
+{
+  text-align: center;
+  margin-top: 20px;
+}
+
+
 
 
