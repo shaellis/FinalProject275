@@ -14,8 +14,6 @@ if (prevKey !== null) {
 function App() {
   const [key, setKey] = useState<string>(keyData); //for api key input
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
-  //const [basicQ, setBasicQ] = useState<number>(3); // Basic Questions Thing
-
 
   //sets the local storage item to the api key the user inputed
   function handleSubmit() {
@@ -27,6 +25,23 @@ function App() {
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
+
+  // State Variables for Basic Questions Page
+  const basicQ = [
+    "I feel most fulfilled when engaging in activities related to team building",
+    "I believe my natural talents and strengths lie in leading a team",
+    "It's important to me that my career aligns with my personal values and beliefs",
+    "I aspire to make a significant impact in science",
+    "Engaging in meetings with clients and companies energizes and motivates me",
+    "I am passionate about adressing the mistreatment of others in computer science",
+    "I thrive in work environments that are calm and relaxing",
+    "I am eager to develop my skills and knowledge in technology",
+    "I admire individuals who work in computer programming",
+    "Success to me means completing small victories at a time to wither away at a bigger project"];
+  const userAnswers = [];
+  const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
+  const [currentQuestion, setCurrentQuestion] = useState<string>(questions[0]); // Current Question being displayed
+  const [userAnswer, setUserAnswer] = useState<string>();
 
   // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
   // React Home Page
@@ -119,36 +134,38 @@ function App() {
 
       <body className="body">
         <Form.Group>
-          <Form.Label>Question 1</Form.Label>
+          <Form.Label>{currentQuestion}</Form.Label>
           <Form.Check
             type="radio"
             name="answer"
             id="answer-check-option-one"
-            label="Option 1"
-            value="Option 1"
+            label="Strongly Agree"
+            value="Strongly Agree"
           />
           <Form.Check
             type="radio"
             name="answer"
             id="answer-check-option-two"
-            label="Option 2"
-            value="Option 2"
+            label="Agree"
+            value="Agree"
           />
           <Form.Check
             type="radio"
             name="answer"
             id="answer-check-option-three"
-            label="Option 3"
-            value="Option 3"
+            label="Disagree"
+            value="Disagree"
           />
           <Form.Check
             type="radio"
             name="answer"
             id="answer-check-option-four"
-            label="Option 4"
-            value="Option 4"
+            label="Strongly Disagree"
+            value="Strongly Disagree"
           />
         </Form.Group>
+        <button>Next Question</button>
+        <button>Previous Question</button>
       </body>
 
       <footer className="footer">Trademark Stuff</footer>
