@@ -166,6 +166,12 @@ h1
   left: 10%;
   right: 10%;
   width: 80%;
-  border: 3px solid red;
+  padding: 1px;
+  border: 2px solid red;
+}
 
+/* Paragraph Quiz Explainations */
+.p-content {
+  text-align: center;
+  padding: 1%;
 }
