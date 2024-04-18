@@ -43,14 +43,13 @@ function App() {
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
   const [currentQuestion, setCurrentQuestion] = useState<string>(questions[0]); // Current Question being displayed
   const [userAnswer, setUserAnswer] = useState<string>();
-  const progress = 0;
 
   function nextQuestion(event: React.ChangeEvent<HTMLInputElement>) {
     setCurrentQuestion(questions[1]);
   }
 
   function quizStart() {
-
+    
   }
 
   function endQuiz() {
