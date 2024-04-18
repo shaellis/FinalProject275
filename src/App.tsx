@@ -49,6 +49,17 @@ function App() {
     setCurrentQuestion(questions[1]);
   }
 
+  function quizStart() {
+
+  }
+
+  function endQuiz() {
+
+  }
+
+  function getResults() {
+
+  }
   // *****************************************************************************************************************************
 
   // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
