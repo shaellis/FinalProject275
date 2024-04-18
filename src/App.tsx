@@ -26,6 +26,7 @@ function App() {
     setKey(event.target.value);
   }
 
+  // *******************************************************************************************
   // State Variables for Basic Questions Page
   const basicQ = [
     "I feel most fulfilled when engaging in activities related to team building",
@@ -42,6 +43,13 @@ function App() {
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
   const [currentQuestion, setCurrentQuestion] = useState<string>(questions[0]); // Current Question being displayed
   const [userAnswer, setUserAnswer] = useState<string>();
+  const progress = 0;
+
+  function nextQuestion(event: React.ChangeEvent<HTMLInputElement>) {
+    setCurrentQuestion(questions[1]);
+  }
+
+  // *****************************************************************************************************************************
 
   // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
   // React Home Page
@@ -141,6 +149,8 @@ function App() {
             id="answer-check-option-one"
             label="Strongly Agree"
             value="Strongly Agree"
+            checked={userAnswer === "Strongly Agree"}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
           />
           <Form.Check
             type="radio"
@@ -148,6 +158,8 @@ function App() {
             id="answer-check-option-two"
             label="Agree"
             value="Agree"
+            checked={userAnswer === "Agree"}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
           />
           <Form.Check
             type="radio"
@@ -155,6 +167,8 @@ function App() {
             id="answer-check-option-three"
             label="Disagree"
             value="Disagree"
+            checked={userAnswer === "Disagree"}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
           />
           <Form.Check
             type="radio"
@@ -162,10 +176,12 @@ function App() {
             id="answer-check-option-four"
             label="Strongly Disagree"
             value="Strongly Disagree"
+            checked={userAnswer === "Strongly Disagree"}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
           />
         </Form.Group>
-        <button>Next Question</button>
-        <button>Previous Question</button>
+        <br></br><p>{userAnswer}</p>
+        <br></br><button onClick={() => setCurrentQuestion(questions[1])}>Next Question</button>
       </body>
 
       <footer className="footer">Trademark Stuff</footer>
