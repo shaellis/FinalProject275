@@ -40,26 +40,10 @@ function App() {
     "I am eager to develop my skills and knowledge in technology",
     "I admire individuals who work in computer programming",
     "Success to me means completing small victories at a time to wither away at a bigger project"];
-  const userAnswers = [];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
   const [currentQuestion, setCurrentQuestion] = useState<string>(questions[0]); // Current Question being displayed
   const [userAnswer, setUserAnswer] = useState<string>();
 
-  function nextQuestion(event: React.ChangeEvent<HTMLInputElement>) {
-    setCurrentQuestion(questions[1]);
-  }
-
-  function quizStart() {
-    
-  }
-
-  function endQuiz() {
-
-  }
-
-  function getResults() {
-
-  }
   // *****************************************************************************************************************************
 
   // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
