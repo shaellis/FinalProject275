@@ -222,48 +222,48 @@ function App() {
                   value="Strongly Disagree"
                   checked={curAns === "Strongly Disagree"}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
-              </Form.Group><button onClick={NextQuestion}>Next Question</button></>
+              </Form.Group><button onClick={NextQuestion} disabled={!curAns}>Next Question</button></>
           ) : ( 
             <div>
               {progress}
               <br></br>
-              {questions[0]}
+              Question 1: {questions[0]}
               <br></br>
               {userAnswers[0]}
               <br></br>
-              {questions[1]}
+              Question 2: {questions[1]}
               <br></br>
               {userAnswers[1]}
               <br></br>
-              {questions[2]}
+              Question 3: {questions[2]}
               <br></br>
               {userAnswers[2]}
               <br></br>
-              {questions[3]}
+              Question 4: {questions[3]}
               <br></br>
               {userAnswers[3]}
               <br></br>
-              {questions[4]}
+              Question 5: {questions[4]}
               <br></br>
               {userAnswers[4]}
               <br></br>
-              {questions[5]}
+              Question 6: {questions[5]}
               <br></br>
               {userAnswers[5]}
               <br></br>
-              {questions[6]}
+              Question 7: {questions[6]}
               <br></br>
               {userAnswers[6]}
               <br></br>
-              {questions[7]}
+              Question 8: {questions[7]}
               <br></br>
               {userAnswers[7]}
               <br></br>
-              {questions[8]}
+              Question 9: {questions[8]}
               <br></br>
               {userAnswers[8]}
               <br></br>
-              {questions[9]}
+              Question 10: {questions[9]}
               <br></br>
               {userAnswers[9]}
         <br></br>
