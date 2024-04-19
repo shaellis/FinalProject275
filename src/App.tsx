@@ -172,8 +172,7 @@ function App() {
   // Basic Questions Page
   if (pageId === 1) {
     return (
-    <div className="scroll">
-
+    <div className="whole-page">
       <header>
         <div className="navbar">
           <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
@@ -268,8 +267,8 @@ function App() {
               -{userAnswers[9]}
               <br></br><br></br>
               <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
-        <br></br>
-      </div>
+              <br></br>
+            </div>
           )}
         </div>
       </body>
