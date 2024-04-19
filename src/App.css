@@ -151,7 +151,7 @@ h1
 
 /* Footer CSS Styling */
 .footer {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -162,7 +162,7 @@ h1
 
 /* Body CSS Styling */
 .body {
-  position: fixed;
+  position: absolute;
   left: 10%;
   right: 10%;
   width: 80%;
@@ -174,4 +174,9 @@ h1
 .p-content {
   text-align: center;
   padding: 1%;
+}
+
+/* SCROLLABLE */
+.scroll {
+  overflow: auto;
 }

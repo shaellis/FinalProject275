@@ -172,7 +172,7 @@ function App() {
   // Basic Questions Page
   if (pageId === 1) {
     return (
-    <div>
+    <div className="scroll">
 
       <header>
         <div className="navbar">
@@ -225,47 +225,49 @@ function App() {
               </Form.Group><button onClick={NextQuestion} disabled={!curAns}>Next Question</button></>
           ) : ( 
             <div>
-              {progress}
-              <br></br>
+              These are the Questions and each Answer you submitted for each
+              <br></br><br></br>
               Question 1: {questions[0]}
               <br></br>
-              {userAnswers[0]}
-              <br></br>
+              -{userAnswers[0]}
+              <br></br><br></br>
               Question 2: {questions[1]}
               <br></br>
-              {userAnswers[1]}
-              <br></br>
+              -{userAnswers[1]}
+              <br></br><br></br>
               Question 3: {questions[2]}
               <br></br>
-              {userAnswers[2]}
-              <br></br>
+              -{userAnswers[2]}
+              <br></br><br></br>
               Question 4: {questions[3]}
               <br></br>
-              {userAnswers[3]}
-              <br></br>
+              -{userAnswers[3]}
+              <br></br><br></br>
               Question 5: {questions[4]}
               <br></br>
-              {userAnswers[4]}
-              <br></br>
+              -{userAnswers[4]}
+              <br></br><br></br>
               Question 6: {questions[5]}
               <br></br>
-              {userAnswers[5]}
-              <br></br>
+              -{userAnswers[5]}
+              <br></br><br></br>
               Question 7: {questions[6]}
               <br></br>
-              {userAnswers[6]}
-              <br></br>
+              -{userAnswers[6]}
+              <br></br><br></br>
               Question 8: {questions[7]}
               <br></br>
-              {userAnswers[7]}
-              <br></br>
+              -{userAnswers[7]}
+              <br></br><br></br>
               Question 9: {questions[8]}
               <br></br>
-              {userAnswers[8]}
-              <br></br>
+              -{userAnswers[8]}
+              <br></br><br></br>
               Question 10: {questions[9]}
               <br></br>
-              {userAnswers[9]}
+              -{userAnswers[9]}
+              <br></br><br></br>
+              <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
         <br></br>
       </div>
           )}
