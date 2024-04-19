@@ -40,8 +40,58 @@ function App() {
     "I admire individuals who work in computer programming",
     "Success to me means completing small victories at a time to wither away at a bigger project"];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
-  const [currentQuestion, setCurrentQuestion] = useState<string>(questions[0]); // Current Question being displayed
-  const [userAnswer, setUserAnswer] = useState<string>();
+  const [userAnswers, setUserAnswer] = useState<string[]>([]);
+  const [progress, setProgress] = useState<number>(0);
+  const [curAns, setCurAns] = useState<string>("");
+
+  function NextQuestion () {
+    if (progress < 10) {
+      setUserAnswer([...userAnswers, curAns]);
+    setProgress(progress + 1);
+    setCurAns("");
+    } else {
+      showResults();
+    }
+  }
+
+  function showResults () {
+    return (
+      <div>
+        {progress}
+        {questions[0]}
+        {userAnswers[0]}
+        <br></br>
+        {questions[1]}
+        {userAnswers[1]}
+        <br></br>
+        {questions[2]}
+        {userAnswers[2]}
+        <br></br>
+        {questions[3]}
+        {userAnswers[3]}
+        <br></br>
+        {questions[4]}
+        {userAnswers[4]}
+        <br></br>
+        {questions[5]}
+        {userAnswers[5]}
+        <br></br>
+        {questions[6]}
+        {userAnswers[6]}
+        <br></br>
+        {questions[7]}
+        {userAnswers[7]}
+        <br></br>
+        {questions[8]}
+        {userAnswers[8]}
+        <br></br>
+        {questions[9]}
+        {userAnswers[9]}
+        <br></br>
+      </div>
+
+    )
+  }
 
   // *****************************************************************************************************************************
 
@@ -135,47 +185,91 @@ function App() {
         
 
       <body className="body">
-        <Form.Group>
-          <Form.Label>{currentQuestion}</Form.Label>
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-one"
-            label="Strongly Agree"
-            value="Strongly Agree"
-            checked={userAnswer === "Strongly Agree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-two"
-            label="Agree"
-            value="Agree"
-            checked={userAnswer === "Agree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-three"
-            label="Disagree"
-            value="Disagree"
-            checked={userAnswer === "Disagree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-four"
-            label="Strongly Disagree"
-            value="Strongly Disagree"
-            checked={userAnswer === "Strongly Disagree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-        </Form.Group>
-        <br></br><p>{userAnswer}</p>
-        <br></br><button onClick={() => setCurrentQuestion(questions[1])}>Next Question</button>
+
+        <div>
+          {(progress < 10) ? (
+            <><Form.Group>
+                <Form.Label>{questions[progress]}</Form.Label>
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-one"
+                  label="Strongly Agree"
+                  value="Strongly Agree"
+                  checked={curAns === "Strongly Agree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-two"
+                  label="Agree"
+                  value="Agree"
+                  checked={curAns === "Agree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-three"
+                  label="Disagree"
+                  value="Disagree"
+                  checked={curAns === "Disagree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-four"
+                  label="Strongly Disagree"
+                  value="Strongly Disagree"
+                  checked={curAns === "Strongly Disagree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+              </Form.Group><button onClick={NextQuestion}>Next Question</button></>
+          ) : ( 
+            <div>
+              {progress}
+              <br></br>
+              {questions[0]}
+              <br></br>
+              {userAnswers[0]}
+              <br></br>
+              {questions[1]}
+              <br></br>
+              {userAnswers[1]}
+              <br></br>
+              {questions[2]}
+              <br></br>
+              {userAnswers[2]}
+              <br></br>
+              {questions[3]}
+              <br></br>
+              {userAnswers[3]}
+              <br></br>
+              {questions[4]}
+              <br></br>
+              {userAnswers[4]}
+              <br></br>
+              {questions[5]}
+              <br></br>
+              {userAnswers[5]}
+              <br></br>
+              {questions[6]}
+              <br></br>
+              {userAnswers[6]}
+              <br></br>
+              {questions[7]}
+              <br></br>
+              {userAnswers[7]}
+              <br></br>
+              {questions[8]}
+              <br></br>
+              {userAnswers[8]}
+              <br></br>
+              {questions[9]}
+              <br></br>
+              {userAnswers[9]}
+        <br></br>
+      </div>
+          )}
+        </div>
       </body>
 
       <footer className="footer">Trademark Stuff</footer>
