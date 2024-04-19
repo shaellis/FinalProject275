@@ -43,149 +43,29 @@ function App() {
   const [userAnswers, setUserAnswer] = useState<string[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const [curAns, setCurAns] = useState<string>("");
+  const [startNewBasic, setSNB] = useState<Boolean>(true); 
 
+  // Moves onto the next question by adding one to the progress and storing the user answer 
   function NextQuestion () {
     if (progress < 10) {
       setUserAnswer([...userAnswers, curAns]);
-    setProgress(progress + 1);
-    setCurAns("");
-    } else {
-      showResults();
+      setProgress(progress + 1);
+      setCurAns("");
     }
   }
 
-  function showResults () {
+  // This will start the Basic Quiz
+  function QuizStart () {
+
+    if (startNewBasic) {
+      setCurAns("");
+      setUserAnswer([]);
+      setProgress(0);
+      setSNB(false);
+    }
+
     return (
       <div>
-        {progress}
-        {questions[0]}
-        {userAnswers[0]}
-        <br></br>
-        {questions[1]}
-        {userAnswers[1]}
-        <br></br>
-        {questions[2]}
-        {userAnswers[2]}
-        <br></br>
-        {questions[3]}
-        {userAnswers[3]}
-        <br></br>
-        {questions[4]}
-        {userAnswers[4]}
-        <br></br>
-        {questions[5]}
-        {userAnswers[5]}
-        <br></br>
-        {questions[6]}
-        {userAnswers[6]}
-        <br></br>
-        {questions[7]}
-        {userAnswers[7]}
-        <br></br>
-        {questions[8]}
-        {userAnswers[8]}
-        <br></br>
-        {questions[9]}
-        {userAnswers[9]}
-        <br></br>
-      </div>
-
-    )
-  }
-
-  // *****************************************************************************************************************************
-
-  // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
-  // React Home Page
-  if (pageId === 3) {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Shamus Ellis : Dylan Blevins : Luke Bonniwell
-        </p>
-
-        <button className="Home-Page-Button" onClick={() => setPageId(0)}>Home Page</button>
-
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Form>
-        <Form.Label>API Key:</Form.Label>
-        <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
-        <br></br>
-        <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
-      </Form>
-    </div>
-    
-  );
-  }
-
-  // Home Page
-  if (pageId === 0) {
-    return (
-      <div>
-        <header>
-          <div className="navbar">
-            <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
-            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
-            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-          </div>
-        </header>
-
-        <h1 className="Homepage-title">Welcome to the Home Page</h1>
-
-        <body className="Home-Page-Body">
-          <div>
-            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
-            <p className="p-content">The Basic Question test is a multiple choice questionaire that
-              does not take long and is very simple to understand. Although,
-              because of the limited answers, the result of your quiz will not
-              be as accurate.
-            </p>
-
-            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-            <p className="p-content">The Detailed Question test is user provided short answer questionaire
-              that may take some time to complete and require more thorough thinking.
-              While that may be the case, the results from this quiz will be much more
-              accurate.
-            </p>
-          </div>
-        </body>
-
-        <footer className="footer">Trademark</footer>
-
-      </div>
-    )
-  }
-
-  // Basic Questions Page
-  if (pageId === 1) {
-    return (
-    <div className="whole-page">
-      <header>
-        <div className="navbar">
-          <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
-        </div>
-      </header>
-
-      <h1>Basic Quiz</h1>
-      <p>Make sure that you answer all of the questions to complete the quiz</p>
-        
-
-      <body className="body">
-
-        <div>
           {(progress < 10) ? (
             <><Form.Group>
                 <Form.Label>{questions[progress]}</Form.Label>
@@ -271,6 +151,68 @@ function App() {
             </div>
           )}
         </div>
+    )
+  }
+  // *****************************************************************************************************************************
+
+  // Home Page
+  if (pageId === 0) {
+    return (
+      <div>
+        <header>
+          <div className="navbar">
+            <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+          </div>
+        </header>
+
+        <h1 className="Homepage-title">Welcome to the Home Page</h1>
+
+        <body className="Home-Page-Body">
+          <div>
+            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment Page</button>
+            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>View Basic Results</button>
+            <p className="p-content">The Basic Question test is a multiple choice questionaire that
+              does not take long and is very simple to understand. Although,
+              because of the limited answers, the result of your quiz will not
+              be as accurate.
+            </p>
+
+            <br></br>
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+            <p className="p-content">The Detailed Question test is user provided short answer questionaire
+              that may take some time to complete and require more thorough thinking.
+              While that may be the case, the results from this quiz will be much more
+              accurate.
+            </p>
+          </div>
+        </body>
+
+        <footer className="footer">Trademark</footer>
+
+      </div>
+    )
+  }
+
+  // Basic Questions Page
+  if (pageId === 1) {
+    return (
+    <div className="whole-page">
+      <header>
+        <div className="navbar">
+          <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+        </div>
+      </header>
+
+      <h1>Basic Quiz</h1>
+      <p>Make sure that you answer all of the questions to complete the quiz</p>
+        
+
+      <body className="body">
+        <div>
+          <QuizStart></QuizStart>
+        </div>
       </body>
 
       <footer className="footer">Trademark Stuff</footer>
@@ -289,6 +231,42 @@ function App() {
     </div>
     )
   }
+
+  // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
+  // React Home Page
+  if (pageId === 3) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <p>
+            Shamus Ellis : Dylan Blevins : Luke Bonniwell
+          </p>
+  
+          <button className="Home-Page-Button" onClick={() => setPageId(0)}>Home Page</button>
+  
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+        <Form>
+          <Form.Label>API Key:</Form.Label>
+          <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
+          <br></br>
+          <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+        </Form>
+      </div>
+      
+    );
+    }
 
   // This should never appear
   return (
