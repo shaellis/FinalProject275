@@ -41,46 +41,120 @@ function App() {
     "I admire individuals who work in computer programming",
     "Success to me means completing small victories at a time to wither away at a bigger project"];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
-  const [currentQuestion, setCurrentQuestion] = useState<string>(questions[0]); // Current Question being displayed
-  const [userAnswer, setUserAnswer] = useState<string>();
+  const [userAnswers, setUserAnswer] = useState<string[]>([]);
+  const [progress, setProgress] = useState<number>(0);
+  const [curAns, setCurAns] = useState<string>("");
+  const [startNewBasic, setSNB] = useState<Boolean>(true); 
 
-  // *****************************************************************************************************************************
-
-  // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
-  // React Home Page
-  if (pageId === 3) {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Shamus Ellis : Dylan Blevins : Luke Bonniwell
-        </p>
-
-        <button className="Home-Page-Button" onClick={() => setPageId(0)}>Home Page</button>
-
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Form>
-        <Form.Label>API Key:</Form.Label>
-        <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
-        <br></br>
-        <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
-      </Form>
-    </div>
-    
-  );
+  // Moves onto the next question by adding one to the progress and storing the user answer 
+  function NextQuestion () {
+    if (progress < 10) {
+      setUserAnswer([...userAnswers, curAns]);
+      setProgress(progress + 1);
+      setCurAns("");
+    }
   }
+
+  // This will start the Basic Quiz
+  function QuizStart () {
+
+    if (startNewBasic) {
+      setCurAns("");
+      setUserAnswer([]);
+      setProgress(0);
+      setSNB(false);
+    }
+
+    return (
+      <div>
+          {(progress < 10) ? (
+            <><Form.Group>
+                <Form.Label>{questions[progress]}</Form.Label>
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-one"
+                  label="Strongly Agree"
+                  value="Strongly Agree"
+                  checked={curAns === "Strongly Agree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-two"
+                  label="Agree"
+                  value="Agree"
+                  checked={curAns === "Agree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-three"
+                  label="Disagree"
+                  value="Disagree"
+                  checked={curAns === "Disagree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                <Form.Check
+                  type="radio"
+                  name="answer"
+                  id="answer-check-option-four"
+                  label="Strongly Disagree"
+                  value="Strongly Disagree"
+                  checked={curAns === "Strongly Disagree"}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+              </Form.Group><button onClick={NextQuestion} disabled={!curAns}>Next Question</button></>
+          ) : ( 
+            <div>
+              These are the Questions and each Answer you submitted for each
+              <br></br><br></br>
+              Question 1: {questions[0]}
+              <br></br>
+              -{userAnswers[0]}
+              <br></br><br></br>
+              Question 2: {questions[1]}
+              <br></br>
+              -{userAnswers[1]}
+              <br></br><br></br>
+              Question 3: {questions[2]}
+              <br></br>
+              -{userAnswers[2]}
+              <br></br><br></br>
+              Question 4: {questions[3]}
+              <br></br>
+              -{userAnswers[3]}
+              <br></br><br></br>
+              Question 5: {questions[4]}
+              <br></br>
+              -{userAnswers[4]}
+              <br></br><br></br>
+              Question 6: {questions[5]}
+              <br></br>
+              -{userAnswers[5]}
+              <br></br><br></br>
+              Question 7: {questions[6]}
+              <br></br>
+              -{userAnswers[6]}
+              <br></br><br></br>
+              Question 8: {questions[7]}
+              <br></br>
+              -{userAnswers[7]}
+              <br></br><br></br>
+              Question 9: {questions[8]}
+              <br></br>
+              -{userAnswers[8]}
+              <br></br><br></br>
+              Question 10: {questions[9]}
+              <br></br>
+              -{userAnswers[9]}
+              <br></br><br></br>
+              <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+              <br></br>
+            </div>
+          )}
+        </div>
+    )
+  }
+  // *****************************************************************************************************************************
 
   // Home Page
   if (pageId === 0) {
@@ -98,13 +172,15 @@ function App() {
 
         <body className="Home-Page-Body">
           <div>
-            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment Page</button>
+            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>View Basic Results</button>
             <p className="p-content">The Basic Question test is a multiple choice questionaire that
               does not take long and is very simple to understand. Although,
               because of the limited answers, the result of your quiz will not
               be as accurate.
             </p>
 
+            <br></br>
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
             <p className="p-content">The Detailed Question test is user provided short answer questionaire
               that may take some time to complete and require more thorough thinking.
@@ -123,8 +199,7 @@ function App() {
   // Basic Questions Page
   if (pageId === 1) {
     return (
-    <div>
-
+    <div className="whole-page">
       <header>
         <div className="navbar">
           <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
@@ -136,47 +211,9 @@ function App() {
         
 
       <body className="body">
-        <Form.Group>
-          <Form.Label>{currentQuestion}</Form.Label>
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-one"
-            label="Strongly Agree"
-            value="Strongly Agree"
-            checked={userAnswer === "Strongly Agree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-two"
-            label="Agree"
-            value="Agree"
-            checked={userAnswer === "Agree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-three"
-            label="Disagree"
-            value="Disagree"
-            checked={userAnswer === "Disagree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            name="answer"
-            id="answer-check-option-four"
-            label="Strongly Disagree"
-            value="Strongly Disagree"
-            checked={userAnswer === "Strongly Disagree"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(event.target.value)}
-          />
-        </Form.Group>
-        <br></br><p>{userAnswer}</p>
-        <br></br><button onClick={() => setCurrentQuestion(questions[1])}>Next Question</button>
+        <div>
+          <QuizStart></QuizStart>
+        </div>
       </body>
 
       <footer className="footer">Trademark Stuff</footer>
@@ -201,6 +238,42 @@ function App() {
     
     )
   }
+
+  // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
+  // React Home Page
+  if (pageId === 3) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <p>
+            Shamus Ellis : Dylan Blevins : Luke Bonniwell
+          </p>
+  
+          <button className="Home-Page-Button" onClick={() => setPageId(0)}>Home Page</button>
+  
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+        <Form>
+          <Form.Label>API Key:</Form.Label>
+          <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
+          <br></br>
+          <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+        </Form>
+      </div>
+      
+    );
+    }
 
   // This should never appear
   return (
