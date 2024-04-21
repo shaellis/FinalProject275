@@ -195,6 +195,7 @@ function App() {
       <MultipleChoiceQuestionForm
         options={["a", "b", "c"]}
         expectedAnswer="b"
+        question="What subjects do you excel at or find most engaging in school?"
       ></MultipleChoiceQuestionForm>
     </div>
     

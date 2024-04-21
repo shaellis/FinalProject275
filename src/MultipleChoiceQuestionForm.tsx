@@ -3,8 +3,10 @@ import { Form } from "react-bootstrap";
 
 export function MultipleChoiceQuestionForm({
     options,
-    expectedAnswer
+    expectedAnswer,
+    question
 }: {
+    question: string;
     options: string[];
     expectedAnswer: string;
 }): JSX.Element {
@@ -19,7 +21,7 @@ export function MultipleChoiceQuestionForm({
     return (
         <div>
             <Form.Group controlId="userQuestions">
-                <Form.Label>What is the answer?</Form.Label>
+                <Form.Label>{question}</Form.Label>
                 <Form.Select value={choice} onChange={updateChoice}>
                     {options.map((option) => (
                         <option key={option} value={option}>
