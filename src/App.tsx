@@ -57,6 +57,7 @@ function App() {
   // This will start the Basic Quiz
   function QuizStart () {
 
+    // if 
     if (startNewBasic) {
       setCurAns("");
       setUserAnswer([]);
@@ -68,7 +69,7 @@ function App() {
       <div>
           {(progress < 10) ? (
             <><Form.Group>
-                <Form.Label>{questions[progress]}</Form.Label>
+                <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
                 <Form.Check
                   type="radio"
                   name="answer"
@@ -171,8 +172,8 @@ function App() {
 
         <body className="Home-Page-Body">
           <div>
-            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment Page</button>
-            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>View Basic Results</button>
+            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment</button>
+            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue</button>
             <p className="p-content">The Basic Question test is a multiple choice questionaire that
               does not take long and is very simple to understand. Although,
               because of the limited answers, the result of your quiz will not
