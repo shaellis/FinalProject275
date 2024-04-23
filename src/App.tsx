@@ -47,7 +47,7 @@ function App() {
 
   // Moves onto the next question by adding one to the progress and storing the user answer 
   function NextQuestion () {
-    if (progress < 10) {
+    if (progress < basicQ.length) {
       setUserAnswer([...userAnswers, curAns]);
       setProgress(progress + 1);
       setCurAns("");
@@ -168,25 +168,50 @@ function App() {
           </div>
         </header>
 
-        <h1 className="Homepage-title">Welcome to the Home Page</h1>
+        <h1 className="Homepage-title">Welcome to the Career Finder</h1>
 
         <body className="Home-Page-Body">
-          <div>
-            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment</button>
-            <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue</button>
-            <p className="p-content">The Basic Question test is a multiple choice questionaire that
-              does not take long and is very simple to understand. Although,
-              because of the limited answers, the result of your quiz will not
-              be as accurate.
-            </p>
 
-            <br></br>
-            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-            <p className="p-content">The Detailed Question test is user provided short answer questionaire
-              that may take some time to complete and require more thorough thinking.
-              While that may be the case, the results from this quiz will be much more
-              accurate.
-            </p>
+          <div>
+            <h5>What Results Mean</h5>
+            <p>The results you receive have been analyzed by OpenAI or better known as ChatGPT</p>
+          </div>
+
+          <div>
+            <h5>FAQs</h5>
+            <ol>
+              <li>~~~~~~~~~~~~~</li>
+              <li>~~~~~~~~~~~~~</li>
+            </ol>
+          </div>
+
+          <div>
+            <h5>Why is it important to find your career</h5>
+            <p>It is important to find your most compatible 
+              career area as soon as possible because this 
+              will most likely be the career area that you work
+              in for the rest of your life.</p>
+          </div>
+
+          <div className="row">
+            <div className="container-home-column">
+              <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment</button>
+              <p className="p-content">The Basic Question test is a multiple choice questionaire that
+                does not take long and is very simple to understand. Although,
+                because of the limited answers, the result of your quiz will not
+                be as accurate.
+              </p>
+              <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue Basic</button>
+            </div>
+            
+            <div className="container-home-column">
+              <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+              <p className="p-content">The Detailed Question test is user provided short answer questionaire
+                that may take some time to complete and require more thorough thinking.
+                While that may be the case, the results from this quiz will be much more
+                accurate.
+              </p>
+            </div>
           </div>
         </body>
 
