@@ -45,6 +45,8 @@ function App() {
   const [progress, setProgress] = useState<number>(0);
   const [curAns, setCurAns] = useState<string>("");
   const [startNewBasic, setSNB] = useState<Boolean>(true); 
+  const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
+
 
   // Moves onto the next question by adding one to the progress and storing the user answer 
   function NextQuestion () {
@@ -194,7 +196,7 @@ function App() {
 
       </div>
     )
-  }
+  } 
 
   // Basic Questions Page
   if (pageId === 1) {
@@ -223,19 +225,43 @@ function App() {
 
   // Detailed Questions Page
   if (pageId === 2) {
+    const totalQuestions = 10;
+  
+    const handleNextQuestion = () => {
+      if (detailedQuestionProgress < totalQuestions - 1) {
+        setDetailedQuestionProgress(detailedQuestionProgress + 1);
+      }
+    };
+  
+    const progressPercentage = (detailedQuestionProgress / totalQuestions) * 100;
+  
+    const ProgressBar = () => (
+      <div className="progress">
+        <div
+          className="progress-bar"
+          role="progressbar"
+          style={{ width: `${progressPercentage}%` }}
+          aria-valuenow={progressPercentage}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        ></div>
+      </div>
+    );
+  
     return (
-    <div>
-      <header>
-        <h1>Welcome to the Detailed Questions Page</h1>
-        <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
-      </header>
-      <MultipleChoiceQuestionForm
-        options={["a", "b", "c"]}
-        expectedAnswer="b"
-      ></MultipleChoiceQuestionForm>
-    </div>
-    
-    )
+      <div>
+        <header>
+          <h1>Welcome to the Detailed Questions Page</h1>
+          <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
+        </header>
+        <ProgressBar />
+        <MultipleChoiceQuestionForm
+          options={["a", "b", "c"]}
+          expectedAnswer="b"
+        ></MultipleChoiceQuestionForm>
+        <button onClick={handleNextQuestion}>Next Question</button>
+      </div>
+    );
   }
 
   // Using buttons to change the value of 'pageId' to switch pages -Dylan Blevins
