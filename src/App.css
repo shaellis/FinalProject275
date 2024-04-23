@@ -151,8 +151,7 @@ h1
 
 /* Footer CSS Styling */
 .footer {
-  position: fixed;
-  left: 0;
+  position: absolute;
   bottom: 0;
   width: 100%;
   background-color: lightslategray;
@@ -162,7 +161,7 @@ h1
 
 /* Body CSS Styling */
 .body {
-  position: fixed;
+  position: relative;
   left: 10%;
   right: 10%;
   width: 80%;
@@ -174,4 +173,11 @@ h1
 .p-content {
   text-align: center;
   padding: 1%;
+}
+
+/* SCROLLABLE */
+.whole-page {
+  overflow: auto;
+  position: relative;
+  min-height: 150vh;
 }
