@@ -283,7 +283,8 @@ function App() {
             </p>
 
             <br></br>
-            <button className="Page-to-Page" onClick={() => setPageId(2)}>Start New Detailed Career Asssessment Page</button>
+            <button className="Page-to-Page" onClick={() => {setPageId(2); setSND(true)}}>Start New Detailed Career Asssessment Page</button>
+            <button className="Page-to-Page" onClick={() => {setPageId(1); setSND(false);}}>View Detailed Results</button>
             <p className="p-content">The Detailed Question test is user provided short answer questionaire
               that may take some time to complete and require more thorough thinking.
               While that may be the case, the results from this quiz will be much more
