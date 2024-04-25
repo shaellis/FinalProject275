@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
-import { MultipleChoiceQuestionForm } from "./MultipleChoiceQuestionForm";
+import { DetailedResponse } from "./DetailedResponse";
 
 //local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
 let keyData = "";
@@ -154,6 +154,108 @@ function App() {
         </div>
     )
   }
+//*************************************************************************************************************************************************** */
+    // State Variables for Detailed Questions Page
+    const detailedQ = [
+      "What subjects do you excel at or find most engaging in school?",
+      "Have you considered internships or part-time jobs in your field of interest?",
+      "What kind of work-life balance are you looking for in your future career?",
+      "Are you interested in pursuing further education beyond your undergraduate degree?",
+      "What values are most important to you in a career",
+      "How do you handle challenges or setbacks in your academic or personal life?",
+      "Have you researched potential career paths and industries related to your major? If so, what?",
+      "Are you willing to relocate for job opportunities?",
+      "What skills or experiences do you already possess that could be valuable in your future career?",
+      "Have you spoken with professionals or alumni in your desired field to gain insights into potential career paths?"
+    ]
+    const [questionsD] = useState<string[]>(detailedQ); // Detailed Questions String Array
+    const [startNewDetailed, setSND] = useState<Boolean>(true); 
+    const [detailedUserAnswers, setDetailedUserAnswer] = useState<string[]>([]);
+    const handleNextQuestion = (value : string) => {
+      setCurAns(value);
+      NextDetailedQuestion();
+    }
+
+  // Moves onto the next question by adding one to the progress and storing the user answer but in a different a detailed answer storage instead
+  function NextDetailedQuestion () {
+    if (progress < 10) {
+      setDetailedUserAnswer([...userAnswers, curAns]);
+      setProgress(progress + 1);
+      setCurAns("");
+    }
+  }
+
+  // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
+  function DetailedQuizStart () {
+    if (startNewDetailed) {
+      setCurAns("");
+      setDetailedUserAnswer([]);
+      setProgress(0);
+      setSND(false);
+    }
+
+    return (
+      <div>
+        {(progress < 10) ? (
+          <div>
+            <DetailedResponse
+              question={questionsD[progress]}
+              onNextQuestion={handleNextQuestion}
+            ></DetailedResponse>
+          </div>
+        ) : ( 
+          <div>
+            These are the Questions and each Answer you submitted for each
+            <br></br><br></br>
+            Question 1: {questionsD[0]}
+            <br></br>
+            -{detailedUserAnswers[0]}
+            <br></br><br></br>
+            Question 2: {questionsD[1]}
+            <br></br>
+            -{detailedUserAnswers[1]}
+            <br></br><br></br>
+            Question 3: {questionsD[2]}
+            <br></br>
+            -{detailedUserAnswers[2]}
+            <br></br><br></br>
+            Question 4: {questionsD[3]}
+            <br></br>
+            -{detailedUserAnswers[3]}
+            <br></br><br></br>
+            Question 5: {questionsD[4]}
+            <br></br>
+            -{detailedUserAnswers[4]}
+            <br></br><br></br>
+            Question 6: {questionsD[5]}
+            <br></br>
+            -{detailedUserAnswers[5]}
+            <br></br><br></br>
+            Question 7: {questionsD[6]}
+            <br></br>
+            -{detailedUserAnswers[6]}
+            <br></br><br></br>
+            Question 8: {questionsD[7]}
+            <br></br>
+            -{detailedUserAnswers[7]}
+            <br></br><br></br>
+            Question 9: {questionsD[8]}
+            <br></br>
+            -{detailedUserAnswers[8]}
+            <br></br><br></br>
+            Question 10: {questionsD[9]}
+            <br></br>
+            -{detailedUserAnswers[9]}
+            <br></br><br></br>
+            <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+            <br></br>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+
   // *****************************************************************************************************************************
 
   // Home Page
@@ -181,7 +283,7 @@ function App() {
             </p>
 
             <br></br>
-            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Start New Detailed Career Asssessment Page</button>
             <p className="p-content">The Detailed Question test is user provided short answer questionaire
               that may take some time to complete and require more thorough thinking.
               While that may be the case, the results from this quiz will be much more
@@ -224,16 +326,24 @@ function App() {
   // Detailed Questions Page
   if (pageId === 2) {
     return (
-    <div>
+    <div className="whole-page">
       <header>
         <h1>Welcome to the Detailed Questions Page</h1>
-        <button className="Page-to-Page" onClick={() => setPageId(0)}>Back</button>
+        <div className="navbar">
+          <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+        </div>
       </header>
-      <MultipleChoiceQuestionForm
-        options={["a", "b", "c"]}
-        expectedAnswer="b"
-        question="What subjects do you excel at or find most engaging in school?"
-      ></MultipleChoiceQuestionForm>
+
+      <h2>Detailed Quiz</h2>
+      <p>Make sure that you answer all of the questions to complete the quiz</p>
+      
+      <body className="body">
+        <div>
+        <DetailedQuizStart></DetailedQuizStart>
+        </div>
+      </body>
+      
+    <footer className="footer">Trademark Stuff</footer>
     </div>
     
     )
