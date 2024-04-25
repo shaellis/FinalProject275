@@ -84,6 +84,7 @@ h1
   border: 3px solid green;
 }
 
+/*designed for the CSS for button on the REACT Page called "Homepage"*/
 .Home-Page-Button
 {
   background-color: black;
@@ -94,6 +95,12 @@ h1
   border-color: #7e7e7e; 
   border-radius: 4px;
   font-family:'Times New Roman', Times, serif;
+}
+
+/*designed for the detailed questions page buttons*/
+.Detailed-Qs button
+{
+  display: inline;
 }
 
 .Home-Page-Button:hover
@@ -107,6 +114,8 @@ h1
   border-radius: 4px;
   font-family: 'Times New Roman', Times, serif;
 }
+
+/*designed for the CSS for buttons on Homepage whne mouse hovers*/
 .Page-to-Page:hover {
   background-color: whitesmoke;
   color: black;
@@ -120,6 +129,7 @@ h1
   display: table-row
 }
 
+/*designed for the CSS for buttons on Homepage*/
 .Page-to-Page {
   text-align: center;
   align-items: center;
