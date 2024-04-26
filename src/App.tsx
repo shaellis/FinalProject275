@@ -97,7 +97,7 @@ function App() {
           {(progress < basicQ.length) ? (
             <>
               <p>Make sure that you answer all of the questions to complete the quiz</p>
-              
+
               <div className="container-pbar">
                 <div className="progress-bar">
                   <div className="progress-bar-fill" style={{width: `${progress*10}%`, backgroundColor: getColor() }}>
@@ -108,7 +108,7 @@ function App() {
               </div>
 
               <Form.Group>
-                <div id="basic-lable" className="">
+                <div id="basic-question" className="container-basic-question">
                   <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
                 </div>
                 
@@ -325,7 +325,7 @@ function App() {
   // Basic Questions Page
   if (pageId === 1) {
     return (
-    <div className="">
+    <div id="the-basic-page">
 
       <header>
         <div className="navbar">
