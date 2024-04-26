@@ -137,48 +137,70 @@
 /* Overall Home page Body */
 .homepage-body {
   border: green solid 2px;
-  height: 50em;
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
+  padding: 1%;
   font-size: 12px;
+  height: 100%;
+}
 
+.homepage-body::after {
   content: "";
   display: table;
   clear: both;
 }
 
-.container-WRM {
-  border: pink dashed 2px;
-  padding: 0.5%;
-  float: left;
+.leftcolumn {
   width: 50%;
+  float: left;
+  height: 1000px;
 }
 
-.container-FAQ {
-  border:purple dashed 2px;
-  padding: 0.5%;
-  float: left;
+.rightcolumn {
   width: 50%;
+  float: left;
+  height: 1000px;
 }
 
 .container-purpose {
   border: red dashed 2px;
   padding: 0.5%;
-  float: left;
-  width: 50%;
+  margin: 3%;
+  height: 50%;
+}
+
+.container-WRM {
+  border: pink dashed 2px;
+  padding: 0.5%;
+  margin: 3%;
+  height: 18.8%;
+}
+
+.container-FAQ {
+  border:purple dashed 2px;
+  padding: 0.5%;
+  margin: 3%;
+  height: 30%;
 }
 
 .container-basic {
   border: blue dashed 2px;
   padding: 0.5%;
-  float: left;
-  width: 50%;
+  margin: 3%;
 }
 
 .container-detailed {
   border: orange dashed 2px;
   padding: 0.5%;
-  float: left;
-  width: 50%;
+  margin: 3%;
+}
+
+/* Footer */
+.footer {
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin-top: 1%;
 }
