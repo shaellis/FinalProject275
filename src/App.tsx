@@ -163,41 +163,75 @@ function App() {
   if (pageId === 0) {
     return (
       <div>
-        <header>
-          <div className="navbar">
+        <header id="home-header">
+          <nav id="navigation-bar" className="navbar">
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-          </div>
+          </nav>
         </header>
 
-        <h1 className="Homepage-title">Welcome to the Career Finder</h1>
+        <body id="homepage-content" className="homepage-body">
 
-        <body className="Home-Page-Body">
-
-          <div>
-            <h5>What Results Mean</h5>
-            <p>The results you receive have been analyzed by OpenAI or better known as ChatGPT</p>
+          <div id="Purpose" className="container-purpose">
+            <h5>Why is it important to find your career</h5>
+            <p>
+              "Discovering a career path that resonates with your interests, 
+              skills, and values is essential for various reasons. Not only
+              does it bring fulfillment and motivation to your work life, but
+              it also fosters personal growth and contributes to your overall
+              health and well-being. Financial stability and the opportunity 
+              to make meaningful contributions further underscore the importance
+              of finding your suited career area. Ultimately, aligning your 
+              professional pursuits with your passions can lead to a more 
+              rewarding and purposeful life." 
+            </p>
+            <p>
+              -ChatGPT
+            </p>
           </div>
 
-          <div>
+          <div id="FAQ" className='container-FAQ'>
             <h5>FAQs</h5>
             <ol>
               <li>~~~~~~~~~~~~~</li>
+              <ul>
+                <li>Because</li>
+              </ul>
               <li>~~~~~~~~~~~~~</li>
+              <ul>
+                <li>Because</li>
+              </ul>
+              <li>~~~~~~~~~~~~~</li>
+              <ul>
+                <li>Because</li>
+              </ul>
+              <li>~~~~~~~~~~~~~</li>
+              <ul>
+                <li>Because</li>
+              </ul>
+              <li>~~~~~~~~~~~~~</li>
+              <ul>
+                <li>Because</li>
+              </ul>
+              <li>~~~~~~~~~~~~~</li>
+              <ul>
+                <li>Because</li>
+              </ul>
             </ol>
           </div>
 
-          <div>
-            <h5>Why is it important to find your career</h5>
-            <p>It is important to find your most compatible 
-              career area as soon as possible because this 
-              will most likely be the career area that you work
-              in for the rest of your life.</p>
+          <div id="WRM" className='container-WRM'>
+            <h5>What Results Mean</h5>
+            <p>
+              Firstly, each quiz will ask you a set number of questions that will in reference
+              determine which type of career area caters to your style the most.
+              The results you receive have been analyzed by OpenAI or better known as ChatGPT.
+            </p>
           </div>
 
-          <div className="row">
-            <div className="container-home-column">
+          <div id="basic-content" className="">
+            <div className="container-basic">
               <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment</button>
               <p className="p-content">The Basic Question test is a multiple choice questionaire that
                 does not take long and is very simple to understand. Although,
@@ -207,7 +241,7 @@ function App() {
               <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue Basic</button>
             </div>
             
-            <div className="container-home-column">
+            <div id="detailed-content" className="container-detailed">
               <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
               <p className="p-content">The Detailed Question test is user provided short answer questionaire
                 that may take some time to complete and require more thorough thinking.
@@ -218,7 +252,7 @@ function App() {
           </div>
         </body>
 
-        <footer className="footer">Trademark</footer>
+        <footer id="home-footer" className="">Trademark</footer>
 
       </div>
     )

@@ -120,8 +120,10 @@
 
 /*CSS for Navigation Bar for each Page*/
 .navbar {
-  background-color: blue;
+  background-color: yellow;
   overflow: hidden;
+  display: inline-block;
+  width: 100%;
 }
 
 .navbar button {
@@ -130,69 +132,53 @@
   text-align: center;
   text-decoration: none;
 }
+/* ---------------------------------------------------------------------*/
 
-/* Footer CSS Styling */
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: lightslategray;
-  color: white;
-  text-align: center;
-}
+/* Overall Home page Body */
+.homepage-body {
+  border: green solid 2px;
+  height: 50em;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 12px;
 
-/* Body CSS Styling */
-.body {
-  position: relative;
-  left: 10%;
-  right: 10%;
-  width: 80%;
-  padding: 1px;
-  border: 2px solid red;
-}
-
-/* Paragraph Quiz Explainations */
-.p-content {
-  text-align: center;
-  padding: 1%;
-}
-
-/* SCROLLABLE */
-.whole-page {
-  overflow: auto;
-  position: relative;
-  min-height: 150vh;
-}
-
-/* Home Page Column Content */
-.container-home-column {
-  float: left;
-  width: 50%;
-  text-align: center;
-}
-.row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/*home page styling*/
-h1
-{
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.container-WRM {
+  border: pink dashed 2px;
+  padding: 0.5%;
+  float: left;
+  width: 50%;
 }
 
-/* Home Page Content CSS (descriptions and such) */
-.Home-Page-Body {
-  position: fixed;
-  left: 15%;
-  right: 15%;
-  top: 20%;
-  width: 70%;
-  height: 70%;
-  border: 3px solid green;
+.container-FAQ {
+  border:purple dashed 2px;
+  padding: 0.5%;
+  float: left;
+  width: 50%;
+}
+
+.container-purpose {
+  border: red dashed 2px;
+  padding: 0.5%;
+  float: left;
+  width: 50%;
+}
+
+.container-basic {
+  border: blue dashed 2px;
+  padding: 0.5%;
+  float: left;
+  width: 50%;
+}
+
+.container-detailed {
+  border: orange dashed 2px;
+  padding: 0.5%;
+  float: left;
+  width: 50%;
 }
