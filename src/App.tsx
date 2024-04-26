@@ -57,10 +57,17 @@ function App() {
     }
   }
 
+  function PrevQuestion () {
+    if (progress > 0) {
+      setProgress(progress - 1);
+      userAnswers.pop();
+    }
+  }
+
   // This will start the Basic Quiz
   function QuizStart () {
 
-    // if 
+    // if the user wants to start a new quiz then this resets the values
     if (startNewBasic) {
       setCurAns("");
       setUserAnswer([]);
@@ -70,7 +77,7 @@ function App() {
 
     return (
       <div>
-          {(progress < 10) ? (
+          {(progress < basicQ.length) ? (
             <><Form.Group>
                 <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
                 <Form.Check
@@ -105,7 +112,9 @@ function App() {
                   value="Strongly Disagree"
                   checked={curAns === "Strongly Disagree"}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
-              </Form.Group><button onClick={NextQuestion} disabled={!curAns}>Next Question</button></>
+              </Form.Group>
+              <button onClick={NextQuestion} disabled={!curAns}>Next Question</button>
+              <button onClick={PrevQuestion} disabled={progress === 0}>Previous Question</button></>
           ) : ( 
             <div>
               These are the Questions and each Answer you submitted for each
