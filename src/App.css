@@ -249,3 +249,8 @@
   font-size: 12px;
   height: 100%;
 }
+
+/* Basic Questions Progress Bar */
+#basic-progress-bar {
+  width: 100%;
+}

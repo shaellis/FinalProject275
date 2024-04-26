@@ -78,7 +78,9 @@ function App() {
     return (
       <div>
           {(progress < basicQ.length) ? (
-            <><Form.Group>
+            <>
+              <progress id="basic-progress-bar" value={progress} max={basicQ.length}>{progress}%</progress>
+              <Form.Group>
                 <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
                 <Form.Check
                   type="radio"
@@ -114,7 +116,8 @@ function App() {
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
               </Form.Group>
               <button onClick={NextQuestion} disabled={!curAns}>Next Question</button>
-              <button onClick={PrevQuestion} disabled={progress === 0}>Previous Question</button></>
+              <button onClick={PrevQuestion} disabled={progress === 0}>Previous Question</button>
+            </>
           ) : ( 
             <div>
               These are the Questions and each Answer you submitted for each
@@ -159,12 +162,16 @@ function App() {
               <br></br>
               -{userAnswers[9]}
               <br></br><br></br>
-              <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+              <button className="Page-to-Page" onClick={() => GetResults()}>Get Results</button>
               <br></br>
             </div>
           )}
         </div>
     )
+  }
+
+  function GetResults () {
+
   }
   // *****************************************************************************************************************************
 
