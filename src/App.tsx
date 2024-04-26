@@ -180,15 +180,20 @@ function App() {
             <div id="Purpose" className="container-purpose">
               <h5>Why is it important to find your career</h5>
               <p>
-                "Discovering a career path that resonates with your interests, 
-                skills, and values is essential for various reasons. Not only
-                does it bring fulfillment and motivation to your work life, but
-                it also fosters personal growth and contributes to your overall
-                health and well-being. Financial stability and the opportunity 
-                to make meaningful contributions further underscore the importance
-                of finding your suited career area. Ultimately, aligning your 
-                professional pursuits with your passions can lead to a more 
-                rewarding and purposeful life." 
+                "Finding your career is essential for personal fulfillment, financial stability, and professional growth. 
+                A career aligned with your passions, values, and skills brings purpose and satisfaction. Financially, it 
+                provides stability, ensuring you meet needs and pursue desired lifestyles. Identifying a path with income 
+                growth and advancement prospects secures long-term financial security.
+                <br></br><br></br>
+                Moreover, your career facilitates professional development, offering learning, skill enhancement, and 
+                progression opportunities. Through continuous growth, you expand expertise and evolve professionally. A 
+                fulfilling career boosts self-esteem, confidence, and accomplishment, fostering a healthy work-life balance 
+                and reducing stress.
+                <br></br><br></br>
+                Additionally, it strengthens social connections and community engagement through collaboration and contribution. 
+                Overall, finding your career enhances well-being, encompassing fulfillment, stability, growth, and satisfaction. 
+                Identifying a path resonant with values and aspirations allows a journey of self-discovery and fulfillment, 
+                leading to a more rewarding life." 
               </p>
               <p>
                 -ChatGPT
@@ -203,6 +208,7 @@ function App() {
                 be as accurate.
               </p>
               <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue Basic</button>
+              <p>If you wish to continue your basic career assessment, please click this button</p>
             </div>
           </div>
 
