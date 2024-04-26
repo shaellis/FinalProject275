@@ -97,7 +97,7 @@ function App() {
           {(progress < basicQ.length) ? (
             <>
               <p>Make sure that you answer all of the questions to complete the quiz</p>
-
+              
               <div className="container-pbar">
                 <div className="progress-bar">
                   <div className="progress-bar-fill" style={{width: `${progress*10}%`, backgroundColor: getColor() }}>
@@ -108,43 +108,53 @@ function App() {
               </div>
 
               <Form.Group>
-                <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
-                <Form.Check
-                  type="radio"
-                  name="answer"
-                  id="answer-check-option-one"
-                  label="Strongly Agree"
-                  value="Strongly Agree"
-                  checked={curAns === "Strongly Agree"}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
-                <Form.Check
-                  type="radio"
-                  name="answer"
-                  id="answer-check-option-two"
-                  label="Agree"
-                  value="Agree"
-                  checked={curAns === "Agree"}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
-                <Form.Check
-                  type="radio"
-                  name="answer"
-                  id="answer-check-option-three"
-                  label="Disagree"
-                  value="Disagree"
-                  checked={curAns === "Disagree"}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
-                <Form.Check
-                  type="radio"
-                  name="answer"
-                  id="answer-check-option-four"
-                  label="Strongly Disagree"
-                  value="Strongly Disagree"
-                  checked={curAns === "Strongly Disagree"}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                <div id="basic-lable" className="">
+                  <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
+                </div>
+                
+                <div id="basic-options" className="container-basic-options">
+                  <Form.Check
+                    type="radio"
+                    name="answer"
+                    id="answer-check-option-one"
+                    label="Strongly Agree"
+                    value="Strongly Agree"
+                    checked={curAns === "Strongly Agree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                  <Form.Check
+                    type="radio"
+                    name="answer"
+                    id="answer-check-option-two"
+                    label="Agree"
+                    value="Agree"
+                    checked={curAns === "Agree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                  <Form.Check
+                    type="radio"
+                    name="answer"
+                    id="answer-check-option-three"
+                    label="Disagree"
+                    value="Disagree"
+                    checked={curAns === "Disagree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                  <Form.Check
+                    type="radio"
+                    name="answer"
+                    id="answer-check-option-four"
+                    label="Strongly Disagree"
+                    value="Strongly Disagree"
+                    checked={curAns === "Strongly Disagree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                </div>
+                
               </Form.Group>
-              <button onClick={NextQuestion} disabled={!curAns || progress === 9}>Next Question</button>
-              <button onClick={PrevQuestion} disabled={progress === 0}>Previous Question</button>
-              <button onClick={NextQuestion} disabled={!curAns || progress !== 9}>Finish</button>
+              
+              <div id="basic-buttons" className="container-quiz-buttons">
+                <button onClick={NextQuestion} disabled={!curAns || progress === 9}>Next Question</button>
+                <button onClick={PrevQuestion} disabled={progress === 0}>Previous Question</button>
+                <button onClick={NextQuestion} disabled={!curAns || progress !== 9}>Finish</button>
+              </div>
+              
             </>
           ) : ( 
             <div>
@@ -323,7 +333,7 @@ function App() {
         </div>
       </header>
 
-      <h1>Basic Quiz</h1>
+      <h1 id="basic-title">Basic Quiz</h1>
         
 
       <body className="quiz-body">

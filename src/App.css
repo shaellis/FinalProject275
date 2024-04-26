@@ -239,7 +239,7 @@
   margin-top: 1%;
 }
 
-/* Quiz Body */
+/* Basic Quiz Body --------------------------*/
 .quiz-body {
   border: green solid 2px;
   width: 60%;
@@ -249,6 +249,10 @@
   font-size: 12px;
   height: 100%;
 }
+
+
+
+/* ------------------------------------- */
 
 /* Basic Questions Progress Bar */
 #basic-progress-bar {
