@@ -162,7 +162,8 @@ function App() {
   // Home Page
   if (pageId === 0) {
     return (
-      <div>
+      <div id="the-home-page">
+        
         <header id="home-header">
           <nav id="navigation-bar" className="navbar">
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
@@ -260,7 +261,8 @@ function App() {
   // Basic Questions Page
   if (pageId === 1) {
     return (
-    <div className="whole-page">
+    <div className="">
+
       <header>
         <div className="navbar">
           <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
@@ -271,13 +273,14 @@ function App() {
       <p>Make sure that you answer all of the questions to complete the quiz</p>
         
 
-      <body className="body">
+      <body className="quiz-body">
         <div>
           <QuizStart></QuizStart>
         </div>
       </body>
 
       <footer className="footer">Trademark Stuff</footer>
+
     </div>
     )
   }
