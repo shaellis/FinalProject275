@@ -57,11 +57,28 @@ function App() {
     }
   }
 
+  // Goes back to the previous question and removes the previous user's answer
   function PrevQuestion () {
     if (progress > 0) {
       setProgress(progress - 1);
       userAnswers.pop();
     }
+  }
+
+  // For different colors on progress bar
+  const getColor = () => {
+    if (progress < 4) {
+      return "#ff0000";
+    } else if (progress < 7) {
+      return "#ffa500";
+    } else {
+      return "#2ecc71";
+    }
+  }
+
+  // OpenAI call to get the analyzed results
+  function GetResults () {
+
   }
 
   // This will start the Basic Quiz
@@ -79,7 +96,17 @@ function App() {
       <div>
           {(progress < basicQ.length) ? (
             <>
-              <progress id="basic-progress-bar" value={progress} max={basicQ.length}>{progress}%</progress>
+              <p>Make sure that you answer all of the questions to complete the quiz</p>
+
+              <div className="container-pbar">
+                <div className="progress-bar">
+                  <div className="progress-bar-fill" style={{width: `${progress*10}%`, backgroundColor: getColor() }}>
+                    {" "}
+                    <div className="progress-label">{progress * 10}%</div>
+                  </div>
+                </div>
+              </div>
+
               <Form.Group>
                 <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
                 <Form.Check
@@ -115,12 +142,14 @@ function App() {
                   checked={curAns === "Strongly Disagree"}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
               </Form.Group>
-              <button onClick={NextQuestion} disabled={!curAns}>Next Question</button>
+              <button onClick={NextQuestion} disabled={!curAns || progress === 9}>Next Question</button>
               <button onClick={PrevQuestion} disabled={progress === 0}>Previous Question</button>
+              <button onClick={NextQuestion} disabled={!curAns || progress !== 9}>Finish</button>
             </>
           ) : ( 
             <div>
-              These are the Questions and each Answer you submitted for each
+              <h4>CONGRATULATIONS ON COMPLETING THE BASIC CAREER ASSESSMENT!</h4>
+              Here are the Questions and each Answer you submitted for each
               <br></br><br></br>
               Question 1: {questions[0]}
               <br></br>
@@ -162,16 +191,17 @@ function App() {
               <br></br>
               -{userAnswers[9]}
               <br></br><br></br>
+              <p>
+                If you would like to submit your results for analyzing, please click "Get Results"
+                <br></br>
+                If not then you can return home when clicking the button at the top left that says, "Home"
+              </p>
               <button className="Page-to-Page" onClick={() => GetResults()}>Get Results</button>
               <br></br>
             </div>
           )}
         </div>
     )
-  }
-
-  function GetResults () {
-
   }
   // *****************************************************************************************************************************
 
@@ -294,7 +324,6 @@ function App() {
       </header>
 
       <h1>Basic Quiz</h1>
-      <p>Make sure that you answer all of the questions to complete the quiz</p>
         
 
       <body className="quiz-body">
