@@ -163,7 +163,7 @@ function App() {
   if (pageId === 0) {
     return (
       <div id="the-home-page">
-        
+
         <header id="home-header">
           <nav id="navigation-bar" className="navbar">
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
@@ -171,6 +171,8 @@ function App() {
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
           </nav>
         </header>
+
+        <h2 id="website-title"><strong>Profession Finder</strong></h2>
 
         <body id="homepage-content" className="homepage-body">
 
