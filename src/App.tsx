@@ -46,7 +46,7 @@ function App() {
   const [progress, setProgress] = useState<number>(0);
   const [curAns, setCurAns] = useState<string>("");
   const [startNewBasic, setSNB] = useState<Boolean>(true); 
-  const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
+  // const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
 
 
   // Moves onto the next question by adding one to the progress and storing the user answer 
@@ -328,14 +328,14 @@ function App() {
   }
 
   // Detailed Questions Page
-  if (pageId === 2) {
-    const totalQuestions = 10;
+   if (pageId === 2) {
+  //   const totalQuestions = 10;
   
-    // const handleNextQuestion = () => {
+  //    const handleNextQuestion = () => {
     //   if (detailedQuestionProgress < totalQuestions - 1) {
     //     setDetailedQuestionProgress(detailedQuestionProgress + 1);
     //   }
-    // };
+    //  };
   
     // const progressPercentage = (detailedQuestionProgress / totalQuestions) * 100;
   
