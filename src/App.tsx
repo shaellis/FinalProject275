@@ -331,26 +331,26 @@ function App() {
   if (pageId === 2) {
     const totalQuestions = 10;
   
-    const handleNextQuestion = () => {
-      if (detailedQuestionProgress < totalQuestions - 1) {
-        setDetailedQuestionProgress(detailedQuestionProgress + 1);
-      }
-    };
+    // const handleNextQuestion = () => {
+    //   if (detailedQuestionProgress < totalQuestions - 1) {
+    //     setDetailedQuestionProgress(detailedQuestionProgress + 1);
+    //   }
+    // };
   
-    const progressPercentage = (detailedQuestionProgress / totalQuestions) * 100;
+    // const progressPercentage = (detailedQuestionProgress / totalQuestions) * 100;
   
-    const ProgressBar = () => (
-      <div className="progress">
-        <div
-          className="progress-bar"
-          role="progressbar"
-          style={{ width: `${progressPercentage}%` }}
-          aria-valuenow={progressPercentage}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        ></div>
-      </div>
-    );
+    // const ProgressBar = () => (
+    //   <div className="progress">
+    //     <div
+    //       className="progress-bar"
+    //       role="progressbar"
+    //       style={{ width: `${progressPercentage}%` }}
+    //       aria-valuenow={progressPercentage}
+    //       aria-valuemin={0}
+    //       aria-valuemax={100}
+    //     ></div>
+    //   </div>
+    // );
   
     return (
     <div className="whole-page">
