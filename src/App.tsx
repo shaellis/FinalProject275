@@ -42,7 +42,7 @@ function App() {
     "Success to me means completing small victories at a time to wither away at a bigger project"];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
   const [userAnswers, setUserAnswer] = useState<string[]>([]);
-  const [progress, setProgress] = useState<number>(0);
+  const [bProgress, setBProgress] = useState<number>(0);
   const [curAns, setCurAns] = useState<string>("");
   const [startNewBasic, setSNB] = useState<Boolean>(true); 
   // const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
@@ -50,29 +50,18 @@ function App() {
 
   // Moves onto the next question by adding one to the progress and storing the user answer 
   function NextQuestion () {
-    if (progress < basicQ.length) {
+    if (bProgress < basicQ.length) {
       setUserAnswer([...userAnswers, curAns]);
-      setProgress(progress + 1);
+      setBProgress(bProgress + 1);
       setCurAns("");
     }
   }
 
   // Goes back to the previous question and removes the previous user's answer
   function PrevQuestion () {
-    if (progress > 0) {
-      setProgress(progress - 1);
+    if (bProgress > 0) {
+      setBProgress(bProgress - 1);
       userAnswers.pop();
-    }
-  }
-
-  // For different colors on progress bar
-  const getColor = () => {
-    if (progress < 4) {
-      return "#ff0000";
-    } else if (progress < 7) {
-      return "#ffa500";
-    } else {
-      return "#2ecc71";
     }
   }
 
@@ -88,28 +77,28 @@ function App() {
     if (startNewBasic) {
       setCurAns("");
       setUserAnswer([]);
-      setProgress(0);
+      setBProgress(0);
       setSNB(false);
     }
 
     return (
       <div>
-          {(progress < basicQ.length) ? (
+          {(bProgress < basicQ.length) ? (
             <>
               <p>Make sure that you answer all of the questions to complete the quiz</p>
 
               <div className="container-pbar">
                 <div className="progress-bar">
-                  <div className="progress-bar-fill" style={{width: `${progress*10}%`, backgroundColor: getColor() }}>
+                  <div className="progress-bar-fill" style={{width: `${bProgress*10}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
                     {" "}
-                    <div className="progress-label">{progress * 10}%</div>
+                    <div className="progress-label">{bProgress * 10}%</div>
                   </div>
                 </div>
               </div>
 
               <Form.Group>
                 <div id="basic-question" className="container-basic-question">
-                  <Form.Label><strong>Question {progress + 1}:</strong> {questions[progress]}</Form.Label>
+                  <Form.Label><strong>Question {bProgress + 1}:</strong> {questions[bProgress]}</Form.Label>
                 </div>
                 
                 <div id="basic-options" className="container-basic-options">
@@ -150,9 +139,9 @@ function App() {
               </Form.Group>
               
               <div id="basic-buttons" className="container-quiz-buttons">
-                <button onClick={NextQuestion} disabled={!curAns || progress === 9}>Next Question</button>
-                <button onClick={PrevQuestion} disabled={progress === 0}>Previous Question</button>
-                <button onClick={NextQuestion} disabled={!curAns || progress !== 9}>Finish</button>
+                <button onClick={NextQuestion} disabled={!curAns || bProgress === 9}>Next Question</button>
+                <button onClick={PrevQuestion} disabled={bProgress === 0}>Previous Question</button>
+                <button onClick={NextQuestion} disabled={!curAns || bProgress !== 9}>Finish</button>
               </div>
               
             </>
@@ -230,6 +219,7 @@ function App() {
     const [questionsD] = useState<string[]>(detailedQ); // Detailed Questions String Array
     const [startNewDetailed, setSND] = useState<Boolean>(true); 
     const [detailedUserAnswers, setDetailedUserAnswer] = useState<string[]>([]);
+    const [dProgress, setDProgress] = useState<number>(0);
     const handleNextQuestion = (value : string) => {
       setCurAns(value);
       NextDetailedQuestion();
@@ -237,9 +227,9 @@ function App() {
 
   // Moves onto the next question by adding one to the progress and storing the user answer but in a different a detailed answer storage instead
   function NextDetailedQuestion () {
-    if (progress < 10) {
+    if (dProgress < 10) {
       setDetailedUserAnswer([...userAnswers, curAns]);
-      setProgress(progress + 1);
+      setDProgress(dProgress + 1);
       setCurAns("");
     }
   }
@@ -249,20 +239,20 @@ function App() {
     if (startNewDetailed) {
       setCurAns("");
       setDetailedUserAnswer([]);
-      setProgress(0);
+      setDProgress(0);
       setSND(false);
     }
 
     return (
       <div>
-        {(progress < 10) ? (
+        {(dProgress < 10) ? (
           <div>
             <DetailedResponse
-            question={questionsD[progress]}
+            question={questionsD[dProgress]}
             onNextQuestion={handleNextQuestion}
-            questionNumber={progress + 1} // Add 1 to progress to start from 1 instead of 0
+            questionNumber={dProgress + 1} // Add 1 to progress to start from 1 instead of 0
             totalQuestions={questionsD.length} // Total number of detailed questions
-            progress={progress / questionsD.length}
+            progress={dProgress / questionsD.length}
             ></DetailedResponse>
           </div>
         ) : ( 
@@ -416,7 +406,7 @@ function App() {
                 While that may be the case, the results from this quiz will be much more
                 accurate.
               </p>
-              <button className="Page-to-Page" onClick={() => {setPageId(1); setSND(false);}}>Continue Detailed Assessment</button>
+              <button className="Page-to-Page" onClick={() => {setPageId(2); setSND(false);}}>Continue Detailed Assessment</button>
               <p>If you wish to continue your detailed career assessment, please click this button</p>
             </div>
           </div>
@@ -440,9 +430,6 @@ function App() {
         </div>
       </header>
 
-      <h1 id="basic-title">Basic Quiz</h1>
-        
-
       <body className="quiz-body">
         <div>
           <QuizStart></QuizStart>
@@ -459,18 +446,15 @@ function App() {
    if (pageId === 2) {
   
     return (
-    <div className="whole-page">
+    <div id="the-detailed-page" className="whole-page">
+
       <header>
-        <h1>Welcome to the Detailed Questions Page</h1>
         <div className="navbar">
           <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
         </div>
       </header>
-
-      <h2>Detailed Quiz</h2>
-      <p>Make sure that you answer all of the questions to complete the quiz</p>
       
-      <body className="body">
+      <body className="quiz-body">
         <div>
         <DetailedQuizStart></DetailedQuizStart>
         </div>

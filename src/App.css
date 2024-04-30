@@ -95,6 +95,10 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
+#the-detailed-page {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/002/116/398/original/modern-night-city-skyline-landscape-background-vector.jpg");
+}
+
 /*designed for the CSS for buttons on Homepage whne mouse hovers*/
 .Page-to-Page:hover {
   background-color: whitesmoke;
@@ -270,6 +274,9 @@
   font-size: 18px;
   margin-bottom: 25px;
   background-color: rgba(0, 0, 0, 0.8);
+  padding: 2%;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .container-basic-question strong {
@@ -277,10 +284,15 @@
 }
 
 .container-basic-options {
+  align-self: auto;
   font-size: 14px;
+  padding: 2%;
+  width: 30%;
   margin-top: 25px;
   margin-bottom: 25px;
   background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 25px;
+  margin-left: 35%;
 }
 
 .container-quiz-buttons {
@@ -289,12 +301,23 @@
   padding: 20px;
   width: 20%;
   background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 25px;
+  margin-left: 40%;
 }
 
 .container-quiz-buttons button {
   margin-right: 2%;
   margin-left: 2%;
   margin-top: 10%;
+  background: rgb(120, 90, 201);
+  border: rgb(74, 62, 62) solid 2px;
+  border-radius: 10px;
+  color: white;
+}
+
+.container-quiz-buttons button:disabled {
+  color: rgb(0, 0, 0, 0.2);
+  cursor: not-allowed;
 }
 /* ------------------------------------- */
 
