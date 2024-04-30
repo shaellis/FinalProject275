@@ -368,7 +368,7 @@ function App() {
                 because of the limited answers, the result of your quiz will not
                 be as accurate.
               </p>
-              <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue Basic</button>
+              <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue Basic Assessment</button>
               <p>If you wish to continue your basic career assessment, please click this button</p>
             </div>
           </div>
@@ -411,12 +411,13 @@ function App() {
 
             <div id="detailed-content" className="container-detailed">
               <button className="Page-to-Page" onClick={() => {setPageId(2); setSND(true)}}>Start New Detailed Career Asssessment Page</button>
-              <button className="Page-to-Page" onClick={() => {setPageId(1); setSND(false);}}>View Detailed Results</button>
-            <p className="p-content">The Detailed Question test is user provided short answer questionaire
+              <p className="p-content">The Detailed Question test is user provided short answer questionaire
                 that may take some time to complete and require more thorough thinking.
                 While that may be the case, the results from this quiz will be much more
                 accurate.
               </p>
+              <button className="Page-to-Page" onClick={() => {setPageId(1); setSND(false);}}>Continue Detailed Assessment</button>
+              <p>If you wish to continue your detailed career assessment, please click this button</p>
             </div>
           </div>
 
