@@ -64,6 +64,7 @@
 }
 
 /* BUTTON STYLING ----------------------------------------------------- */
+/*designed for the CSS for button on the REACT Page called "Homepage"*/
 .Home-Page-Button
 {
   background-color: black;
@@ -74,6 +75,12 @@
   border-color: #7e7e7e; 
   border-radius: 4px;
   font-family:'Times New Roman', Times, serif;
+}
+
+/*designed for the detailed questions page buttons*/
+.Detailed-Qs button
+{
+  display: inline;
 }
 
 .Home-Page-Button:hover
@@ -87,6 +94,8 @@
   border-radius: 4px;
   font-family: 'Times New Roman', Times, serif;
 }
+
+/*designed for the CSS for buttons on Homepage whne mouse hovers*/
 .Page-to-Page:hover {
   background-color: whitesmoke;
   color: black;
@@ -100,6 +109,7 @@
   display: table-row
 }
 
+/*designed for the CSS for buttons on Homepage*/
 .Page-to-Page {
   text-align: center;
   align-items: center;
