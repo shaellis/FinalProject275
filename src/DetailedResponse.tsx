@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, ProgressBar } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 export function DetailedResponse({
     question,
@@ -26,7 +26,15 @@ export function DetailedResponse({
 
     return (
         <div>
-            <ProgressBar now={progress * 100} label={`${Math.round(progress * 100)}%`} />
+            <p>Make sure that you answer all of the questions to complete the quiz</p>
+            <div className="container-pbar">
+                <div className="progress-bar">
+                  <div className="progress-bar-fill" style={{width: `${progress*100}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
+                    {" "}
+                    <div className="progress-label">{progress * 100}%</div>
+                  </div>
+                </div>
+              </div>
             <Form.Group className="foreachDetailedQuestion">
                 <Form.Label>{question}</Form.Label>
                 <Form.Control
