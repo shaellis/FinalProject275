@@ -3,29 +3,71 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
 import { DetailedResponse } from "./DetailedResponse";
+import { OpenAI, ClientOptions } from 'openai';
 
-//local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
-let keyData = "";
+// *******************************************************************************************************************************
+// API KEY stuffs
+
+// in this new implementation I really am struggling to find a place for the above code ^
 const saveKeyData = "MYKEY";
-const prevKey = localStorage.getItem(saveKeyData); //so it'll look like: MYKEY: <api_key_value here> in the local storage when you inspect
-if (prevKey !== null) {
-  keyData = JSON.parse(prevKey);
-}
 
+//had some trouble understanding the OpenAI page on this so I used ChatGPT to explain it and edit my drafts
 function App() {
-  const [key, setKey] = useState<string>(keyData); //for api key input
+  const [key, setKey] = useState<string>(() => { //for api key input
+    const prevKey = localStorage.getItem(saveKeyData);
+    return prevKey || '';
+  }); 
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
+  const [response, setResponse] = useState<string>();
+  const [openai, setOpenai] = useState<OpenAI | null>(null);
 
-  //sets the local storage item to the api key the user inputed
-  function handleSubmit() {
-    localStorage.setItem(saveKeyData, JSON.stringify(key));
-    window.location.reload(); //when making a mistake and changing the key again, I found that I have to reload the whole site before openai refreshes what it has stores for the local storage variable
-  }
+  // Function to handle submitting the API key but remade for openAI 'assistant' you cannot use local storage because apparently the api key will update later than necessary. you can try it if you want I didn't test this.
+  // technically the apiKey isn't a string. it's more like a url so you gotta import CLientOptions type to define the "key"
+  const handleSubmit = () => {
+    //save the key data to local storage
+    localStorage.setItem(saveKeyData, key);
+
+    const options: ClientOptions = {
+      apiKey : key,
+      dangerouslyAllowBrowser: true
+    }
+
+    
+    const newOpenai = new OpenAI(options); // Create a new OpenAI instance
+    setOpenai(newOpenai); // Update the state with the new OpenAI object
+
+    newOpenai.chat.completions.create({
+      messages: [{ role: "system", content: "You are a helpful assistant who helps college and high school students decide on a career based on their responses to different questions"}],
+      model: "gpt-3.5-turbo",
+    }).then((result) => {
+      // handle API response if it comes out without error
+      setResponse(result.choices[0].message.content || '');
+    }).catch((error) => {
+      console.error('Error', error);
+    });
+  };
+
 
   //whenever there's a change it'll store the api key in a local state called key but it won't be set in the local storage until the user clicks the submit button
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
+  // *******************************************************************************************
+  // API Assistant section
+
+  //now you can use the 'openai' object to make API calls
+  async function CareerChoice() { 
+    if (openai) {
+      const assistant = await openai.beta.assistants.create({
+        name: "Math Tutor",
+        instructions: "You are a personal math tutor. Write and run code to answer math questions.",
+        tools: [{ type: "code_interpreter" }],
+        model: "gpt-4-turbo"
+      });
+  }
+  }
+
+
 
   // *******************************************************************************************
   // State Variables for Basic Questions Page
@@ -387,6 +429,12 @@ function App() {
           <br></br>
           <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
         </Form>
+        {response && (
+          <div>
+            <h2>API Response: </h2>
+            <p>{response}</p>
+          </div>
+        )}
       </div>
       
     );
