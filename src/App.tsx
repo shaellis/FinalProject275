@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
+import { DetailedResponse } from "./DetailedResponse";
 
 //local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
 let keyData = "";
@@ -40,16 +41,17 @@ function App() {
     "I admire individuals who work in computer programming",
     "Success to me means completing small victories at a time to wither away at a bigger project"];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
-  const [userBasicAnswers, setBasicUserAnswer] = useState<string[]>([]);
+  const [userAnswers, setUserAnswer] = useState<string[]>([]);
   const [bProgress, setBProgress] = useState<number>(0);
   const [curBasicAns, setBasicCurAns] = useState<string>("");
   const [startNewBasic, setSNB] = useState<Boolean>(true); 
+  // const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
 
 
   // Moves onto the next question by adding one to the progress and storing the user answer 
   function NextQuestion () {
     if (bProgress < basicQ.length) {
-      setBasicUserAnswer([...userBasicAnswers, curBasicAns]);
+      setUserAnswer([...userAnswers, curBasicAns]);
       setBProgress(bProgress + 1);
       setBasicCurAns("");
     }
@@ -59,7 +61,7 @@ function App() {
   function PrevQuestion () {
     if (bProgress > 0) {
       setBProgress(bProgress - 1);
-      userBasicAnswers.pop();
+      userAnswers.pop();
     }
   }
 
@@ -69,12 +71,12 @@ function App() {
   }
 
   // This will start the Basic Quiz
-  function BasicQuizStart () {
+  function QuizStart () {
 
     // if the user wants to start a new quiz then this resets the values
     if (startNewBasic) {
       setBasicCurAns("");
-      setBasicUserAnswer([]);
+      setUserAnswer([]);
       setBProgress(0);
       setSNB(false);
     }
@@ -150,43 +152,43 @@ function App() {
               <br></br><br></br>
               Question 1: {questions[0]}
               <br></br>
-              -{userBasicAnswers[0]}
+              -{userAnswers[0]}
               <br></br><br></br>
               Question 2: {questions[1]}
               <br></br>
-              -{userBasicAnswers[1]}
+              -{userAnswers[1]}
               <br></br><br></br>
               Question 3: {questions[2]}
               <br></br>
-              -{userBasicAnswers[2]}
+              -{userAnswers[2]}
               <br></br><br></br>
               Question 4: {questions[3]}
               <br></br>
-              -{userBasicAnswers[3]}
+              -{userAnswers[3]}
               <br></br><br></br>
               Question 5: {questions[4]}
               <br></br>
-              -{userBasicAnswers[4]}
+              -{userAnswers[4]}
               <br></br><br></br>
               Question 6: {questions[5]}
               <br></br>
-              -{userBasicAnswers[5]}
+              -{userAnswers[5]}
               <br></br><br></br>
               Question 7: {questions[6]}
               <br></br>
-              -{userBasicAnswers[6]}
+              -{userAnswers[6]}
               <br></br><br></br>
               Question 8: {questions[7]}
               <br></br>
-              -{userBasicAnswers[7]}
+              -{userAnswers[7]}
               <br></br><br></br>
               Question 9: {questions[8]}
               <br></br>
-              -{userBasicAnswers[8]}
+              -{userAnswers[8]}
               <br></br><br></br>
               Question 10: {questions[9]}
               <br></br>
-              -{userBasicAnswers[9]}
+              -{userAnswers[9]}
               <br></br><br></br>
               <p>
                 If you would like to submit your results for analyzing, please click "Get Results"
@@ -200,8 +202,31 @@ function App() {
         </div>
     )
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //*************************************************************************************************************************************************** */
-  // State Variables for Detailed Questions Page
+    // State Variables for Detailed Questions Page
     const detailedQ = [
       "What subjects do you excel at or find most engaging in school?",
       "Have you considered internships or part-time jobs in your field of interest?",
@@ -220,27 +245,10 @@ function App() {
     const [dProgress, setDProgress] = useState<number>(0);
     const [curDetailedAns, setDetailedCurAns] = useState<string>("");
     
-    function updateAnswer(event: React.ChangeEvent<HTMLInputElement>) {
-      setDetailedCurAns(event.target.value);
+    const handleNextQuestion = (value : string) => {
+      setDetailedCurAns(value);
+      NextDetailedQuestion();
     }
-
-    function TextAnswer () {
-      return (
-        <div className="container-detailed-options">
-          <Form.Group className="foreachDetailedQuestion">
-            <Form.Label>{questionsD[dProgress]}</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Input answer here"
-              value={curDetailedAns}
-              onChange={updateAnswer}
-            />          
-          </Form.Group>
-          <p>Type your answer into the text block to submit and move to the next question</p>
-        </div>
-      );
-    }
-    
 
   // Moves onto the next question by adding one to the progress and storing the user answer but in a different a detailed answer storage instead
   function NextDetailedQuestion () {
@@ -263,28 +271,16 @@ function App() {
     return (
       <div>
         {(dProgress < 10) ? (
-          <>
           <div>
-            <p>Make sure that you answer all of the questions to complete the quiz</p>
-            <div className="container-pbar">
-              <div className="progress-bar">
-                <div className="progress-bar-fill" style={{width: `${dProgress*10}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
-                  {" "}
-                <div className="progress-label">{dProgress * 10}%</div>
-              </div>
-            </div>
+            <DetailedResponse
+            question={questionsD[dProgress]}
+            onNextQuestion={handleNextQuestion}
+            questionNumber={dProgress + 1} // Add 1 to progress to start from 1 instead of 0
+            totalQuestions={questionsD.length} // Total number of detailed questions
+            progress={dProgress / questionsD.length}
+            ></DetailedResponse>
+            {curDetailedAns}
           </div>
-
-            <div className="container-detailed-options">
-              <TextAnswer></TextAnswer>
-            </div>
-
-            <div className="container-quiz-buttons">
-                <button onClick={NextDetailedQuestion} disabled={curDetailedAns.length < 4}>Next Question</button>
-            </div>
-          </div>
-          </>
-          
         ) : ( 
           <div>
             These are the Questions and each Answer you submitted for each
@@ -462,7 +458,7 @@ function App() {
 
       <body className="quiz-body">
         <div>
-          <BasicQuizStart></BasicQuizStart>
+          <QuizStart></QuizStart>
         </div>
       </body>
 

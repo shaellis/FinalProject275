@@ -30,9 +30,9 @@ export function DetailedResponse({
             <p>Make sure that you answer all of the questions to complete the quiz</p>
             <div className="container-pbar">
                 <div className="progress-bar">
-                  <div className="progress-bar-fill" style={{width: `${progress*10}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
+                  <div className="progress-bar-fill" style={{width: `${progress*100}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
                     {" "}
-                    <div className="progress-label">{progress * 10}%</div>
+                    <div className="progress-label">{progress * 100}%</div>
                   </div>
                 </div>
               </div>
