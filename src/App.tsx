@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
-import { DetailedResponse } from "./DetailedResponse";
 
 //local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
 let keyData = "";
@@ -70,7 +69,7 @@ function App() {
   }
 
   // This will start the Basic Quiz
-  function QuizStart () {
+  function BasicQuizStart () {
 
     // if the user wants to start a new quiz then this resets the values
     if (startNewBasic) {
@@ -202,7 +201,7 @@ function App() {
     )
   }
 //*************************************************************************************************************************************************** */
-    // State Variables for Detailed Questions Page
+  // State Variables for Detailed Questions Page
     const detailedQ = [
       "What subjects do you excel at or find most engaging in school?",
       "Have you considered internships or part-time jobs in your field of interest?",
@@ -221,10 +220,27 @@ function App() {
     const [dProgress, setDProgress] = useState<number>(0);
     const [curDetailedAns, setDetailedCurAns] = useState<string>("");
     
-    function handleNextQuestion (value : string) {
-      setDetailedCurAns(value);
-      NextDetailedQuestion();
+    function updateAnswer(event: React.ChangeEvent<HTMLInputElement>) {
+      setDetailedCurAns(event.target.value);
     }
+
+    function TextAnswer () {
+      return (
+        <div className="container-detailed-options">
+          <Form.Group className="foreachDetailedQuestion">
+            <Form.Label>{questionsD[dProgress]}</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Input answer here"
+              value={curDetailedAns}
+              onChange={updateAnswer}
+            />          
+          </Form.Group>
+          <p>Type your answer into the text block to submit and move to the next question</p>
+        </div>
+      );
+    }
+    
 
   // Moves onto the next question by adding one to the progress and storing the user answer but in a different a detailed answer storage instead
   function NextDetailedQuestion () {
@@ -247,16 +263,27 @@ function App() {
     return (
       <div>
         {(dProgress < 10) ? (
+          <>
           <div>
-            <DetailedResponse
-            question={questionsD[dProgress]}
-            onNextQuestion={handleNextQuestion}
-            questionNumber={dProgress + 1} // Add 1 to progress to start from 1 instead of 0
-            totalQuestions={questionsD.length} // Total number of detailed questions
-            progress={dProgress / questionsD.length}
-            ></DetailedResponse>
-            HEllo - {curDetailedAns}
+            <p>Make sure that you answer all of the questions to complete the quiz</p>
+            <div className="container-pbar">
+              <div className="progress-bar">
+                <div className="progress-bar-fill" style={{width: `${dProgress*10}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
+                  {" "}
+                <div className="progress-label">{dProgress * 10}%</div>
+              </div>
+            </div>
           </div>
+
+            <div className="container-detailed-options">
+              <TextAnswer></TextAnswer>
+            </div>
+
+            <div className="container-quiz-buttons">
+                <button onClick={NextDetailedQuestion} disabled={curDetailedAns.length < 4}>Next Question</button>
+            </div>
+          </div>
+          </>
           
         ) : ( 
           <div>
@@ -435,7 +462,7 @@ function App() {
 
       <body className="quiz-body">
         <div>
-          <QuizStart></QuizStart>
+          <BasicQuizStart></BasicQuizStart>
         </div>
       </body>
 
