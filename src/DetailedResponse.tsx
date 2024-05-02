@@ -35,16 +35,22 @@ export function DetailedResponse({
                   </div>
                 </div>
               </div>
-            <Form.Group className="foreachDetailedQuestion">
-                <Form.Label>{question}</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={answer}
-                    onChange={updateAnswer}
-                />
-            </Form.Group>
-            <p>Type your answer into the text block to submit and move to the next question</p>
-            <button className="Detailed-Qs" onClick={handleNextQuestion} disabled={answer.length < 4}>Next Question</button>
+
+            <div className="container-detailed-options">
+                <Form.Group className="foreachDetailedQuestion">
+                    <Form.Label>{question}</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={answer}
+                        onChange={updateAnswer}
+                    />
+                </Form.Group>
+                <p>Type your answer into the text block to submit and move to the next question</p>
+            </div>
+            <div className="container-quiz-buttons">
+                <button onClick={handleNextQuestion} disabled={answer.length < 4}>Next Question</button>
+            </div>
+            
         </div>
     );
 }

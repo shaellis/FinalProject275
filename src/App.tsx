@@ -41,19 +41,18 @@ function App() {
     "I admire individuals who work in computer programming",
     "Success to me means completing small victories at a time to wither away at a bigger project"];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
-  const [userAnswers, setUserAnswer] = useState<string[]>([]);
+  const [userBasicAnswers, setBasicUserAnswer] = useState<string[]>([]);
   const [bProgress, setBProgress] = useState<number>(0);
-  const [curAns, setCurAns] = useState<string>("");
+  const [curBasicAns, setBasicCurAns] = useState<string>("");
   const [startNewBasic, setSNB] = useState<Boolean>(true); 
-  // const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
 
 
   // Moves onto the next question by adding one to the progress and storing the user answer 
   function NextQuestion () {
     if (bProgress < basicQ.length) {
-      setUserAnswer([...userAnswers, curAns]);
+      setBasicUserAnswer([...userBasicAnswers, curBasicAns]);
       setBProgress(bProgress + 1);
-      setCurAns("");
+      setBasicCurAns("");
     }
   }
 
@@ -61,7 +60,7 @@ function App() {
   function PrevQuestion () {
     if (bProgress > 0) {
       setBProgress(bProgress - 1);
-      userAnswers.pop();
+      userBasicAnswers.pop();
     }
   }
 
@@ -75,8 +74,8 @@ function App() {
 
     // if the user wants to start a new quiz then this resets the values
     if (startNewBasic) {
-      setCurAns("");
-      setUserAnswer([]);
+      setBasicCurAns("");
+      setBasicUserAnswer([]);
       setBProgress(0);
       setSNB(false);
     }
@@ -108,40 +107,40 @@ function App() {
                     id="answer-check-option-one"
                     label="Strongly Agree"
                     value="Strongly Agree"
-                    checked={curAns === "Strongly Agree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Strongly Agree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                   <Form.Check
                     type="radio"
                     name="answer"
                     id="answer-check-option-two"
                     label="Agree"
                     value="Agree"
-                    checked={curAns === "Agree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Agree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                   <Form.Check
                     type="radio"
                     name="answer"
                     id="answer-check-option-three"
                     label="Disagree"
                     value="Disagree"
-                    checked={curAns === "Disagree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Disagree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                   <Form.Check
                     type="radio"
                     name="answer"
                     id="answer-check-option-four"
                     label="Strongly Disagree"
                     value="Strongly Disagree"
-                    checked={curAns === "Strongly Disagree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Strongly Disagree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                 </div>
                 
               </Form.Group>
               
               <div id="basic-buttons" className="container-quiz-buttons">
-                <button onClick={NextQuestion} disabled={!curAns || bProgress === 9}>Next Question</button>
+                <button onClick={NextQuestion} disabled={!curBasicAns || bProgress === 9}>Next Question</button>
                 <button onClick={PrevQuestion} disabled={bProgress === 0}>Previous Question</button>
-                <button onClick={NextQuestion} disabled={!curAns || bProgress !== 9}>Finish</button>
+                <button onClick={NextQuestion} disabled={!curBasicAns || bProgress !== 9}>Finish</button>
               </div>
               
             </>
@@ -152,43 +151,43 @@ function App() {
               <br></br><br></br>
               Question 1: {questions[0]}
               <br></br>
-              -{userAnswers[0]}
+              -{userBasicAnswers[0]}
               <br></br><br></br>
               Question 2: {questions[1]}
               <br></br>
-              -{userAnswers[1]}
+              -{userBasicAnswers[1]}
               <br></br><br></br>
               Question 3: {questions[2]}
               <br></br>
-              -{userAnswers[2]}
+              -{userBasicAnswers[2]}
               <br></br><br></br>
               Question 4: {questions[3]}
               <br></br>
-              -{userAnswers[3]}
+              -{userBasicAnswers[3]}
               <br></br><br></br>
               Question 5: {questions[4]}
               <br></br>
-              -{userAnswers[4]}
+              -{userBasicAnswers[4]}
               <br></br><br></br>
               Question 6: {questions[5]}
               <br></br>
-              -{userAnswers[5]}
+              -{userBasicAnswers[5]}
               <br></br><br></br>
               Question 7: {questions[6]}
               <br></br>
-              -{userAnswers[6]}
+              -{userBasicAnswers[6]}
               <br></br><br></br>
               Question 8: {questions[7]}
               <br></br>
-              -{userAnswers[7]}
+              -{userBasicAnswers[7]}
               <br></br><br></br>
               Question 9: {questions[8]}
               <br></br>
-              -{userAnswers[8]}
+              -{userBasicAnswers[8]}
               <br></br><br></br>
               Question 10: {questions[9]}
               <br></br>
-              -{userAnswers[9]}
+              -{userBasicAnswers[9]}
               <br></br><br></br>
               <p>
                 If you would like to submit your results for analyzing, please click "Get Results"
@@ -220,24 +219,26 @@ function App() {
     const [startNewDetailed, setSND] = useState<Boolean>(true); 
     const [detailedUserAnswers, setDetailedUserAnswer] = useState<string[]>([]);
     const [dProgress, setDProgress] = useState<number>(0);
-    const handleNextQuestion = (value : string) => {
-      setCurAns(value);
+    const [curDetailedAns, setDetailedCurAns] = useState<string>("");
+    
+    function handleNextQuestion (value : string) {
+      setDetailedCurAns(value);
       NextDetailedQuestion();
     }
 
   // Moves onto the next question by adding one to the progress and storing the user answer but in a different a detailed answer storage instead
   function NextDetailedQuestion () {
     if (dProgress < 10) {
-      setDetailedUserAnswer([...userAnswers, curAns]);
+      setDetailedUserAnswer([...detailedUserAnswers, curDetailedAns]);
       setDProgress(dProgress + 1);
-      setCurAns("");
+      setDetailedCurAns("");
     }
   }
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
   function DetailedQuizStart () {
     if (startNewDetailed) {
-      setCurAns("");
+      setDetailedCurAns("");
       setDetailedUserAnswer([]);
       setDProgress(0);
       setSND(false);
@@ -254,7 +255,9 @@ function App() {
             totalQuestions={questionsD.length} // Total number of detailed questions
             progress={dProgress / questionsD.length}
             ></DetailedResponse>
+            HEllo - {curDetailedAns}
           </div>
+          
         ) : ( 
           <div>
             These are the Questions and each Answer you submitted for each
