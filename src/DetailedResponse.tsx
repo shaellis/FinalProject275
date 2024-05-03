@@ -28,7 +28,8 @@ export function DetailedResponse({
         <div>
             {(progress < 10) ? (
                 <>
-                <p>Make sure that you answer all of the questions to complete the quiz</p><div className="container-pbar">
+                <p>Think through your answers very thoroughly before moving onto the next question, if you would like to change an answer then you will have to retake the quiz</p>
+                <div className="container-pbar">
                     <div className="progress-bar">
                         <div className="progress-bar-fill" style={{ width: `${progress * 10}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
                             {" "}
@@ -50,14 +51,13 @@ export function DetailedResponse({
                 
                 <div className="container-quiz-buttons">
                     <button onClick={handleNextQuestion} disabled={answer.length < 4}>Next Question</button>
-                    <button onClick={FinalCheck} disabled={answer.length < 4 || progress !== 9}>Finish</button>
                 </div>
                 </>
                 
         
             ) : (
                 <>
-                <p>Make sure that you answer all of the questions to complete the quiz</p><div className="container-pbar">
+                <div className="container-pbar">
                     <div className="progress-bar">
                         <div className="progress-bar-fill" style={{ width: `${progress * 10}%`, backgroundColor: 'rgb(120, 90, 201)' }}>
                             {" "}
@@ -67,11 +67,10 @@ export function DetailedResponse({
                 </div>
                 
                 <div className="container-detailed-options">
-                    <p>Type your answer into the text block to submit and move to the next question</p>
+                    <p>Press the "Finish" button to complete the quiz</p>
                 </div>
                     
                 <div className="container-quiz-buttons">
-                    
                     <button onClick={FinalCheck} disabled={progress < 9}>Finish</button>
                 </div>
                 </>
