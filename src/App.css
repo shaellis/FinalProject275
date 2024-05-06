@@ -347,4 +347,34 @@
   font-weight: bold;
   color: white;
 }
-/* --------------------------------- */
+
+.loading-screen{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.loadingbounce
+{
+  background-color: #ff0000;
+  width: 100px;
+  height: 50px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(150px) translateY(0);
+  }
+  50% {
+    transform: translateX(150px) translateY(50px);
+  }
+  75% {
+    transform: translateX(0) translateY(50px);
+  }
+}

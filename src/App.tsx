@@ -65,8 +65,11 @@ function App() {
     }
   }
 
+  const [loading, setLoading] = useState(false);
+
   // OpenAI call to get the analyzed results
   function GetResults () {
+    setLoading(false);
 
   }
 
@@ -236,6 +239,15 @@ function App() {
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
   function DetailedQuizStart () {
+    if (loading){
+      return(
+        <div className="loading-screen">
+          <div className="loadingbounce"></div>
+          <p>Loading...</p>
+        </div>
+      ); 
+    }
+
     if (startNewDetailed) {
       setCurAns("");
       setDetailedUserAnswer([]);
