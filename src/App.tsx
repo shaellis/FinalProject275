@@ -193,7 +193,7 @@ function App() {
           run.thread_id
         );
         for (const message of messages.data.reverse()) {
-          console.log(`${message.role} > ${message.content}`);
+          console.log(`${message.role} > ${message.content[0]}`);
         }
       } else {
         console.log(run.status);
