@@ -155,7 +155,7 @@ function App() {
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
   const [userAnswers, setUserAnswer] = useState<string[]>([]);
   const [bProgress, setBProgress] = useState<number>(0);
-  const [curAns, setCurAns] = useState<string>("");
+  const [curBasicAns, setBasicCurAns] = useState<string>("");
   const [startNewBasic, setSNB] = useState<Boolean>(true); 
   
   // const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
@@ -164,9 +164,9 @@ function App() {
   // Moves onto the next question by adding one to the progress and storing the user answer 
   function NextQuestion () {
     if (bProgress < basicQ.length) {
-      setUserAnswer([...userAnswers, curAns]);
+      setUserAnswer([...userAnswers, curBasicAns]);
       setBProgress(bProgress + 1);
-      setCurAns("");
+      setBasicCurAns("");
     }
   }
 
@@ -206,7 +206,7 @@ function App() {
 
     // if the user wants to start a new quiz then this resets the values
     if (startNewBasic) {
-      setCurAns("");
+      setBasicCurAns("");
       setUserAnswer([]);
       setBProgress(0);
       setSNB(false);
@@ -239,40 +239,40 @@ function App() {
                     id="answer-check-option-one"
                     label="Strongly Agree"
                     value="Strongly Agree"
-                    checked={curAns === "Strongly Agree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Strongly Agree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                   <Form.Check
                     type="radio"
                     name="answer"
                     id="answer-check-option-two"
                     label="Agree"
                     value="Agree"
-                    checked={curAns === "Agree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Agree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                   <Form.Check
                     type="radio"
                     name="answer"
                     id="answer-check-option-three"
                     label="Disagree"
                     value="Disagree"
-                    checked={curAns === "Disagree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Disagree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                   <Form.Check
                     type="radio"
                     name="answer"
                     id="answer-check-option-four"
                     label="Strongly Disagree"
                     value="Strongly Disagree"
-                    checked={curAns === "Strongly Disagree"}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCurAns(event.target.value)} />
+                    checked={curBasicAns === "Strongly Disagree"}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBasicCurAns(event.target.value)} />
                 </div>
                 
               </Form.Group>
               
               <div id="basic-buttons" className="container-quiz-buttons">
-                <button onClick={NextQuestion} disabled={!curAns || bProgress === 9}>Next Question</button>
+                <button onClick={NextQuestion} disabled={!curBasicAns || bProgress === 9}>Next Question</button>
                 <button onClick={PrevQuestion} disabled={bProgress === 0}>Previous Question</button>
-                <button onClick={NextQuestion} disabled={!curAns || bProgress !== 9}>Finish</button>
+                <button onClick={NextQuestion} disabled={!curBasicAns || bProgress !== 9}>Finish</button>
               </div>
               
             </>
@@ -333,6 +333,7 @@ function App() {
         </div>
     )
   }
+
 //*************************************************************************************************************************************************** */
     // State Variables for Detailed Questions Page
     const detailedQ = [
@@ -351,24 +352,25 @@ function App() {
     const [startNewDetailed, setSND] = useState<Boolean>(true); 
     const [detailedUserAnswers, setDetailedUserAnswer] = useState<string[]>([]);
     const [dProgress, setDProgress] = useState<number>(0);
+    const [curDetailedAns, setDetailedCurAns] = useState<string>("");
+    
     const handleNextQuestion = (value : string) => {
-      setCurAns(value);
+      setDetailedCurAns(value);
       NextDetailedQuestion();
     }
 
   // Moves onto the next question by adding one to the progress and storing the user answer but in a different a detailed answer storage instead
   function NextDetailedQuestion () {
-    if (dProgress < 10) {
-      setDetailedUserAnswer([...userAnswers, curAns]);
+    if (dProgress < 11) {
+      setDetailedUserAnswer([...detailedUserAnswers, curDetailedAns]);
       setDProgress(dProgress + 1);
-      setCurAns("");
     }
   }
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
   function DetailedQuizStart () {
     if (startNewDetailed) {
-      setCurAns("");
+      setDetailedCurAns("");
       setDetailedUserAnswer([]);
       setDProgress(0);
       setSND(false);
@@ -376,59 +378,58 @@ function App() {
 
     return (
       <div>
-        {(dProgress < 10) ? (
+        {(dProgress < 11) ? (
           <div>
             <DetailedResponse
             question={questionsD[dProgress]}
             onNextQuestion={handleNextQuestion}
-            questionNumber={dProgress + 1} // Add 1 to progress to start from 1 instead of 0
-            totalQuestions={questionsD.length} // Total number of detailed questions
-            progress={dProgress / questionsD.length}
+            progress={dProgress}
             ></DetailedResponse>
           </div>
+          
         ) : ( 
           <div>
             These are the Questions and each Answer you submitted for each
             <br></br><br></br>
             Question 1: {questionsD[0]}
             <br></br>
-            -{detailedUserAnswers[0]}
+            -{detailedUserAnswers[1]}
             <br></br><br></br>
             Question 2: {questionsD[1]}
             <br></br>
-            -{detailedUserAnswers[1]}
+            -{detailedUserAnswers[2]}
             <br></br><br></br>
             Question 3: {questionsD[2]}
             <br></br>
-            -{detailedUserAnswers[2]}
+            -{detailedUserAnswers[3]}
             <br></br><br></br>
             Question 4: {questionsD[3]}
             <br></br>
-            -{detailedUserAnswers[3]}
+            -{detailedUserAnswers[4]}
             <br></br><br></br>
             Question 5: {questionsD[4]}
             <br></br>
-            -{detailedUserAnswers[4]}
+            -{detailedUserAnswers[5]}
             <br></br><br></br>
             Question 6: {questionsD[5]}
             <br></br>
-            -{detailedUserAnswers[5]}
+            -{detailedUserAnswers[6]}
             <br></br><br></br>
             Question 7: {questionsD[6]}
             <br></br>
-            -{detailedUserAnswers[6]}
+            -{detailedUserAnswers[7]}
             <br></br><br></br>
             Question 8: {questionsD[7]}
             <br></br>
-            -{detailedUserAnswers[7]}
+            -{detailedUserAnswers[8]}
             <br></br><br></br>
             Question 9: {questionsD[8]}
             <br></br>
-            -{detailedUserAnswers[8]}
+            -{detailedUserAnswers[9]}
             <br></br><br></br>
             Question 10: {questionsD[9]}
             <br></br>
-            -{detailedUserAnswers[9]}
+            -{detailedUserAnswers[10]}
             <br></br><br></br>
             <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
             <br></br>
@@ -587,7 +588,7 @@ function App() {
       
       <body className="quiz-body">
         <div>
-        <DetailedQuizStart></DetailedQuizStart>
+          <DetailedQuizStart></DetailedQuizStart>
         </div>
       </body>
       
