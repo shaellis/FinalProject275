@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
 import { DetailedResponse } from "./DetailedResponse";
+import {  } from 'openai';
 import { OpenAI, ClientOptions } from 'openai';
-import { TextContentBlock } from 'openai/resources/beta/threads/messages';
 
 // *******************************************************************************************************************************
 // API KEY stuffs
@@ -180,43 +180,29 @@ function App() {
   }
 
   const [loading, setLoading] = useState(false);
-  setLoading(false);
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
-  async function GetResults() {
-    if (openai && basicQsThreadId && assistant) {
+  async function GetResults () {
+    if (openai && basicQsThreadId) {
       let run = await openai.beta.threads.runs.createAndPoll(
-          basicQsThreadId,
-          {
-              assistant_id: assistant.id,
-              instructions: "Please address the user as Jane Doe. The user has a premium account."
-          }
+        basicQsThreadId,
+        { 
+          assistant_id: assistant.id,
+          instructions: "Please address the user as Jane Doe. The user has a premium account."
+        }
       );
       if (run.status === 'completed') {
-          const messages = await openai.beta.threads.messages.list(run.thread_id);
-          for (const message of messages.data.reverse()) {
-              for (const contentBlock of message.content) {
-                  switch (contentBlock.type) {
-                      case 'text':
-                          console.log(`${message.role} > ${(contentBlock as TextContentBlock).text}`);
-                          break;
-                      case 'image_file':
-                          console.log(`${message.role} sent an image`);
-                          // Handle image content
-                          break;
-                      // Add cases for other content types as needed
-                      default:
-                          console.log(`${message.role} sent a different type of content`);
-                          // Handle other types of content
-                          break;
-                  }
-              }
-          }
+        const messages = await openai.beta.threads.messages.list(
+          run.thread_id
+        );
+        for (const message of messages.data.reverse()) {
+          console.log(`${message.role} > ${message.content}`);
+        }
       } else {
-          console.log(run.status);
+        console.log(run.status);
       }
+    }
   }
-}
 
   // This will start the Basic Quiz
   function QuizStart () {
