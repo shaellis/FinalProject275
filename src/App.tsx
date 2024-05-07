@@ -179,7 +179,7 @@ function App() {
     }
   }
 
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
