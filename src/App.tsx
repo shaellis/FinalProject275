@@ -5,6 +5,7 @@ import { Button, Form } from 'react-bootstrap';
 import { DetailedResponse } from "./DetailedResponse";
 import {  } from 'openai';
 import { OpenAI, ClientOptions } from 'openai';
+import { MessageContent } from 'openai/resources/beta/threads/messages';
 
 // *******************************************************************************************************************************
 // API KEY stuffs
@@ -196,7 +197,7 @@ function App() {
           run.thread_id
         );
         for (const message of messages.data.reverse()) {
-          console.log(`${message.role} > ${message.content}`);
+          console.log(`${message.role} > ${message.content[0].type}`);
         }
       } else {
         console.log(run.status);
