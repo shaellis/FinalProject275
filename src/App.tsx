@@ -5,7 +5,6 @@ import { Button, Form } from 'react-bootstrap';
 import { DetailedResponse } from "./DetailedResponse";
 import {  } from 'openai';
 import { OpenAI, ClientOptions } from 'openai';
-import { MessageContent } from 'openai/resources/beta/threads/messages';
 
 // *******************************************************************************************************************************
 // API KEY stuffs
