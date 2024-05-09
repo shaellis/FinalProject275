@@ -250,21 +250,6 @@ FAIL src/App.test.tsx
       at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
---------------------------------|---------|----------|---------|---------|------------------------------------------------------------------
-File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                
---------------------------------|---------|----------|---------|---------|------------------------------------------------------------------
-All files                       |    27.2 |    16.12 |    15.9 |   28.03 |                                                                  
- App.tsx                        |   32.17 |    18.51 |   20.58 |   33.33 | 30-56,66-72,81-83,97,112-114,130,167-178,186-342,371-456,474-666 
- DetailedResponse.tsx           |       0 |        0 |       0 |       0 | 13-27                                                            
- MultipleChoiceQuestionForm.tsx |       0 |        0 |       0 |       0 | 11-25                                                            
- index.tsx                      |       0 |      100 |     100 |       0 | 7-19                                                             
- reportWebVitals.ts             |       0 |        0 |       0 |       0 | 3-10                                                             
---------------------------------|---------|----------|---------|---------|------------------------------------------------------------------
-Test Suites: 1 failed, 1 total
-Tests:       1 failed, 1 total
-Snapshots:   0 total
-Time:        3.322 s
-Ran all test suites.
 [0;33mOne of your dependencies, babel-preset-react-app, is importing the
 "@babel/plugin-proposal-private-property-in-object" package without
 declaring it in its dependencies. This is currently working because
@@ -277,3 +262,18 @@ ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
 your devDependencies to work around this error. This will make this message
 go away.[0m
   
+--------------------------------|---------|----------|---------|---------|------------------------------------------------------------------
+File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                
+--------------------------------|---------|----------|---------|---------|------------------------------------------------------------------
+All files                       |   25.34 |    15.38 |   15.21 |   26.42 |                                                                  
+ App.tsx                        |    29.6 |    17.54 |   19.44 |   31.09 | 30-56,66-72,81-83,97,112-114,130,167-178,186-343,372-457,475-667 
+ DetailedResponse.tsx           |       0 |        0 |       0 |       0 | 13-27                                                            
+ MultipleChoiceQuestionForm.tsx |       0 |        0 |       0 |       0 | 11-25                                                            
+ index.tsx                      |       0 |      100 |     100 |       0 | 7-19                                                             
+ reportWebVitals.ts             |       0 |        0 |       0 |       0 | 3-10                                                             
+--------------------------------|---------|----------|---------|---------|------------------------------------------------------------------
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        3.555 s
+Ran all test suites.
