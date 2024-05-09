@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
 import { DetailedResponse } from "./DetailedResponse";
+import {  } from 'openai';
 import { OpenAI, ClientOptions } from 'openai';
 
 // *******************************************************************************************************************************
@@ -178,6 +179,8 @@ function App() {
     }
   }
 
+  const [loading] = useState(false);
+
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
     if (openai && basicQsThreadId) {
@@ -203,7 +206,7 @@ function App() {
           run.thread_id
         );
         for (const message of messages.data.reverse()) {
-          console.log(`${message.role} > ${message.content[0]}`);
+          console.log(`${message.role} > ${message.content[0].type}`);
         }
       } else {
         console.log(run.status);
@@ -379,6 +382,15 @@ function App() {
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
   function DetailedQuizStart () {
+    if (loading){
+      return(
+        <div className="loading-screen">
+          <div className="loadingbounce"></div>
+          <p>Loading...</p>
+        </div>
+      ); 
+    }
+
     if (startNewDetailed) {
       setDetailedCurAns("");
       setDetailedUserAnswer([]);
