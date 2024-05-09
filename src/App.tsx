@@ -18,7 +18,7 @@ function App() {
     const prevKey = localStorage.getItem(saveKeyData);
     return prevKey || '';
   }); 
-  const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
+  const [pageId, setPageId] = useState<number>(0); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
   const [response, setResponse] = useState<string>();
   const [openai, setOpenai] = useState<OpenAI | null>(null);
 
