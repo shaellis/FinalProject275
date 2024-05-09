@@ -188,7 +188,17 @@ function App() {
         basicQsThreadId,
         { 
           assistant_id: assistant.id,
-          instructions: "Please address the user as Jane Doe. The user has a premium account."
+          instructions: "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+          questions[0] + " " + userAnswers[0] + " " +
+           questions[1] + " " + userAnswers[1] + " " +
+            questions[2] + " " + userAnswers[2] + " " +
+             questions[3] + " " + userAnswers[3] + " " +
+              questions[4] + " " + userAnswers[4] + " " +
+               questions[5] + " " + userAnswers[5] + " " +
+                questions[6] + " " + userAnswers[6] + " " +
+                 questions[7] + " " + userAnswers[7] + " " +
+                  questions[8] + " " + userAnswers[8] + " " +
+                   questions[9] + " " + userAnswers[9]
         }
       );
       if (run.status === 'completed') {
