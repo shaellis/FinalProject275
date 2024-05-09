@@ -183,35 +183,34 @@ function App() {
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
-    if (openai && basicQsThreadId && assistant) {
-      try {
-        const messages = questions.map((question, index) => ({ role: "user", content: `${question} ${userAnswers[index]}` }));
-        messages.unshift({ role: "system", content: "You are a helpful assistant who helps college and high school students decide on a career based on their responses to different questions" });
-  
-        const runParams = {
+    if (openai && basicQsThreadId) {
+      let run = await openai.beta.threads.runs.createAndPoll(
+        basicQsThreadId,
+        { 
           assistant_id: assistant.id,
-          model: "text-davinci-002",
-          messages: messages
-        };
-  
-        const run = await openai.beta.threads.runs.createAndPoll(basicQsThreadId, runParams);
-  
-        if (run.status === 'completed') {
-          const messages = await openai.beta.threads.messages.list(run.thread_id);
-          const careerRecommendation = messages.data.find(message => message.role === "assistant");
-          if (careerRecommendation) {
-            console.log("Career Recommendation:", careerRecommendation.content);
-          } else {
-            console.log("No career recommendation found.");
-          }
-        } else {
-          console.log("Run status:", run.status);
+          instructions: "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+          questions[0] + " " + userAnswers[0] + " " +
+           questions[1] + " " + userAnswers[1] + " " +
+            questions[2] + " " + userAnswers[2] + " " +
+             questions[3] + " " + userAnswers[3] + " " +
+              questions[4] + " " + userAnswers[4] + " " +
+               questions[5] + " " + userAnswers[5] + " " +
+                questions[6] + " " + userAnswers[6] + " " +
+                 questions[7] + " " + userAnswers[7] + " " +
+                  questions[8] + " " + userAnswers[8] + " " +
+                   questions[9] + " " + userAnswers[9]
         }
-      } catch (error) {
-        console.error("Error fetching results:", error);
+      );
+      if (run.status === 'completed') {
+        const messages = await openai.beta.threads.messages.list(
+          run.thread_id
+        );
+        for (const message of messages.data.reverse()) {
+          console.log(`${message.role} > ${message.content[0].type}`);
+        }
+      } else {
+        console.log(run.status);
       }
-    } else {
-      console.log("OpenAI or thread ID not available.");
     }
   }
 
