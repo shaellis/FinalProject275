@@ -92,17 +92,19 @@ function App() {
       const completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
-          {"role": "user", "content": "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
-          questions[0] + " " + userAnswers[0] + " " +
-           questions[1] + " " + userAnswers[1] + " " +
-            questions[2] + " " + userAnswers[2] + " " +
-             questions[3] + " " + userAnswers[3] + " " +
-              questions[4] + " " + userAnswers[4] + " " +
-               questions[5] + " " + userAnswers[5] + " " +
-                questions[6] + " " + userAnswers[6] + " " +
-                 questions[7] + " " + userAnswers[7] + " " +
-                  questions[8] + " " + userAnswers[8] + " " +
-                   questions[9] + " " + userAnswers[9]}],
+          {"role": "user", "content": 
+          "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+          questions[0] + " " + userAnswers[0] + "\n" +
+           questions[1] + " " + userAnswers[1] + "\n" +
+            questions[2] + " " + userAnswers[2] + "\n" +
+             questions[3] + " " + userAnswers[3] + "\n" +
+              questions[4] + " " + userAnswers[4] + "\n" +
+               questions[5] + " " + userAnswers[5] + "\n" +
+                questions[6] + " " + userAnswers[6] + "\n" +
+                 questions[7] + " " + userAnswers[7] + "\n" +
+                  questions[8] + " " + userAnswers[8] + "\n" +
+                   questions[9] + " " + userAnswers[9] + "\n" +
+                  "Please provide 3 jobs that would suit the user, a brief description, and the salary range"}],
      });
      if (completion.choices[0].message.content) {
       setResponse(completion.choices[0].message.content);
@@ -276,6 +278,12 @@ function App() {
     }
   }
 
+  async function getDetailedResults () {
+    if (openai) {
+
+    }
+  }
+
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
   function DetailedQuizStart () {
     if (startNewDetailed) {
@@ -340,7 +348,7 @@ function App() {
             <br></br>
             -{detailedUserAnswers[10]}
             <br></br><br></br>
-            <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+            <button className="Page-to-Page" onClick={() => getDetailedResults()}>Results</button>
             <br></br>
           </div>
         )}
