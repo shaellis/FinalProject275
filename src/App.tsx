@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
 import { DetailedResponse } from "./DetailedResponse";
-import {  } from 'openai';
 import { OpenAI, ClientOptions } from 'openai';
 
 // *******************************************************************************************************************************
@@ -18,7 +17,7 @@ function App() {
     const prevKey = localStorage.getItem(saveKeyData);
     return prevKey || '';
   }); 
-  const [pageId, setPageId] = useState<number>(0); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
+  const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
   const [response, setResponse] = useState<string>();
   const [openai, setOpenai] = useState<OpenAI | null>(null);
 
@@ -38,17 +37,6 @@ function App() {
     let newOpenai = new OpenAI(options); // Create a new OpenAI instance
     setOpenai(newOpenai); // Update the state with the new OpenAI object
 
-    newOpenai.chat.completions.create({
-      messages: [{ role: "system", content: "You are a helpful assistant who helps college and high school students decide on a career based on their responses to different questions"},
-        { role: "user", content: "create 7 questions that can be answered with 'strongly agree', 'agree', 'disagree', and 'strongly disagree' that can be analyzed be you in order to find some possible future careers for me"},
-      ],
-      model: "gpt-3.5-turbo",
-    }).then((result) => {
-      // handle API response if it comes out without error
-      setResponse(result.choices[0].message.content || '');
-    }).catch((error) => {
-      console.error('Error', error);
-    });
   };
 
   //whenever there's a change it'll store the api key in a local state called key but it won't be set in the local storage until the user clicks the submit button
@@ -57,87 +45,6 @@ function App() {
   }
   // *******************************************************************************************
   // API Assistant section
-
-  //now you can use the 'openai' object to make API calls this is used to create the assistant that we will be talking to
-  //I AM MAKING THIS AS A PLACE HOLDER PLEASE REPLACE LATER AND IF YOU ARE THE PROFESSOR READING THIS I TOTALLY MEANT TO REMOVE THE ANY KEYWORD
-  const [assistant, setAssistant] = useState<any | null>(null);
-  async function CareerChoice() { 
-    if (openai) {
-      const newAssistant = await openai.beta.assistants.create({
-        name: "Math Tutor",
-        instructions: "You are a personal math tutor. Write and run code to answer math questions.",
-        tools: [{ type: "code_interpreter" }],
-        model: "gpt-4-turbo"
-      });
-      setAssistant(newAssistant);
-    }
-  }
-  CareerChoice();
-
-  //this can be used by basic questions to create a thread, which is like starting a conversation
-  const [basicQsThreadId, setBasicQsThreadId] = useState<string | null>(null);
-  async function CreateOpenAiBasicQsThread() {
-    if (openai) {
-      const basicQsThread = await openai.beta.threads.create();
-      setBasicQsThreadId(basicQsThread.id);
-      await openai.beta.threads.messages.create(
-        basicQsThread.id,
-        {
-          role: "user",
-          content: "I need to solve the equation `3x + 11 = 14`. Can you help me?"
-        }
-      );
-    }
-  }
-  CreateOpenAiBasicQsThread();
-
-  // this is only good for one thread because the state variable's type would need to be defined and this is easier
-  async function AddMessageToBasicThread(message: string) {
-    if (openai && basicQsThreadId) {
-      await openai.beta.threads.messages.create(
-        basicQsThreadId,
-        {
-          role: "user",
-          content: message
-        }
-      );
-    }
-  }
-  AddMessageToBasicThread("I need to solve the equation `3x + 8 = 14`. Can you help me?")
-
-  //this can be used by detailed questions to create a thread, which is like starting a conversation
-  const [detailedQsThreadId, setDetailedQsThreadId] = useState<string | null>(null);
-  async function CreateOpenAiDetailedQsThread() {
-    if (openai) {
-      const detailedQsThread = await openai.beta.threads.create();
-      setDetailedQsThreadId(detailedQsThread.id);
-      await openai.beta.threads.messages.create(
-        detailedQsThread.id,
-        {
-          role: "user",
-          content: "I need to solve the equation `3x + 11 = 14`. Can you help me?"
-        }
-      );
-    }
-  }
-  CreateOpenAiDetailedQsThread();
-
-
-
-    // this is only good for one thread because the state variable's type would need to be defined and this is easier
-    async function AddMessageToDetailedThread(message: string) {
-      if (openai && detailedQsThreadId) {
-        await openai.beta.threads.messages.create(
-          detailedQsThreadId,
-          {
-            role: "user",
-            content: message
-          }
-        );
-      }
-    }
-    AddMessageToDetailedThread("I need to solve the equation `3x + 5 = 14`. Can you help me?")
-
 
 
   // *******************************************************************************************
@@ -179,16 +86,13 @@ function App() {
     }
   }
 
-  const [loading] = useState(false);
-
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
-    if (openai && basicQsThreadId) {
-      let run = await openai.beta.threads.runs.createAndPoll(
-        basicQsThreadId,
-        { 
-          assistant_id: assistant.id,
-          instructions: "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+    if (openai) {
+      const completion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
+          {"role": "user", "content": "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
           questions[0] + " " + userAnswers[0] + " " +
            questions[1] + " " + userAnswers[1] + " " +
             questions[2] + " " + userAnswers[2] + " " +
@@ -198,19 +102,11 @@ function App() {
                 questions[6] + " " + userAnswers[6] + " " +
                  questions[7] + " " + userAnswers[7] + " " +
                   questions[8] + " " + userAnswers[8] + " " +
-                   questions[9] + " " + userAnswers[9]
-        }
-      );
-      if (run.status === 'completed') {
-        const messages = await openai.beta.threads.messages.list(
-          run.thread_id
-        );
-        for (const message of messages.data.reverse()) {
-          console.log(`${message.role} > ${message.content[0].type}`);
-        }
-      } else {
-        console.log(run.status);
-      }
+                   questions[9] + " " + userAnswers[9]}],
+     });
+     if (completion.choices[0].message.content) {
+      setResponse(completion.choices[0].message.content);
+     }
     }
   }
 
@@ -382,15 +278,6 @@ function App() {
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
   function DetailedQuizStart () {
-    if (loading){
-      return(
-        <div className="loading-screen">
-          <div className="loadingbounce"></div>
-          <p>Loading...</p>
-        </div>
-      ); 
-    }
-
     if (startNewDetailed) {
       setDetailedCurAns("");
       setDetailedUserAnswer([]);
