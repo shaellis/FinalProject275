@@ -238,6 +238,7 @@ function App() {
               </p>
               <button className="Page-to-Page" onClick={() => GetResults()}>Get Results</button>
               <br></br>
+              <div>{response}</div>
             </div>
           )}
         </div>
@@ -368,6 +369,7 @@ function App() {
             <br></br><br></br>
             <button className="Page-to-Page" onClick={() => getDetailedResults()}>Results</button>
             <br></br>
+            <div>{response}</div>
           </div>
         )}
       </div>
