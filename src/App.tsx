@@ -408,25 +408,17 @@ function App() {
             <div id="FAQ" className='container-FAQ'>
               <h5>FAQs</h5>
               <ol>
-                <li>~~~~~~~~~~~~~</li>
+                <li>How does this work?</li>
                 <ul>
-                  <li>Because</li>
+                  <li>How the profession finder works is you are givin a questionaire (basic or detailed) and afterwards you can submit your answers to be analyzed by ChatGPT.</li>
                 </ul>
-                <li>~~~~~~~~~~~~~</li>
+                <li>Can I start it and come back to later?</li>
                 <ul>
-                  <li>Because</li>
+                  <li>YES! You can start it and then come back to it later and you can even switch to the other quiz if you want to.</li>
                 </ul>
-                <li>~~~~~~~~~~~~~</li>
+                <li>How accurate are these results?</li>
                 <ul>
-                  <li>Because</li>
-                </ul>
-                <li>~~~~~~~~~~~~~</li>
-                <ul>
-                  <li>Because</li>
-                </ul>
-                <li>~~~~~~~~~~~~~</li>
-                <ul>
-                  <li>Because</li>
+                  <li>Depending on which quiz you take the accuracy will differ with the basic quiz being less accurate and vice versa with the detailed quiz.</li>
                 </ul>
               </ol>
             </div>
