@@ -88,7 +88,7 @@ function App() {
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
-    if (openai && userAnswers.length > 0) {
+    if (openai && userAnswers.length > 8) {
       const basicCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
@@ -280,7 +280,7 @@ function App() {
   }
 
   async function getDetailedResults () {
-    if (openai && detailedUserAnswers.length > 0) {
+    if (openai && detailedUserAnswers.length > 8) {
       const detailedCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
