@@ -91,6 +91,7 @@ function App() {
     if (openai && userAnswers.length > 8) {
       const basicCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
+        temperature: 0,
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
           {"role": "user", "content": 
           "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
@@ -283,6 +284,7 @@ function App() {
     if (openai && detailedUserAnswers.length > 8) {
       const detailedCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
+        temperature: 0,
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
           {"role": "user", "content": 
           "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
