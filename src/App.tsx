@@ -87,7 +87,7 @@ function App() {
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
-    if (openai) {
+    if (openai && userAnswers.length > 0) {
       const basicCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
@@ -279,23 +279,23 @@ function App() {
   }
 
   async function getDetailedResults () {
-    if (openai) {
+    if (openai && detailedUserAnswers.length > 0) {
       const detailedCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
           {"role": "user", "content": 
           "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
-          questions[0] + " " + userAnswers[0] + "\n" +
-           questions[1] + " " + userAnswers[1] + "\n" +
-            questions[2] + " " + userAnswers[2] + "\n" +
-             questions[3] + " " + userAnswers[3] + "\n" +
-              questions[4] + " " + userAnswers[4] + "\n" +
-               questions[5] + " " + userAnswers[5] + "\n" +
-                questions[6] + " " + userAnswers[6] + "\n" +
-                 questions[7] + " " + userAnswers[7] + "\n" +
-                  questions[8] + " " + userAnswers[8] + "\n" +
-                   questions[9] + " " + userAnswers[9] + "\n" +
-                  "Please provide 3 jobs that would suit the user, a brief description, and the salary range"}],
+          questions[0] + " " + detailedUserAnswers[1] + "\n" +
+           questions[1] + " " + detailedUserAnswers[2] + "\n" +
+            questions[2] + " " + detailedUserAnswers[3] + "\n" +
+             questions[3] + " " + detailedUserAnswers[4] + "\n" +
+              questions[4] + " " + detailedUserAnswers[5] + "\n" +
+               questions[5] + " " + detailedUserAnswers[6] + "\n" +
+                questions[6] + " " + detailedUserAnswers[7] + "\n" +
+                 questions[7] + " " + detailedUserAnswers[8] + "\n" +
+                  questions[8] + " " + detailedUserAnswers[9] + "\n" +
+                   questions[9] + " " + detailedUserAnswers[10] + "\n" +
+                  "Please provide 3 jobs that would suit the user, a brief description, and the salary range. \n After doing all of this, can you format into individual sections so that it is easier to read"}],
      });
      if (detailedCompletion.choices[0].message.content) {
       setResponse(detailedCompletion.choices[0].message.content);
