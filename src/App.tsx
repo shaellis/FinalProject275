@@ -104,7 +104,7 @@ function App() {
                  questions[7] + " " + userAnswers[7] + "\n" +
                   questions[8] + " " + userAnswers[8] + "\n" +
                    questions[9] + " " + userAnswers[9] + "\n" +
-                  "Please provide 3 jobs that would suit the user, a brief description, and the salary range"}],
+                   "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
      });
      if (basicCompletion.choices[0].message.content) {
       setBasicResponse(basicCompletion.choices[0].message.content);
@@ -296,7 +296,7 @@ function App() {
                  questions[7] + " " + detailedUserAnswers[8] + "\n" +
                   questions[8] + " " + detailedUserAnswers[9] + "\n" +
                    questions[9] + " " + detailedUserAnswers[10] + "\n" +
-                  "Please provide 3 jobs that would suit the user, a brief description, and the salary range. \n After doing all of this, can you format into individual sections so that it is easier to read"}],
+                  "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
      });
      if (detailedCompletion.choices[0].message.content) {
       setDetailedResponse(detailedCompletion.choices[0].message.content);
