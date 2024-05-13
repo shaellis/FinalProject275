@@ -18,7 +18,8 @@ function App() {
     return prevKey || '';
   }); 
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
-  const [response, setResponse] = useState<string>();
+  const [dResponse, setDetailedResponse] = useState<string>("");
+  const [bResponse, setBasicResponse] = useState<string>("");
   const [openai, setOpenai] = useState<OpenAI | null>(null);
 
 
@@ -106,7 +107,7 @@ function App() {
                   "Please provide 3 jobs that would suit the user, a brief description, and the salary range"}],
      });
      if (basicCompletion.choices[0].message.content) {
-      setResponse(basicCompletion.choices[0].message.content);
+      setBasicResponse(basicCompletion.choices[0].message.content);
      }
     }
   }
@@ -238,7 +239,7 @@ function App() {
               </p>
               <button className="Page-to-Page" onClick={() => GetResults()}>Get Results</button>
               <br></br>
-              <div>{response}</div>
+              <div>{bResponse}</div>
             </div>
           )}
         </div>
@@ -298,7 +299,7 @@ function App() {
                   "Please provide 3 jobs that would suit the user, a brief description, and the salary range. \n After doing all of this, can you format into individual sections so that it is easier to read"}],
      });
      if (detailedCompletion.choices[0].message.content) {
-      setResponse(detailedCompletion.choices[0].message.content);
+      setDetailedResponse(detailedCompletion.choices[0].message.content);
      }
     }
   }
@@ -369,7 +370,7 @@ function App() {
             <br></br><br></br>
             <button className="Page-to-Page" onClick={() => getDetailedResults()}>Results</button>
             <br></br>
-            <div>{response}</div>
+            <div>{dResponse}</div>
           </div>
         )}
       </div>
@@ -558,16 +559,9 @@ function App() {
           <br></br>
           <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
         </Form>
-        {response && (
-          <div>
-            <h2>API Response: </h2>
-            <p>{response}</p>
-          </div>
-        )}
       </div>
-      
-    );
-    }
+    )
+  }
 
   // This should never appear
   return (
