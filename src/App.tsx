@@ -12,6 +12,7 @@ import { OpenAI, ClientOptions } from 'openai';
 const saveKeyData = "MYKEY";
 
 //had some trouble understanding the OpenAI page on this so I used ChatGPT to explain it and edit my drafts
+
 function App() {
   const [key, setKey] = useState<string>(() => { //for api key input
     const prevKey = localStorage.getItem(saveKeyData);
@@ -20,6 +21,7 @@ function App() {
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
   const [response, setResponse] = useState<string>();
   const [openai, setOpenai] = useState<OpenAI | null>(null);
+  
 
 
   // Function to handle submitting the API key but remade for openAI 'assistant' you cannot use local storage because apparently the api key will update later than necessary. you can try it if you want I didn't test this.
@@ -545,6 +547,8 @@ function App() {
   return (
     <div><h1>You aren't supposed to be here</h1></div>
   )
+  
 }
+
 
 export default App;
