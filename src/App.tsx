@@ -88,6 +88,7 @@ function App() {
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
+    setBasicResponse("");
     if (openai && userAnswers.length > 8) {
       const basicCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
@@ -281,6 +282,7 @@ function App() {
   }
 
   async function getDetailedResults () {
+    setDetailedResponse("");
     if (openai && detailedUserAnswers.length > 8) {
       const detailedCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
