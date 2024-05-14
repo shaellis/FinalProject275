@@ -19,7 +19,8 @@ function App() {
     return prevKey || '';
   }); 
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
-  const [response, setResponse] = useState<string>();
+  const [dResponse, setDetailedResponse] = useState<string>("");
+  const [bResponse, setBasicResponse] = useState<string>("");
   const [openai, setOpenai] = useState<OpenAI | null>(null);
   
 
@@ -34,7 +35,6 @@ function App() {
       apiKey : key,
       dangerouslyAllowBrowser: true
     }
-
     
     let newOpenai = new OpenAI(options); // Create a new OpenAI instance
     setOpenai(newOpenai); // Update the state with the new OpenAI object
@@ -90,24 +90,28 @@ function App() {
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
-    if (openai) {
-      const completion = await openai.chat.completions.create({
+    setBasicResponse("");
+    if (openai && userAnswers.length > 8) {
+      const basicCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
+        temperature: 0,
         messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
-          {"role": "user", "content": "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
-          questions[0] + " " + userAnswers[0] + " " +
-           questions[1] + " " + userAnswers[1] + " " +
-            questions[2] + " " + userAnswers[2] + " " +
-             questions[3] + " " + userAnswers[3] + " " +
-              questions[4] + " " + userAnswers[4] + " " +
-               questions[5] + " " + userAnswers[5] + " " +
-                questions[6] + " " + userAnswers[6] + " " +
-                 questions[7] + " " + userAnswers[7] + " " +
-                  questions[8] + " " + userAnswers[8] + " " +
-                   questions[9] + " " + userAnswers[9]}],
+          {"role": "user", "content": 
+          "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+          questions[0] + " " + userAnswers[0] + "\n" +
+           questions[1] + " " + userAnswers[1] + "\n" +
+            questions[2] + " " + userAnswers[2] + "\n" +
+             questions[3] + " " + userAnswers[3] + "\n" +
+              questions[4] + " " + userAnswers[4] + "\n" +
+               questions[5] + " " + userAnswers[5] + "\n" +
+                questions[6] + " " + userAnswers[6] + "\n" +
+                 questions[7] + " " + userAnswers[7] + "\n" +
+                  questions[8] + " " + userAnswers[8] + "\n" +
+                   questions[9] + " " + userAnswers[9] + "\n" +
+                   "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
      });
-     if (completion.choices[0].message.content) {
-      setResponse(completion.choices[0].message.content);
+     if (basicCompletion.choices[0].message.content) {
+      setBasicResponse(basicCompletion.choices[0].message.content);
      }
     }
   }
@@ -239,6 +243,7 @@ function App() {
               </p>
               <button className="Page-to-Page" onClick={() => GetResults()}>Get Results</button>
               <br></br>
+              <div>{bResponse}</div>
             </div>
           )}
         </div>
@@ -275,6 +280,33 @@ function App() {
     if (dProgress < 11) {
       setDetailedUserAnswer([...detailedUserAnswers, curDetailedAns]);
       setDProgress(dProgress + 1);
+    }
+  }
+
+  async function getDetailedResults () {
+    setDetailedResponse("");
+    if (openai && detailedUserAnswers.length > 8) {
+      const detailedCompletion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        temperature: 0,
+        messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
+          {"role": "user", "content": 
+          "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+          questions[0] + " " + detailedUserAnswers[1] + "\n" +
+           questions[1] + " " + detailedUserAnswers[2] + "\n" +
+            questions[2] + " " + detailedUserAnswers[3] + "\n" +
+             questions[3] + " " + detailedUserAnswers[4] + "\n" +
+              questions[4] + " " + detailedUserAnswers[5] + "\n" +
+               questions[5] + " " + detailedUserAnswers[6] + "\n" +
+                questions[6] + " " + detailedUserAnswers[7] + "\n" +
+                 questions[7] + " " + detailedUserAnswers[8] + "\n" +
+                  questions[8] + " " + detailedUserAnswers[9] + "\n" +
+                   questions[9] + " " + detailedUserAnswers[10] + "\n" +
+                  "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
+     });
+     if (detailedCompletion.choices[0].message.content) {
+      setDetailedResponse(detailedCompletion.choices[0].message.content);
+     }
     }
   }
 
@@ -342,8 +374,9 @@ function App() {
             <br></br>
             -{detailedUserAnswers[10]}
             <br></br><br></br>
-            <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+            <button className="Page-to-Page" onClick={() => getDetailedResults()}>Results</button>
             <br></br>
+            <div>{dResponse}</div>
           </div>
         )}
       </div>
@@ -532,16 +565,9 @@ function App() {
           <br></br>
           <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
         </Form>
-        {response && (
-          <div>
-            <h2>API Response: </h2>
-            <p>{response}</p>
-          </div>
-        )}
       </div>
-      
-    );
-    }
+    )
+  }
 
   // This should never appear
   return (
