@@ -3,23 +3,8 @@
 > react-scripts test --coverage
 
 PASS src/App.test.tsx
-  ✓ renders learn react link (37 ms)
+  ✓ renders learn react link (45 ms)
 
---------------------------------|---------|----------|---------|---------|------------------------------------------------------
-File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                    
---------------------------------|---------|----------|---------|---------|------------------------------------------------------
-All files                       |   24.32 |     12.5 |    5.26 |   25.23 |                                                      
- App.tsx                        |      30 |       15 |    7.14 |   31.39 | 30-44,74-242,272-375,389-475,490-495,514-519,549-571 
- DetailedResponse.tsx           |       0 |        0 |       0 |       0 | 13-27                                                
- MultipleChoiceQuestionForm.tsx |       0 |        0 |       0 |       0 | 11-25                                                
- index.tsx                      |       0 |      100 |     100 |       0 | 7-19                                                 
- reportWebVitals.ts             |       0 |        0 |       0 |       0 | 3-10                                                 
---------------------------------|---------|----------|---------|---------|------------------------------------------------------
-Test Suites: 1 passed, 1 total
-Tests:       1 passed, 1 total
-Snapshots:   0 total
-Time:        3.331 s
-Ran all test suites.
 [0;33mOne of your dependencies, babel-preset-react-app, is importing the
 "@babel/plugin-proposal-private-property-in-object" package without
 declaring it in its dependencies. This is currently working because
@@ -32,3 +17,18 @@ ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
 your devDependencies to work around this error. This will make this message
 go away.[0m
   
+--------------------------------|---------|----------|---------|---------|------------------------------------------------------
+File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                    
+--------------------------------|---------|----------|---------|---------|------------------------------------------------------
+All files                       |   18.47 |    10.71 |    3.44 |    19.2 |                                                      
+ App.tsx                        |   21.32 |     12.5 |    4.16 |    22.3 | 32-46,76-260,289-408,421-509,524-533,552-561,588-729 
+ DetailedResponse.tsx           |       0 |        0 |       0 |       0 | 13-27                                                
+ MultipleChoiceQuestionForm.tsx |       0 |        0 |       0 |       0 | 11-25                                                
+ index.tsx                      |       0 |      100 |     100 |       0 | 7-19                                                 
+ reportWebVitals.ts             |       0 |        0 |       0 |       0 | 3-10                                                 
+--------------------------------|---------|----------|---------|---------|------------------------------------------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        3.359 s
+Ran all test suites.
