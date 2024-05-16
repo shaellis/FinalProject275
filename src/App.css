@@ -360,3 +360,77 @@
   margin-left: 15%;
   text-align: center;
 }
+
+/* Detailed Results Page --------------------------------------- */
+#dresults-page {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/002/116/398/original/modern-night-city-skyline-landscape-background-vector.jpg");
+  height: 900px;
+}
+
+.dresults-body {
+  color: white;
+  background-color: rgb(0, 0, 0, 0.5);
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding: 1%;
+  font-size: 12px;
+  border-radius: 40px;
+}
+
+.dresults-body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dleftcolumn {
+  width: 50%;
+  float: left;
+  height: 700x;
+}
+
+.drightcolumn {
+  width: 50%;
+  float: left;
+  height: 700px;
+}
+
+.container-user-traits h5 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.container-user-traits {
+  padding: 5%;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  margin: 3%;
+  height: 20.5%;
+  background-color: rgb(0, 0, 0, 0.8);
+  border-radius: 25px;
+}
+
+.container-first-job {
+  padding: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin: 3%;
+  height: 40%;
+  background-color: rgb(0, 0, 0, 0.8);
+  border-radius: 25px;
+}
+
+.container-second-job {
+  padding: 3%;
+  margin: 3%;
+  background-color: rgb(0, 0, 0, 0.8);
+  border-radius: 25px;
+}
+
+.container-third-job {
+  padding: 3%;
+  margin: 3%;
+  background-color: rgb(0, 0, 0, 0.8);
+  border-radius: 25px;
+}
