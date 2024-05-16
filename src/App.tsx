@@ -18,7 +18,8 @@ function App() {
     return prevKey || '';
   }); 
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
-  const [response, setResponse] = useState<string>();
+  const [dResponse, setDetailedResponse] = useState<string>("");
+  const [bResponse, setBasicResponse] = useState<string>("");
   const [openai, setOpenai] = useState<OpenAI | null>(null);
 
 
@@ -32,22 +33,10 @@ function App() {
       apiKey : key,
       dangerouslyAllowBrowser: true
     }
-
     
     let newOpenai = new OpenAI(options); // Create a new OpenAI instance
     setOpenai(newOpenai); // Update the state with the new OpenAI object
 
-    newOpenai.chat.completions.create({
-      messages: [{ role: "system", content: "You are a helpful assistant who helps college and high school students decide on a career based on their responses to different questions"},
-        { role: "user", content: "create 7 questions that can be answered with 'strongly agree', 'agree', 'disagree', and 'strongly disagree' that can be analyzed be you in order to find some possible future careers for me"},
-      ],
-      model: "gpt-3.5-turbo",
-    }).then((result) => {
-      // handle API response if it comes out without error
-      setResponse(result.choices[0].message.content || '');
-    }).catch((error) => {
-      console.error('Error', error);
-    });
   };
 
   //whenever there's a change it'll store the api key in a local state called key but it won't be set in the local storage until the user clicks the submit button
@@ -56,87 +45,6 @@ function App() {
   }
   // *******************************************************************************************
   // API Assistant section
-
-  //now you can use the 'openai' object to make API calls this is used to create the assistant that we will be talking to
-  //I AM MAKING THIS AS A PLACE HOLDER PLEASE REPLACE LATER AND IF YOU ARE THE PROFESSOR READING THIS I TOTALLY MEANT TO REMOVE THE ANY KEYWORD
-  const [assistant, setAssistant] = useState<any | null>(null);
-  async function CareerChoice() { 
-    if (openai) {
-      const newAssistant = await openai.beta.assistants.create({
-        name: "Math Tutor",
-        instructions: "You are a personal math tutor. Write and run code to answer math questions.",
-        tools: [{ type: "code_interpreter" }],
-        model: "gpt-4-turbo"
-      });
-      setAssistant(newAssistant);
-    }
-  }
-  CareerChoice();
-
-  //this can be used by basic questions to create a thread, which is like starting a conversation
-  const [basicQsThreadId, setBasicQsThreadId] = useState<string | null>(null);
-  async function CreateOpenAiBasicQsThread() {
-    if (openai) {
-      const basicQsThread = await openai.beta.threads.create();
-      setBasicQsThreadId(basicQsThread.id);
-      await openai.beta.threads.messages.create(
-        basicQsThread.id,
-        {
-          role: "user",
-          content: "I need to solve the equation `3x + 11 = 14`. Can you help me?"
-        }
-      );
-    }
-  }
-  CreateOpenAiBasicQsThread();
-
-  // this is only good for one thread because the state variable's type would need to be defined and this is easier
-  async function AddMessageToBasicThread(message: string) {
-    if (openai && basicQsThreadId) {
-      await openai.beta.threads.messages.create(
-        basicQsThreadId,
-        {
-          role: "user",
-          content: message
-        }
-      );
-    }
-  }
-  AddMessageToBasicThread("I need to solve the equation `3x + 8 = 14`. Can you help me?")
-
-  //this can be used by detailed questions to create a thread, which is like starting a conversation
-  const [detailedQsThreadId, setDetailedQsThreadId] = useState<string | null>(null);
-  async function CreateOpenAiDetailedQsThread() {
-    if (openai) {
-      const detailedQsThread = await openai.beta.threads.create();
-      setDetailedQsThreadId(detailedQsThread.id);
-      await openai.beta.threads.messages.create(
-        detailedQsThread.id,
-        {
-          role: "user",
-          content: "I need to solve the equation `3x + 11 = 14`. Can you help me?"
-        }
-      );
-    }
-  }
-  CreateOpenAiDetailedQsThread();
-
-
-
-    // this is only good for one thread because the state variable's type would need to be defined and this is easier
-    async function AddMessageToDetailedThread(message: string) {
-      if (openai && detailedQsThreadId) {
-        await openai.beta.threads.messages.create(
-          detailedQsThreadId,
-          {
-            role: "user",
-            content: message
-          }
-        );
-      }
-    }
-    AddMessageToDetailedThread("I need to solve the equation `3x + 5 = 14`. Can you help me?")
-
 
 
   // *******************************************************************************************
@@ -180,24 +88,29 @@ function App() {
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
   async function GetResults () {
-    if (openai && basicQsThreadId) {
-      let run = await openai.beta.threads.runs.createAndPoll(
-        basicQsThreadId,
-        { 
-          assistant_id: assistant.id,
-          instructions: "Please address the user as Jane Doe. The user has a premium account."
-        }
-      );
-      if (run.status === 'completed') {
-        const messages = await openai.beta.threads.messages.list(
-          run.thread_id
-        );
-        for (const message of messages.data.reverse()) {
-          console.log(`${message.role} > ${message.content[0].text.value}`);
-        }
-      } else {
-        console.log(run.status);
-      }
+    setBasicResponse("");
+    if (openai && userAnswers.length > 8) {
+      const basicCompletion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        temperature: 0,
+        messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
+          {"role": "user", "content": 
+          "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+          questions[0] + " " + userAnswers[0] + "\n" +
+           questions[1] + " " + userAnswers[1] + "\n" +
+            questions[2] + " " + userAnswers[2] + "\n" +
+             questions[3] + " " + userAnswers[3] + "\n" +
+              questions[4] + " " + userAnswers[4] + "\n" +
+               questions[5] + " " + userAnswers[5] + "\n" +
+                questions[6] + " " + userAnswers[6] + "\n" +
+                 questions[7] + " " + userAnswers[7] + "\n" +
+                  questions[8] + " " + userAnswers[8] + "\n" +
+                   questions[9] + " " + userAnswers[9] + "\n" +
+                   "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
+     });
+     if (basicCompletion.choices[0].message.content) {
+      setBasicResponse(basicCompletion.choices[0].message.content);
+     }
     }
   }
 
@@ -328,6 +241,7 @@ function App() {
               </p>
               <button className="Page-to-Page" onClick={() => GetResults()}>Get Results</button>
               <br></br>
+              <div>{bResponse}</div>
             </div>
           )}
         </div>
@@ -364,6 +278,33 @@ function App() {
     if (dProgress < 11) {
       setDetailedUserAnswer([...detailedUserAnswers, curDetailedAns]);
       setDProgress(dProgress + 1);
+    }
+  }
+
+  async function getDetailedResults () {
+    setDetailedResponse("");
+    if (openai && detailedUserAnswers.length > 8) {
+      const detailedCompletion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        temperature: 0,
+        messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
+          {"role": "user", "content": 
+          "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+          questions[0] + " " + detailedUserAnswers[1] + "\n" +
+           questions[1] + " " + detailedUserAnswers[2] + "\n" +
+            questions[2] + " " + detailedUserAnswers[3] + "\n" +
+             questions[3] + " " + detailedUserAnswers[4] + "\n" +
+              questions[4] + " " + detailedUserAnswers[5] + "\n" +
+               questions[5] + " " + detailedUserAnswers[6] + "\n" +
+                questions[6] + " " + detailedUserAnswers[7] + "\n" +
+                 questions[7] + " " + detailedUserAnswers[8] + "\n" +
+                  questions[8] + " " + detailedUserAnswers[9] + "\n" +
+                   questions[9] + " " + detailedUserAnswers[10] + "\n" +
+                  "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
+     });
+     if (detailedCompletion.choices[0].message.content) {
+      setDetailedResponse(detailedCompletion.choices[0].message.content);
+     }
     }
   }
 
@@ -431,8 +372,9 @@ function App() {
             <br></br>
             -{detailedUserAnswers[10]}
             <br></br><br></br>
-            <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+            <button className="Page-to-Page" onClick={() => getDetailedResults()}>Results</button>
             <br></br>
+            <div>{dResponse}</div>
           </div>
         )}
       </div>
@@ -499,25 +441,17 @@ function App() {
             <div id="FAQ" className='container-FAQ'>
               <h5>FAQs</h5>
               <ol>
-                <li>~~~~~~~~~~~~~</li>
+                <li>How does this work?</li>
                 <ul>
-                  <li>Because</li>
+                  <li>How the profession finder works is you are givin a questionaire (basic or detailed) and afterwards you can submit your answers to be analyzed by ChatGPT.</li>
                 </ul>
-                <li>~~~~~~~~~~~~~</li>
+                <li>Can I start it and come back to later?</li>
                 <ul>
-                  <li>Because</li>
+                  <li>YES! You can start it and then come back to it later and you can even switch to the other quiz if you want to.</li>
                 </ul>
-                <li>~~~~~~~~~~~~~</li>
+                <li>How accurate are these results?</li>
                 <ul>
-                  <li>Because</li>
-                </ul>
-                <li>~~~~~~~~~~~~~</li>
-                <ul>
-                  <li>Because</li>
-                </ul>
-                <li>~~~~~~~~~~~~~</li>
-                <ul>
-                  <li>Because</li>
+                  <li>Depending on which quiz you take the accuracy will differ with the basic quiz being less accurate and vice versa with the detailed quiz.</li>
                 </ul>
               </ol>
             </div>
@@ -629,16 +563,9 @@ function App() {
           <br></br>
           <Button variant="primary" className="Submit-Button" onClick={handleSubmit}>Submit</Button>
         </Form>
-        {response && (
-          <div>
-            <h2>API Response: </h2>
-            <p>{response}</p>
-          </div>
-        )}
       </div>
-      
-    );
-    }
+    )
+  }
 
   // This should never appear
   return (
