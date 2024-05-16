@@ -19,7 +19,9 @@ function App() {
   }); 
   const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
   const [dResponse, setDetailedResponse] = useState<string>("");
+  const [dResultsSections, setDetailedResultsSections] = useState<string[]>([]);
   const [bResponse, setBasicResponse] = useState<string>("");
+  const [bResultsSections, setBasicResultsSections] = useState<string[]>([]);
   const [openai, setOpenai] = useState<OpenAI | null>(null);
 
 
@@ -50,16 +52,16 @@ function App() {
   // *******************************************************************************************
   // State Variables for Basic Questions Page
   const basicQ = [
-    "I feel most fulfilled when engaging in activities related to team building",
-    "I believe my natural talents and strengths lie in leading a team",
-    "It's important to me that my career aligns with my personal values and beliefs",
-    "I aspire to make a significant impact in science",
-    "Engaging in meetings with clients and companies energizes and motivates me",
-    "I am passionate about adressing the mistreatment of others in computer science",
-    "I thrive in work environments that are calm and relaxing",
-    "I am eager to develop my skills and knowledge in technology",
-    "I admire individuals who work in computer programming",
-    "Success to me means completing small victories at a time to wither away at a bigger project"];
+    "I prefer working in teams rather than independently.",
+    "I enjoy solving complex problems and puzzles.",
+    "I feel comfortable speaking in front of large groups of people.",
+    "I value creativity and innovation in my work.",
+    "I prefer following a set schedule rather than having flexibility.",
+    "I feel energized when I have the opportunity to lead and make decisions.",
+    "I am detail-oriented and enjoy paying attention to small nuances.",
+    "I prefer jobs that allow me to travel and explore new places.",
+    "I find fulfillment in helping others and making a positive impact on their lives.",
+    "I enjoy working with my hands and being physically active."];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
   const [userAnswers, setUserAnswer] = useState<string[]>([]);
   const [bProgress, setBProgress] = useState<number>(0);
@@ -87,32 +89,48 @@ function App() {
   }
 
   // OpenAI call to get the analyzed results (code previded by openAI tutorial website)
-  async function GetResults () {
+  async function GetResults() {
     setBasicResponse("");
     if (openai && userAnswers.length > 8) {
-      const basicCompletion = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        temperature: 0,
-        messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
-          {"role": "user", "content": 
-          "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
-          questions[0] + " " + userAnswers[0] + "\n" +
-           questions[1] + " " + userAnswers[1] + "\n" +
-            questions[2] + " " + userAnswers[2] + "\n" +
-             questions[3] + " " + userAnswers[3] + "\n" +
-              questions[4] + " " + userAnswers[4] + "\n" +
-               questions[5] + " " + userAnswers[5] + "\n" +
-                questions[6] + " " + userAnswers[6] + "\n" +
-                 questions[7] + " " + userAnswers[7] + "\n" +
-                  questions[8] + " " + userAnswers[8] + "\n" +
-                   questions[9] + " " + userAnswers[9] + "\n" +
-                   "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
-     });
-     if (basicCompletion.choices[0].message.content) {
-      setBasicResponse(basicCompletion.choices[0].message.content);
-     }
+        const basicCompletion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            temperature: 0,
+            messages: [
+                {"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
+                {"role": "user", "content": 
+                    "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+                    questions[0] + " " + userAnswers[0] + "\n" +
+                    questions[1] + " " + userAnswers[1] + "\n" +
+                    questions[2] + " " + userAnswers[2] + "\n" +
+                    questions[3] + " " + userAnswers[3] + "\n" +
+                    questions[4] + " " + userAnswers[4] + "\n" +
+                    questions[5] + " " + userAnswers[5] + "\n" +
+                    questions[6] + " " + userAnswers[6] + "\n" +
+                    questions[7] + " " + userAnswers[7] + "\n" +
+                    questions[8] + " " + userAnswers[8] + "\n" +
+                    questions[9] + " " + userAnswers[9] + "\n" +
+                    "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"
+                }
+            ],
+        });
+        
+        if (basicCompletion.choices[0].message.content) {
+            setBasicResponse(basicCompletion.choices[0].message.content);
+            // Update bResultsSections using the setter function
+            const bResultsSections: string[] = basicCompletion.choices[0].message.content.split("#");
+            if (bResultsSections.length >= 5) {
+                const modifiedSections = [...bResultsSections];
+                modifiedSections[1] = modifiedSections[1].slice(16, modifiedSections[1].length - 1);
+                modifiedSections[1] = modifiedSections[1].replace(/ - /g, '\n');
+                modifiedSections[2] = modifiedSections[2].slice(11, modifiedSections[2].length - 1);
+                modifiedSections[3] = modifiedSections[3].slice(12, modifiedSections[3].length - 1);
+                modifiedSections[4] = modifiedSections[4].slice(11, modifiedSections[4].length - 1);
+                setBasicResultsSections(modifiedSections); // Update the state variable with modified sections
+            }
+        }
     }
-  }
+}
+
 
   // This will start the Basic Quiz
   function QuizStart () {
@@ -239,9 +257,8 @@ function App() {
                 <br></br>
                 If not then you can return home when clicking the button at the top left that says, "Home"
               </p>
-              <button className="Page-to-Page" onClick={() => GetResults()}>Get Results</button>
+              <button className="Page-to-Page" onClick={() => {GetResults(); setPageId(5);}}>Get Results</button>
               <br></br>
-              <div>{bResponse}</div>
             </div>
           )}
         </div>
@@ -251,16 +268,16 @@ function App() {
 //*************************************************************************************************************************************************** */
     // State Variables for Detailed Questions Page
     const detailedQ = [
-      "What subjects do you excel at or find most engaging in school?",
-      "Have you considered internships or part-time jobs in your field of interest?",
-      "What kind of work-life balance are you looking for in your future career?",
-      "Are you interested in pursuing further education beyond your undergraduate degree?",
-      "What values are most important to you in a career",
-      "How do you handle challenges or setbacks in your academic or personal life?",
-      "Have you researched potential career paths and industries related to your major? If so, what?",
-      "Are you willing to relocate for job opportunities?",
-      "What skills or experiences do you already possess that could be valuable in your future career?",
-      "Have you spoken with professionals or alumni in your desired field to gain insights into potential career paths?"
+      "Can you describe a specific project or task where you demonstrated strong problem-solving skills?",
+      "Reflecting on your past experiences, what types of tasks or responsibilities have you found the most rewarding and why?",
+      "In what ways do you believe your personality traits align with leadership roles or collaborative environments?",
+      "Describe a time when you had to adapt to a new situation or environment. How did you handle it?",
+      "Can you identify any specific interests or hobbies that you believe could translate into potential career paths?",
+      "Reflect on your communication skills. Do you feel more comfortable expressing yourself verbally, in writing, or through other means?",
+      "Think about a challenging situation you've encountered. What strategies did you employ to overcome it?",
+      "Describe a situation where you had to work under pressure or meet tight deadlines. How did you manage your time effectively?",
+      "Reflect on your long-term career goals. What steps are you currently taking to work towards them?",
+      "Considering your strengths and weaknesses, how do you envision yourself contributing to a team or workplace environment?"
     ]
     const [questionsD] = useState<string[]>(detailedQ); // Detailed Questions String Array
     const [startNewDetailed, setSND] = useState<Boolean>(true); 
@@ -284,29 +301,45 @@ function App() {
   async function getDetailedResults () {
     setDetailedResponse("");
     if (openai && detailedUserAnswers.length > 8) {
-      const detailedCompletion = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        temperature: 0,
-        messages: [{"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
-          {"role": "user", "content": 
-          "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
-          questions[0] + " " + detailedUserAnswers[1] + "\n" +
-           questions[1] + " " + detailedUserAnswers[2] + "\n" +
-            questions[2] + " " + detailedUserAnswers[3] + "\n" +
-             questions[3] + " " + detailedUserAnswers[4] + "\n" +
-              questions[4] + " " + detailedUserAnswers[5] + "\n" +
-               questions[5] + " " + detailedUserAnswers[6] + "\n" +
-                questions[6] + " " + detailedUserAnswers[7] + "\n" +
-                 questions[7] + " " + detailedUserAnswers[8] + "\n" +
-                  questions[8] + " " + detailedUserAnswers[9] + "\n" +
-                   questions[9] + " " + detailedUserAnswers[10] + "\n" +
-                  "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job"}],
-     });
-     if (detailedCompletion.choices[0].message.content) {
-      setDetailedResponse(detailedCompletion.choices[0].message.content);
-     }
+        const detailedCompletion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            temperature: 0,
+            messages: [
+                {"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
+                {"role": "user", "content": 
+                    "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+                    questions[0] + " " + detailedUserAnswers[1] + "\n" +
+                    questions[1] + " " + detailedUserAnswers[2] + "\n" +
+                    questions[2] + " " + detailedUserAnswers[3] + "\n" +
+                    questions[3] + " " + detailedUserAnswers[4] + "\n" +
+                    questions[4] + " " + detailedUserAnswers[5] + "\n" +
+                    questions[5] + " " + detailedUserAnswers[6] + "\n" +
+                    questions[6] + " " + detailedUserAnswers[7] + "\n" +
+                    questions[7] + " " + detailedUserAnswers[8] + "\n" +
+                    questions[8] + " " + detailedUserAnswers[9] + "\n" +
+                    questions[9] + " " + detailedUserAnswers[10] + "\n" +
+                    "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job."
+                }
+            ],
+        });
+        
+        if (detailedCompletion.choices[0].message.content) {
+            setDetailedResponse(detailedCompletion.choices[0].message.content);
+            // Update dResultsSections using the setter function
+            const dResultsSections: string[] = detailedCompletion.choices[0].message.content.split("#");
+            if (dResultsSections.length >= 5) {
+                const modifiedSections = [...dResultsSections];
+                modifiedSections[1] = modifiedSections[1].slice(16, modifiedSections[1].length - 1);
+                modifiedSections[1] = modifiedSections[1].replace(/ - /g, '\n');
+                modifiedSections[2] = modifiedSections[2].slice(11, modifiedSections[2].length - 1);
+                modifiedSections[3] = modifiedSections[3].slice(12, modifiedSections[3].length - 1);
+                modifiedSections[4] = modifiedSections[4].slice(11, modifiedSections[4].length - 1);
+                setDetailedResultsSections(modifiedSections); // Update the state variable with modified sections
+            }
+        }
     }
-  }
+}
+
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
   function DetailedQuizStart () {
@@ -372,9 +405,8 @@ function App() {
             <br></br>
             -{detailedUserAnswers[10]}
             <br></br><br></br>
-            <button className="Page-to-Page" onClick={() => getDetailedResults()}>Results</button>
+            <button className="Page-to-Page" onClick={() => {getDetailedResults(); setPageId(4);}}>Get Results</button>
             <br></br>
-            <div>{dResponse}</div>
           </div>
         )}
       </div>
@@ -394,6 +426,8 @@ function App() {
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+            <button className="Page-to-Page" disabled={bResponse === ""} hidden={bResponse === ""} onClick={() => setPageId(5)}>Basic Career Quiz Results Page</button>
+            <button className="Page-to-Page" disabled={dResponse === ""} hidden={dResponse === ""} onClick={() => setPageId(4)}>Detailed Career Quiz Results Page</button>
           </nav>
         </header>
 
@@ -492,7 +526,11 @@ function App() {
 
       <header>
         <div className="navbar">
-          <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+        <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+          <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
+          <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+          <button className="Page-to-Page" disabled={bResponse === ""} hidden={bResponse === ""} onClick={() => setPageId(5)}>Basic Career Quiz Results Page</button>
+          <button className="Page-to-Page" disabled={dResponse === ""} hidden={dResponse === ""} onClick={() => setPageId(4)}>Detailed Career Quiz Results Page</button>
         </div>
       </header>
 
@@ -517,6 +555,10 @@ function App() {
       <header>
         <div className="navbar">
           <button className="Page-to-Page" onClick={() => setPageId(0)}>Home</button>
+          <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
+          <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Asssessment Page</button>
+          <button className="Page-to-Page" disabled={bResponse === ""} hidden={bResponse === ""} onClick={() => setPageId(5)}>Basic Career Quiz Results Page</button>
+          <button className="Page-to-Page" disabled={dResponse === ""} hidden={dResponse === ""} onClick={() => setPageId(4)}>Detailed Career Quiz Results Page</button>
         </div>
       </header>
       
@@ -542,9 +584,6 @@ function App() {
           <p>
             Edit <code>src/App.tsx</code> and save to reload.
           </p>
-          <p>
-            Shamus Ellis : Dylan Blevins : Luke Bonniwell
-          </p>
   
           <button className="Home-Page-Button" onClick={() => setPageId(0)}>Home Page</button>
   
@@ -565,6 +604,125 @@ function App() {
         </Form>
       </div>
     )
+  }
+
+  // detailed questions results page
+  if (pageId === 4) {
+
+    return (
+      <div id="dresults-page">
+
+        <header id="home-header">
+          <nav id="navigation-bar" className="navbar">
+            <button className="Page-to-Page" onClick={() => setPageId(0)}>Home Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+            <button className="Page-to-Page" disabled={bResponse === ""} onClick={() => setPageId(5)}>Basic Career Quiz Results Page</button>
+          </nav>
+        </header>
+
+        <h2 id="website-title"><strong>Detailed Career Guidance Page</strong></h2>
+        
+        <body id="dresults-content" className="homepage-body">
+          <div id="left-content" className="dleftcloumn">
+            <div id="user-traits" className="containter-user-traits">
+              <h5>What did the quiz answers show about your work ethic traits?</h5>
+              <p>
+                {dResultsSections[1]}
+              </p>
+            </div>
+
+            <div id="first-job" className="containter-first-job">
+              <h5>What job best fit your detailed questions quiz answers?</h5>
+              <p>
+                {dResultsSections[2]}
+              </p>
+            </div>
+          </div>
+
+          <div id="right-content" className="drightcloumn">
+            <div id="second-job" className="containter-second-job">
+              <h5>What was the second best job to fit your detailed questions quiz answers?</h5>
+              <p>
+                {dResultsSections[3]}
+              </p>
+            </div>
+
+            <div id="third-job" className="containter-third-job">
+              <h5>What was the third best job to fit your detailed questions quiz answers?</h5>
+              <p>
+                {dResultsSections[4]}
+              </p>
+            </div>
+          </div>
+
+        </body>
+
+        <footer id="home-footer">Trademark</footer>
+
+      </div>
+        
+    )
+  }
+
+  // basic questions results page
+  if (pageId === 5) {
+      
+    return (
+      <div id="dresults-page">
+
+        <header id="homepage-header">
+          <nav id="navigation-bar" className="navbar">
+            <button className="Page-to-Page" onClick={() => setPageId(0)}>Home Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
+            <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
+            <button className="Page-to-Page" disabled={dResponse === ""} onClick={() => setPageId(4)}>Detailed Career Quiz Results Page</button>
+          </nav>
+        </header>
+
+        <h2 id="website-title"><strong>Basic Career Guidance Page</strong></h2>
+        
+        <body id="dresults-content" className="homepage-body">
+          <div id="left-content" className="dleftcloumn">
+            <div id="user-traits" className="containter-user-traits">
+              <h5>What did the quiz answers show about your work ethic traits?</h5>
+              <p>
+                {bResultsSections[1]}
+              </p>
+            </div>
+
+            <div id="first-job" className="containter-first-job">
+              <h5>What job best fit your detailed questions quiz answers?</h5>
+                <p>
+                  {bResultsSections[2]}
+                </p>
+            </div>
+          </div>
+
+          <div id="right-content" className="drightcloumn">
+            <div id="second-job" className="containter-second-job">
+              <h5>What was the second best job to fit your detailed questions quiz answers?</h5>
+                <p>
+                  {bResultsSections[3]}
+                </p>
+            </div>
+
+            <div id="third-job" className="containter-third-job">
+              <h5>What was the third best job to fit your detailed questions quiz answers?</h5>
+                <p>
+                  {bResultsSections[4]}
+                </p>
+            </div>
+          </div>
+
+        </body>
+
+        <footer id="home-footer">Trademark</footer>
+
+      </div>
+    );
   }
 
   // This should never appear
