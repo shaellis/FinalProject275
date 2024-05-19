@@ -48,7 +48,7 @@ function App() {
 
   function isLoading() {
     return (
-      <div>LOADING ...</div>
+      <div className="loading-indicator"><strong>LOADING ...</strong></div>
     )
   }
 
@@ -661,6 +661,10 @@ function App() {
             </div>
           </div>
 
+          <div>
+            {(!dResponse) ? (isLoading()) : (<div></div>)}
+          </div>
+
         </body>
 
       </div>
@@ -719,7 +723,7 @@ function App() {
             </div>
           </div>
 
-          <div className="loading-indicator">
+          <div>
             {(!bResponse) ? (isLoading()) : (<div></div>)}
           </div>
 
