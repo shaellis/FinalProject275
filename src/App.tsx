@@ -444,7 +444,7 @@ function App() {
 
           <div id='left-content' className="leftcolumn">
             <div id="purpose-content" className="container-purpose">
-              <h5><u>Why is it important to find your career</u></h5>
+              <h5><i><b><u>Why is it important to find your career</u></b></i></h5>
               <p>
                 Your career is very important, you spend most of your life working to live as comfortable as possible.
                 Unfortunately there are times where people are stuck in a career they do not like or they just do not 
@@ -457,13 +457,13 @@ function App() {
 
             <div className="container-basic">
               <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment</button>
-              <p className="p-content"><u>The Basic Question</u> test is a multiple choice questionaire that
+              <p className="p-content"><i><b><u>The Basic Question</u></b></i> test is a multiple choice questionaire that
                 does not take long and is very simple to understand. Although,
                 because of the limited answers, the result of your quiz will not
                 be as accurate.
               </p>
               <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue Basic Assessment</button>
-              <p>If you wish to <u>continue</u> your basic career assessment, please click this button</p>
+              <p>If you wish to <i><b><u>continue</u></b></i> your basic career assessment, please click this button</p>
             </div>
           </div>
 
@@ -471,15 +471,15 @@ function App() {
             <div id="FAQ" className='container-FAQ'>
               <h5><u>FAQs</u></h5>
               <ol>
-                <li><u>How does this work?</u></li>
+                <li><i><b><u>How does this work?</u></b></i></li>
                 <ul>
                   <li>How the profession finder works is you are givin a questionaire (basic or detailed) and afterwards you can submit your answers to be analyzed by ChatGPT.</li>
                 </ul>
-                <li><u>Can I start it and come back to later?</u></li>
+                <li><i><b><u>Can I start it and come back to later?</u></b></i></li>
                 <ul>
                   <li>YES! You can start it and then come back to it later and you can even switch to the other quiz if you want to.</li>
                 </ul>
-                <li><u>How accurate are these results?</u></li>
+                <li><i><b><u>How accurate are these results?</u></b></i></li>
                 <ul>
                   <li>Depending on which quiz you take the accuracy will differ with the basic quiz being less accurate and vice versa with the detailed quiz.</li>
                 </ul>
@@ -488,13 +488,13 @@ function App() {
 
             <div id="detailed-content" className="container-detailed">
               <button className="Page-to-Page" onClick={() => {setPageId(2); setSND(true)}}>Start New Detailed Career Asssessment Page</button>
-              <p className="p-content"><u>The Detailed Question</u> test is user provided short answer questionaire
+              <p className="p-content"><i><b><u>The Detailed Question</u></b></i> test is user provided short answer questionaire
                 that may take some time to complete and require more thorough thinking.
                 While that may be the case, the results from this quiz will be much more
                 accurate.
               </p>
               <button className="Page-to-Page" onClick={() => {setPageId(2); setSND(false);}}>Continue Detailed Assessment</button>
-              <p>If you wish to <u>continue</u> your detailed career assessment, please click this button</p>
+              <p>If you wish to <i><b><u>continue</u></b></i> your detailed career assessment, please click this button</p>
             </div>
           </div>
 
