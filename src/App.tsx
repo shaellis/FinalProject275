@@ -17,7 +17,7 @@ function App() {
     const prevKey = localStorage.getItem(saveKeyData);
     return prevKey || '';
   }); 
-  const [pageId, setPageId] = useState<number>(3); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
+  const [pageId, setPageId] = useState<number>(0); // 0 = Home, 1 = Basic Questions, 2 = Detailed Questions, 3 = React Home
   const [dResponse, setDetailedResponse] = useState<string>("");
   const [dResultsSections, setDetailedResultsSections] = useState<string[]>([]);
   const [bResponse, setBasicResponse] = useState<string>("");
@@ -46,6 +46,7 @@ function App() {
     setKey(event.target.value);
   }
 
+  // function for when the API call is loading
   function isLoading() {
     return (
       <div className="loading-indicator"><strong>LOADING ...</strong></div>
@@ -67,10 +68,10 @@ function App() {
     "I find fulfillment in helping others and making a positive impact on their lives.",
     "I enjoy working with my hands and being physically active."];
   const [questions] = useState<string[]>(basicQ); // Basic Questions String Array
-  const [userAnswers, setUserAnswer] = useState<string[]>([]);
-  const [bProgress, setBProgress] = useState<number>(0);
-  const [curBasicAns, setBasicCurAns] = useState<string>("");
-  const [startNewBasic, setSNB] = useState<Boolean>(true); 
+  const [userAnswers, setUserAnswer] = useState<string[]>([]); // user answers to the basic questions
+  const [bProgress, setBProgress] = useState<number>(0); // user's progress through the basic quiz
+  const [curBasicAns, setBasicCurAns] = useState<string>(""); // user's current answer to the basic question
+  const [startNewBasic, setSNB] = useState<Boolean>(true);  // boolean to start a new basic quiz 
   
   // const [detailedQuestionProgress, setDetailedQuestionProgress] = useState<number>(0);
 
@@ -284,11 +285,12 @@ function App() {
       "Considering your strengths and weaknesses, how do you envision yourself contributing to a team or workplace environment?"
     ]
     const [questionsD] = useState<string[]>(detailedQ); // Detailed Questions String Array
-    const [startNewDetailed, setSND] = useState<Boolean>(true); 
-    const [detailedUserAnswers, setDetailedUserAnswer] = useState<string[]>([]);
-    const [dProgress, setDProgress] = useState<number>(0);
-    const [curDetailedAns, setDetailedCurAns] = useState<string>("");
+    const [startNewDetailed, setSND] = useState<Boolean>(true);  // boolean to start new quiz
+    const [detailedUserAnswers, setDetailedUserAnswer] = useState<string[]>([]); // user answers to detailed questions
+    const [dProgress, setDProgress] = useState<number>(0); // user's progress in the detailed quiz
+    const [curDetailedAns, setDetailedCurAns] = useState<string>(""); // user's current answer for the detailed question
     
+    // help function for moving onto the next question
     const handleNextQuestion = (value : string) => {
       setDetailedCurAns(value);
       NextDetailedQuestion();
@@ -302,6 +304,7 @@ function App() {
     }
   }
 
+  // API call to get the career reports
   async function getDetailedResults () {
     setDetailedResponse("");
     if (openai && detailedUserAnswers.length > 8) {
@@ -440,84 +443,64 @@ function App() {
         <body id="homepage-content" className="homepage-body">
 
           <div id='left-content' className="leftcolumn">
-            <div id="Purpose" className="container-purpose">
-              <h5>Why is it important to find your career</h5>
+            <div id="purpose-content" className="container-purpose">
+              <h5><u>Why is it important to find your career</u></h5>
               <p>
-                "Finding your career is essential for personal fulfillment, financial stability, and professional growth. 
-                A career aligned with your passions, values, and skills brings purpose and satisfaction. Financially, it 
-                provides stability, ensuring you meet needs and pursue desired lifestyles. Identifying a path with income 
-                growth and advancement prospects secures long-term financial security.
+                Your career is very important, you spend most of your life working to live as comfortable as possible.
+                Unfortunately there are times where people are stuck in a career they do not like or they just do not 
+                know what career fits them best. Are they a future Computer Scientist, Psychiatrist, Electrician; we may never know 
+                because they have not decided to find out. 
                 <br></br><br></br>
-                Moreover, your career facilitates professional development, offering learning, skill enhancement, and 
-                progression opportunities. Through continuous growth, you expand expertise and evolve professionally. A 
-                fulfilling career boosts self-esteem, confidence, and accomplishment, fostering a healthy work-life balance 
-                and reducing stress.
-                <br></br><br></br>
-                Additionally, it strengthens social connections and community engagement through collaboration and contribution. 
-                Overall, finding your career enhances well-being, encompassing fulfillment, stability, growth, and satisfaction. 
-                Identifying a path resonant with values and aspirations allows a journey of self-discovery and fulfillment, 
-                leading to a more rewarding life." 
-              </p>
-              <p>
-                -ChatGPT
+                Some people never find out so its important for you to find out as fast as possible!
               </p>
             </div>
 
             <div className="container-basic">
               <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(true)}}>Start New Basic Career Assessment</button>
-              <p className="p-content">The Basic Question test is a multiple choice questionaire that
+              <p className="p-content"><u>The Basic Question</u> test is a multiple choice questionaire that
                 does not take long and is very simple to understand. Although,
                 because of the limited answers, the result of your quiz will not
                 be as accurate.
               </p>
               <button className="Page-to-Page" onClick={() => {setPageId(1); setSNB(false);}}>Continue Basic Assessment</button>
-              <p>If you wish to continue your basic career assessment, please click this button</p>
+              <p>If you wish to <u>continue</u> your basic career assessment, please click this button</p>
             </div>
           </div>
 
           <div id="right-content" className="rightcolumn">
             <div id="FAQ" className='container-FAQ'>
-              <h5>FAQs</h5>
+              <h5><u>FAQs</u></h5>
               <ol>
-                <li>How does this work?</li>
+                <li><u>How does this work?</u></li>
                 <ul>
                   <li>How the profession finder works is you are givin a questionaire (basic or detailed) and afterwards you can submit your answers to be analyzed by ChatGPT.</li>
                 </ul>
-                <li>Can I start it and come back to later?</li>
+                <li><u>Can I start it and come back to later?</u></li>
                 <ul>
                   <li>YES! You can start it and then come back to it later and you can even switch to the other quiz if you want to.</li>
                 </ul>
-                <li>How accurate are these results?</li>
+                <li><u>How accurate are these results?</u></li>
                 <ul>
                   <li>Depending on which quiz you take the accuracy will differ with the basic quiz being less accurate and vice versa with the detailed quiz.</li>
                 </ul>
               </ol>
             </div>
 
-            <div id="WRM" className='container-WRM'>
-              <h5>What Results Mean</h5>
-              <p>
-                Firstly, each quiz will ask you a set number of questions that will in reference
-                determine which type of career area caters to your style the most.
-                The results you receive have been analyzed by OpenAI or better known as ChatGPT.
-              </p>
-            </div>
-
             <div id="detailed-content" className="container-detailed">
               <button className="Page-to-Page" onClick={() => {setPageId(2); setSND(true)}}>Start New Detailed Career Asssessment Page</button>
-              <p className="p-content">The Detailed Question test is user provided short answer questionaire
+              <p className="p-content"><u>The Detailed Question</u> test is user provided short answer questionaire
                 that may take some time to complete and require more thorough thinking.
                 While that may be the case, the results from this quiz will be much more
                 accurate.
               </p>
               <button className="Page-to-Page" onClick={() => {setPageId(2); setSND(false);}}>Continue Detailed Assessment</button>
-              <p>If you wish to continue your detailed career assessment, please click this button</p>
+              <p>If you wish to <u>continue</u> your detailed career assessment, please click this button</p>
             </div>
           </div>
 
         </body>
 
-        <footer id="home-footer" className="footer">Trademark</footer>
+        <footer id="home-footer" className="footer">Profession Finder | Dylan Blevins, Luke Bonniwell, Shamus Ellis | Help @ 111-111-1111</footer>
 
       </div>
     )
@@ -544,7 +527,7 @@ function App() {
         </div>
       </body>
 
-      <footer className="footer">Trademark Stuff</footer>
+      <footer id="home-footer" className="footer">Profession Finder | Dylan Blevins, Luke Bonniwell, Shamus Ellis | Help @ 111-111-1111</footer>
 
     </div>
     )
@@ -572,7 +555,7 @@ function App() {
         </div>
       </body>
       
-    <footer className="footer">Trademark Stuff</footer>
+      <footer id="home-footer" className="footer">Profession Finder | Dylan Blevins, Luke Bonniwell, Shamus Ellis | Help @ 111-111-1111</footer>
     </div>
     
     )
@@ -622,7 +605,7 @@ function App() {
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-            <button className="Page-to-Page" disabled={dResponse === ""} onClick={() => setPageId(5)}>Detailed Career Quiz Results Page</button>
+            <button className="Page-to-Page" disabled={bResponse === ""} onClick={() => setPageId(5)}>Basic Career Quiz Results Page</button>
           </nav>
         </header>
 
@@ -684,7 +667,7 @@ function App() {
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-            <button className="Page-to-Page" disabled={bResponse === ""} onClick={() => setPageId(4)}>Basic Career Quiz Results Page</button>
+            <button className="Page-to-Page" disabled={dResponse === ""} onClick={() => setPageId(4)}>Detailed Career Quiz Results Page</button>
           </nav>
         </header>
 
