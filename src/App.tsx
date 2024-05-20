@@ -45,8 +45,12 @@ function App() {
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
-  // *******************************************************************************************
-  // API Assistant section
+
+  function isLoading() {
+    return (
+      <div className="loading-indicator"><strong>LOADING ...</strong></div>
+    )
+  }
 
 
   // *******************************************************************************************
@@ -610,7 +614,7 @@ function App() {
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-            <button className="Page-to-Page" disabled={bResponse === ""} onClick={() => setPageId(5)}>Basic Career Quiz Results Page</button>
+            <button className="Page-to-Page" disabled={dResponse === ""} onClick={() => setPageId(5)}>Detailed Career Quiz Results Page</button>
           </nav>
         </header>
 
@@ -649,9 +653,11 @@ function App() {
             </div>
           </div>
 
-        </body>
+          <div>
+            {(!dResponse) ? (isLoading()) : (<div></div>)}
+          </div>
 
-        <footer id="home-footer">Trademark</footer>
+        </body>
 
       </div>
         
@@ -670,7 +676,7 @@ function App() {
             <button className="Page-to-Page" onClick={() => setPageId(3)}>React Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(1)}>Basic Career Assessment Page</button>
             <button className="Page-to-Page" onClick={() => setPageId(2)}>Detailed Career Asssessment Page</button>
-            <button className="Page-to-Page" disabled={dResponse === ""} onClick={() => setPageId(4)}>Detailed Career Quiz Results Page</button>
+            <button className="Page-to-Page" disabled={bResponse === ""} onClick={() => setPageId(4)}>Basic Career Quiz Results Page</button>
           </nav>
         </header>
 
@@ -686,7 +692,7 @@ function App() {
             </div>
 
             <div id="first-job" className="containter-first-job">
-              <h5>What job best fit your detailed questions quiz answers?</h5>
+              <h5>What job best fit your basic questions quiz answers?</h5>
                 <p>
                   {bResultsSections[2]}
                 </p>
@@ -695,23 +701,25 @@ function App() {
 
           <div id="right-content" className="drightcloumn">
             <div id="second-job" className="containter-second-job">
-              <h5>What was the second best job to fit your detailed questions quiz answers?</h5>
+              <h5>What was the second best job to basic questions quiz answers?</h5>
                 <p>
                   {bResultsSections[3]}
                 </p>
             </div>
 
             <div id="third-job" className="containter-third-job">
-              <h5>What was the third best job to fit your detailed questions quiz answers?</h5>
+              <h5>What was the third best job to fit your basic questions quiz answers?</h5>
                 <p>
                   {bResultsSections[4]}
                 </p>
             </div>
           </div>
 
-        </body>
+          <div>
+            {(!bResponse) ? (isLoading()) : (<div></div>)}
+          </div>
 
-        <footer id="home-footer">Trademark</footer>
+        </body>
 
       </div>
     );
