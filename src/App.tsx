@@ -327,22 +327,49 @@ function App() {
             ],
         });
         
+        async function getDetailedResults () {
+    setDetailedResponse("");
+    if (openai && detailedUserAnswers.length > 8) {
+        const detailedCompletion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            temperature: 0,
+            messages: [
+                {"role": "system", "content": "You are a personal career consultant for students ranging from High School to College, Your job is analyze the data provided to you and come up with some career choices that best suit their traits."},
+                {"role": "user", "content": 
+                    "The following questions have been given to a user and the answers following each question are the user's. Based off these questions and the user's answers please report what career area they are most suited for.\n" +
+                    questions[0] + " " + detailedUserAnswers[1] + "\n" +
+                    questions[1] + " " + detailedUserAnswers[2] + "\n" +
+                    questions[2] + " " + detailedUserAnswers[3] + "\n" +
+                    questions[3] + " " + detailedUserAnswers[4] + "\n" +
+                    questions[4] + " " + detailedUserAnswers[5] + "\n" +
+                    questions[5] + " " + detailedUserAnswers[6] + "\n" +
+                    questions[6] + " " + detailedUserAnswers[7] + "\n" +
+                    questions[7] + " " + detailedUserAnswers[8] + "\n" +
+                    questions[8] + " " + detailedUserAnswers[9] + "\n" +
+                    questions[9] + " " + detailedUserAnswers[10] + "\n" +
+                    "Follow the format by separating each individual section using a #. Each section should contain a job name that would suit the user, a brief description, and the salary range.\nOverall there should be 4 sections, firstly user traits, secondly first job, thirdly second job, and fourthly third job."
+                }
+            ],
+        });
+        
         if (detailedCompletion.choices[0].message.content) {
-            setDetailedResponse(detailedCompletion.choices[0].message.content);
-            // Update dResultsSections using the setter function
-            const dResultsSections: string[] = detailedCompletion.choices[0].message.content.split("#");
-            if (dResultsSections.length >= 5) {
-                const modifiedSections = [...dResultsSections];
-                modifiedSections[1] = modifiedSections[1].slice(16, modifiedSections[1].length - 1);
-                modifiedSections[1] = modifiedSections[1].replace(/ - /g, '\n');
-                modifiedSections[2] = modifiedSections[2].slice(11, modifiedSections[2].length - 1);
-                modifiedSections[3] = modifiedSections[3].slice(12, modifiedSections[3].length - 1);
-                modifiedSections[4] = modifiedSections[4].slice(11, modifiedSections[4].length - 1);
-                setDetailedResultsSections(modifiedSections);  // Update the state variable with modified sections
-            }
-        }
+          setDetailedResponse(detailedCompletion.choices[0].message.content);
+          // Update dResultsSections using the setter function
+          const dResultsSections: string[] = detailedCompletion.choices[0].message.content.split("#");
+          if (dResultsSections.length >= 5) {
+              const modifiedSections = [...dResultsSections];
+              modifiedSections[1] = modifiedSections[1].slice(16, modifiedSections[1].length - 1);
+              modifiedSections[1] = modifiedSections[1].replace(/ - /g, "\n");
+              modifiedSections[2] = modifiedSections[2].slice(11, modifiedSections[2].length - 1);
+              modifiedSections[3] = modifiedSections[3].slice(12, modifiedSections[3].length - 1);
+              modifiedSections[4] = modifiedSections[4].slice(11, modifiedSections[4].length);
+              setDetailedResultsSections(modifiedSections); // Update the state variable with modified sections
+          }
+      }
     }
   }
+    
+  
 
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
