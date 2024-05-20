@@ -191,19 +191,8 @@
   border-radius: 40px;
 }
 
-.container-purpose h5, .container-WRM h5 {
-  text-align: center;
-  text-decoration: underline;
-}
-
-.container-WRM {
-  padding: 5%;
-  padding-top: 2%;
-  padding-bottom: 1%;
-  margin: 3%;
-  height: 20.5%;
-  background-color: rgb(0, 0, 0, 0.8);
-  border-radius: 25px;
+#purpose-content {
+  font-size: 15px;
 }
 
 .container-FAQ {
@@ -214,6 +203,7 @@
   height: 40%;
   background-color: rgb(0, 0, 0, 0.8);
   border-radius: 25px;
+  font-size:12.5px;
 }
 
 .container-basic {
@@ -221,6 +211,7 @@
   margin: 3%;
   background-color: rgb(0, 0, 0, 0.8);
   border-radius: 25px;
+  font-size:15px;
 }
 
 .container-detailed {
@@ -228,6 +219,7 @@
   margin: 3%;
   background-color: rgb(0, 0, 0, 0.8);
   border-radius: 25px;
+  font-size:15px;
 }
 
 #website-title {
@@ -249,6 +241,8 @@
   background-color: #282c34;
   color: white;
   text-align: center;
+  font-size:15px;
+  font-style: italic;
   width: 100%;
   margin-top: 1%;
 }
