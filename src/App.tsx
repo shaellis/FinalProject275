@@ -334,11 +334,11 @@ function App() {
                 modifiedSections[2] = modifiedSections[2].slice(11, modifiedSections[2].length - 1);
                 modifiedSections[3] = modifiedSections[3].slice(12, modifiedSections[3].length - 1);
                 modifiedSections[4] = modifiedSections[4].slice(11, modifiedSections[4].length - 1);
-                setDetailedResultsSections(modifiedSections); // Update the state variable with modified sections
+                setDetailedResultsSections(modifiedSections);  // Update the state variable with modified sections
             }
         }
     }
-}
+  }
 
 
   // This will start the Detailed Questions Quiz and work as close in functionality as possible to the Basic Questions Quiz Page
@@ -582,19 +582,11 @@ function App() {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.tsx</code> and save to reload.
+            Welcome to the developer's react page
           </p>
   
           <button className="Home-Page-Button" onClick={() => setPageId(0)}>Home Page</button>
   
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
         <Form>
           <Form.Label>API Key:</Form.Label>
